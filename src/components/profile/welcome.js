@@ -34,7 +34,10 @@ module.exports  = React.createClass({
 
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
-      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
+      <TouchableHighlight
+        onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
+      </TouchableHighlight>
       <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Second Drawer Item!</Text>
     </View>
     );

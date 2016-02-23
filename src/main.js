@@ -10,12 +10,14 @@ var {
 
 var Signin = require('./components/authentication/signin');
 var Signup = require('./components/authentication/signup');
+var Welcome  = require('./components/profile/welcome');
 var Profile  = require('./components/profile/profile');
 
 var ROUTES  = {
   signin: Signin,
   signup: Signup,
-  profile: Profile
+  welcome: Welcome,
+  profile: Profile,
 };
 
 module.exports = React.createClass({

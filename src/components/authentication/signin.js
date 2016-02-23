@@ -56,7 +56,7 @@ var React  = require('react-native');
           this.setState({errorMessage: "Invalid Login Parameters"});
         } else {
           // route to course favs page  - or profile page
-          this.props.navigator.immediatelyResetRouteStack([{name: 'profile', data: data}]);
+          this.props.navigator.immediatelyResetRouteStack([{name: 'welcome', data: data}]);
         }
       }).done();
   }

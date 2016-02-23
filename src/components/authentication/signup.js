@@ -71,7 +71,7 @@ module.exports = React.createClass({
     if (data === undefined){
       this.setState({errorMessage: "Account with that email already exists"});
     } else {
-      this.props.navigator.immediatelyResetRouteStack([{name: 'profile'}]);
+      this.props.navigator.immediatelyResetRouteStack([{name: 'welcome', data: data}]);
     }
     }).done();
 
