@@ -13,17 +13,14 @@ var {
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'redTab',
-      notifCount: 0,
-      presses: 0,
+      selectedTab: 'welcome',
     };
   },
 
-  renderContent: function(user, color: string, pageText: string, num?: number) {
+  renderContent: function(user) {
     return (
-      <View style={[styles.tabContent, {backgroundColor: color}]}>
-        <Text style={styles.tabText}>Welcome Back {user.name}</Text>
-        <Text style={styles.tabText}>{num} re-renders of the {pageText}</Text>
+      <View style={styles.container}>
+        <Text style={styles.label}>Welcome Back {user.name}</Text>
       </View>
     );
   },
@@ -38,7 +35,7 @@ module.exports  = React.createClass({
         onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
-      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Second Drawer Item!</Text>
+      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Play Round</Text>
     </View>
     );
 
@@ -48,10 +45,7 @@ module.exports  = React.createClass({
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>
-          <View style={{flex: 1, justifyContent:'center', alignItems: 'center'}}>
-            <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>Welcome Back {user.name}</Text>
-
-          </View>
+          {this.renderContent(user)}
         </DrawerLayoutAndroid>
       );
     }
@@ -61,39 +55,32 @@ module.exports  = React.createClass({
         tintColor="white"
         barTintColor="darkslateblue">
         <TabBarIOS.Item
-          systemIcon = "more"
-          title="Blue Tab"
-          selected={this.state.selectedTab === 'blueTab'}
+          title="Profile"
+          selected={this.state.selectedTab === 'profile'}
           onPress={() => {
-            this.setState({
-              selectedTab: 'blueTab',
-            });
+            this.props.navigator.push({name: 'profile', data: user});
           }}>
-          {this.renderContent(user, '#414A8C', 'Blue Tab')}
+          {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          systemIcon="history"
-          badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
-          selected={this.state.selectedTab === 'redTab'}
+          title="Welcome"
+          selected={this.state.selectedTab === 'welcome'}
           onPress={() => {
             this.setState({
-              selectedTab: 'redTab',
-              notifCount: this.state.notifCount + 1,
+              selectedTab: 'welcome',
             });
           }}>
-          {this.renderContent(user, '#783E33', 'Red Tab', this.state.notifCount)}
+          {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          systemIcon='favorites'
-          title="More"
-          selected={this.state.selectedTab === 'greenTab'}
+          title="Play"
+          selected={this.state.selectedTab === 'play'}
           onPress={() => {
             this.setState({
-              selectedTab: 'greenTab',
-              presses: this.state.presses + 1
+              selectedTab: 'play',
             });
           }}>
-          {this.renderContent(user, '#21551C', 'Green Tab', this.state.presses)}
+          {this.renderContent(user)}
         </TabBarIOS.Item>
       </TabBarIOS>
     );
@@ -109,13 +96,6 @@ styles = StyleSheet.create({
   label: {
     color: 'black',
   },
-  tabContent: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  tabText: {
-    color: 'white',
-    margin: 50,
-  },
+
 
 });

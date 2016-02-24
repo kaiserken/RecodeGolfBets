@@ -7,24 +7,71 @@ var {
   Platform,
   DrawerLayoutAndroid,
   TabBarIOS,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView,
+  TouchableOpacity
 } = React;
 
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'redTab',
-      notifCount: 0,
-      presses: 0,
+      selectedTab: 'profile',
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
+      course: "",
     };
   },
+  componentDidMount: function(){
+    var courses = this.props.route.data.favorites;
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(courses),
+      //loaded: true,
+    });
+  },
+  renderContent: function(user) {
+    var scoreSum = null;
+    var lowScore = null;
+    for (var i = 0; i<user.scores.length; i++){
+      if (lowScore === null || lowScore > user.scores[i]) lowScore = user.scores[i];
+      scoreSum += user.scores[i];
+    }
+    var avgScore  = Math.round(scoreSum/user.scores.length);
 
-  renderContent: function(user, color: string, pageText: string, num?: number) {
+    var winningSum = null;
+    var highWinnings = null;
+    for (var x = 0; x<user.winnings.length; x++){
+      if (highWinnings === null || highWinnings < user.winnings[x]) highWinnings = user.winnings[x];
+      winningSum += user.winnings[x];
+    }
+    var avgWinnings  = Math.round(winningSum/user.winnings.length);
+
     return (
-      <View style={[styles.tabContent, {backgroundColor: color}]}>
-        <Text style={styles.tabText}>Welcome Back {user.name}</Text>
-        <Text style={styles.tabText}>{num} re-renders of the {pageText}</Text>
+      <View style = {{flex:1}}>
+        <View style={styles.container}>
+          <Text style={styles.label}>Betting and Scoring Profile</Text>
+          <Text style={styles.label}>Average Score {avgScore}</Text>
+          <Text style={styles.label}>Low Score {lowScore}</Text>
+          <Text style={styles.label}>Rounds Played {user.scores.length}</Text>
+          <Text style={styles.label}>Total Points Won {winningSum}</Text>
+          <Text style={styles.label}>Average Points Won per Round {avgWinnings}</Text>
+          <Text style={styles.label}>Highest Points Won {highWinnings}</Text>
+          <Text style={styles.label}>Betting Rounds Played {user.winnings.length}</Text>
+        </View>
+        <View>
+        <Text style={styles.label}> Your Favorite Courses</Text>
+        </View>
+        <ListView
+          dataSource = {this.state.dataSource}
+          renderRow = {this.renderCourse}
+          style = {styles.ListView}
+        />
+
+
       </View>
+
+
     );
   },
 
@@ -34,8 +81,11 @@ module.exports  = React.createClass({
 
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
-      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
-      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Second Drawer Item!</Text>
+      <TouchableHighlight
+        onPress = {()=>this.props.navigator.pop()}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Back</Text>
+      </TouchableHighlight>
+      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Play Round</Text>
     </View>
     );
 
@@ -45,10 +95,7 @@ module.exports  = React.createClass({
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>
-          <View style={{flex: 1, justifyContent:'center', alignItems: 'center'}}>
-            <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>Welcome Back {user.name}</Text>
-
-          </View>
+          {this.renderContent(user)}
         </DrawerLayoutAndroid>
       );
     }
@@ -58,43 +105,44 @@ module.exports  = React.createClass({
         tintColor="white"
         barTintColor="darkslateblue">
         <TabBarIOS.Item
-          systemIcon = "more"
-          title="Blue Tab"
-          selected={this.state.selectedTab === 'blueTab'}
+          title="Back"
+          selected={this.state.selectedTab === 'back'}
           onPress={() => {
-            this.setState({
-              selectedTab: 'blueTab',
-            });
+            this.props.navigator.pop();
           }}>
-          {this.renderContent(user, '#414A8C', 'Blue Tab')}
+
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          systemIcon="history"
-          badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
-          selected={this.state.selectedTab === 'redTab'}
+          title="Profile"
+          selected={this.state.selectedTab === 'profile'}
           onPress={() => {
             this.setState({
-              selectedTab: 'redTab',
-              notifCount: this.state.notifCount + 1,
+              selectedTab: 'profile',
             });
           }}>
-          {this.renderContent(user, '#783E33', 'Red Tab', this.state.notifCount)}
+          {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          systemIcon='favorites'
-          title="More"
-          selected={this.state.selectedTab === 'greenTab'}
+          title="Play"
+          selected={this.state.selectedTab === 'play'}
           onPress={() => {
-            this.setState({
-              selectedTab: 'greenTab',
-              presses: this.state.presses + 1
-            });
+            this.props.navigator.pop();
           }}>
-          {this.renderContent(user, '#21551C', 'Green Tab', this.state.presses)}
+
         </TabBarIOS.Item>
       </TabBarIOS>
     );
   },
+  renderCourse: function(rowData){
+      return (
+      <TouchableOpacity>
+        <View style  = {styles.row}>
+          <Text>{rowData}</Text>
+        </View>
+      </TouchableOpacity>
+      );
+  },
+
 });
 
 styles = StyleSheet.create({
@@ -105,14 +153,21 @@ styles = StyleSheet.create({
   },
   label: {
     color: 'black',
+    alignSelf: 'center',
+    justifyContent: 'center'
   },
-  tabContent: {
+  listView: {
     flex: 1,
+    paddingTop: 20,
+    backgroundColor: 'transparent',
+  },
+  row:{
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    padding:10,
+    backgroundColor: 'transparent',
   },
-  tabText: {
-    color: 'white',
-    margin: 50,
-  },
+
 
 });
