@@ -26,9 +26,9 @@ module.exports  = React.createClass({
       dataSource2: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      loaded: false,
-      course: {},
+      course: null,
       city: "",
+      coursefav: "",
     };
   },
 
@@ -41,10 +41,8 @@ module.exports  = React.createClass({
 
   courseSearch: function(){
     Post('coursecity', {city: this.state.city}).then((data)=>{
-      console.log(data);
       this.setState({
           dataSource2: this.state.dataSource2.cloneWithRows(data),
-          loaded: true,
       });
     }).done();
   },
@@ -74,7 +72,7 @@ module.exports  = React.createClass({
         <View style={styles.container}>
           <Text style={styles.label}>Search for Course by City</Text>
           <TextInput
-            style={{padding: 4, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 5, backgroundColor: "white", margin: 5, width: 200, alignSelf: 'center'}}
+            style={styles.input}
             value  = {this.state.city}
             onChangeText= {(text)=>this.setState({city : text})}
           />
@@ -90,11 +88,13 @@ module.exports  = React.createClass({
     );
   },
 
-  render: function(){
-    console.log(this.props);
-    console.log(this.state);
-    var user  = this.props.route.data;
+  newRoute: function(user){
+    this.props.navigator.push({name: 'profile', data: user});
+  },
 
+  render: function(){
+    var user  = this.props.route.data;
+    console.log(this.state);
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
       <TouchableHighlight
@@ -154,7 +154,7 @@ module.exports  = React.createClass({
   renderCourse: function(rowData){
     console.log('rowdata', rowData);
       return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress = {()=>this.onPressCourseRow(rowData)}>
         <View style  = {styles.row}>
           <Text>{rowData}</Text>
         </View>
@@ -164,16 +164,39 @@ module.exports  = React.createClass({
   renderCourseSearch: function(rowData){
     console.log('rowdata', rowData);
       return (
-      <TouchableOpacity onPress = {()=>this.setState({course: rowData})}>
+      <TouchableOpacity onPress = {()=>this.onPressCourseSearchRow(rowData)}>
         <View style  = {styles.row}>
           <Text>{rowData.coursename}</Text>
         </View>
       </TouchableOpacity>
       );
   },
+
+  async onPressCourseRow(rowData){
+    try {
+      var value  = await Post('courseinfo', {coursename: rowData}).then((data)=>{
+        this.setState({
+            course: data[0]
+        });
+      }).done();
+      if (value !== null){
+        this.props.navigator.push({name: 'profile', data: this.props.route.data, course: this.state.course});
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  },
+
+  onPressCourseSearchRow: function(rowData){
+    this.setState({course: rowData});
+    this.props.navigator.push({name: 'profile', data: this.props.route.data, course: this.state.course});
+  },
+
+
 });
 
-styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -182,7 +205,7 @@ styles = StyleSheet.create({
   label: {
     color: 'black',
   },
-  inputs: {
+  input: {
     padding: 4,
     height: 40,
     borderColor: 'gray',
@@ -192,6 +215,18 @@ styles = StyleSheet.create({
     margin: 5,
     width: 200,
     alignSelf: 'center'
-  }
+  },
+  row:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:10,
+    backgroundColor: 'transparent',
+  },
+  listView: {
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: 'transparent',
+  },
 
 });

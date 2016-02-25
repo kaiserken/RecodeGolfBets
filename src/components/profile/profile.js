@@ -110,7 +110,7 @@ module.exports  = React.createClass({
 
 });
 
-styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -121,16 +121,6 @@ styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center'
   },
-  listView: {
-    flex: 1,
-    paddingTop: 20,
-    backgroundColor: 'transparent',
-  },
-  row:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding:10,
-    backgroundColor: 'transparent',
-  },
+
+
 });
