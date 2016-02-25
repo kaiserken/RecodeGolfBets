@@ -7,29 +7,16 @@ var {
   Platform,
   DrawerLayoutAndroid,
   TabBarIOS,
-  TouchableHighlight,
-  ListView,
-  TouchableOpacity
+  TouchableHighlight
 } = React;
 
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
       selectedTab: 'profile',
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
-      course: "",
     };
   },
-  componentDidMount: function(){
-    var courses = this.props.route.data.favorites;
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(courses),
-      //loaded: true,
-    });
-  },
+
   renderContent: function(user) {
     var scoreSum = null;
     var lowScore = null;
@@ -48,7 +35,6 @@ module.exports  = React.createClass({
     var avgWinnings  = Math.round(winningSum/user.winnings.length);
 
     return (
-      <View style = {{flex:1}}>
         <View style={styles.container}>
           <Text style={styles.label}>Betting and Scoring Profile</Text>
           <Text style={styles.label}>Average Score {avgScore}</Text>
@@ -59,19 +45,6 @@ module.exports  = React.createClass({
           <Text style={styles.label}>Highest Points Won {highWinnings}</Text>
           <Text style={styles.label}>Betting Rounds Played {user.winnings.length}</Text>
         </View>
-        <View>
-        <Text style={styles.label}> Your Favorite Courses</Text>
-        </View>
-        <ListView
-          dataSource = {this.state.dataSource}
-          renderRow = {this.renderCourse}
-          style = {styles.ListView}
-        />
-
-
-      </View>
-
-
     );
   },
 
@@ -133,15 +106,7 @@ module.exports  = React.createClass({
       </TabBarIOS>
     );
   },
-  renderCourse: function(rowData){
-      return (
-      <TouchableOpacity>
-        <View style  = {styles.row}>
-          <Text>{rowData}</Text>
-        </View>
-      </TouchableOpacity>
-      );
-  },
+
 
 });
 
@@ -168,6 +133,4 @@ styles = StyleSheet.create({
     padding:10,
     backgroundColor: 'transparent',
   },
-
-
 });
