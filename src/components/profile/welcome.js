@@ -39,12 +39,19 @@ module.exports  = React.createClass({
     });
   },
 
-  courseSearch: function(){
-    Post('coursecity', {city: this.state.city}).then((data)=>{
-      this.setState({
+  async courseSearch(){
+    try {
+      await Post('coursecity', {city: this.state.city}).then((data)=>{
+        if (data.length === 0){
+          data = [{coursename: "No Courses Found"}, {coursename:"Check the city spelling"}];
+        }
+        this.setState({
           dataSource2: this.state.dataSource2.cloneWithRows(data),
-      });
-    }).done();
+        });
+      }).done();
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   renderContent: function(user) {
@@ -86,10 +93,6 @@ module.exports  = React.createClass({
       </View>
 
     );
-  },
-
-  newRoute: function(user){
-    this.props.navigator.push({name: 'profile', data: user});
   },
 
   render: function(){
@@ -174,14 +177,9 @@ module.exports  = React.createClass({
 
   async onPressCourseRow(rowData){
     try {
-      var value  = await Post('courseinfo', {coursename: rowData}).then((data)=>{
-        this.setState({
-            course: data[0]
-        });
+      await Post('courseinfo', {coursename: rowData}).then((data)=>{
+      this.props.navigator.push({name: 'profile', data: this.props.route.data, course:data[0]});
       }).done();
-      if (value !== null){
-        this.props.navigator.push({name: 'profile', data: this.props.route.data, course: this.state.course});
-      }
     } catch (error) {
       console.log(error);
     }
@@ -189,6 +187,8 @@ module.exports  = React.createClass({
   },
 
   onPressCourseSearchRow: function(rowData){
+    console.log('rowData', rowData);
+    if (rowData.coursename  === "No Courses Found" || rowData.coursename === "Check the city spelling"){return}
     this.setState({course: rowData});
     this.props.navigator.push({name: 'profile', data: this.props.route.data, course: this.state.course});
   },
