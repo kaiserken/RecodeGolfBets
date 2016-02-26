@@ -19,7 +19,7 @@ var Button = require('../common/button');
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'welcome',
+      selectedTab: 'favorites',
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -95,6 +95,7 @@ module.exports  = React.createClass({
     );
   },
 
+
   render: function(){
     var user  = this.props.route.data;
     console.log(this.state);
@@ -104,19 +105,38 @@ module.exports  = React.createClass({
         onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
-      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Play Round</Text>
+      <TouchableHighlight
+        onPress = {()=>this.setState({selectedTab: 'favorites'})}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Favorites</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        onPress = {()=>this.setState({selectedTab: 'search'})}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Search</Text>
+      </TouchableHighlight>
     </View>
     );
 
     if (Platform.OS === "android"){
-      return (
-        <DrawerLayoutAndroid
-          drawerWidth={200}
-          drawerPosition={DrawerLayoutAndroid.positions.Left}
-          renderNavigationView={() => navigationView}>
-          {this.renderContent(user)}
-        </DrawerLayoutAndroid>
-      );
+      if (this.state.selectedTab === "favorites"){
+        return (
+          <DrawerLayoutAndroid
+            drawerWidth={200}
+            drawerPosition={DrawerLayoutAndroid.positions.Left}
+            renderNavigationView={() => navigationView}>
+            {this.renderContent(user)}
+          </DrawerLayoutAndroid>
+        );
+      }
+      if (this.state.selectedTab === "search"){
+        return (
+          <DrawerLayoutAndroid
+            drawerWidth={200}
+            drawerPosition={DrawerLayoutAndroid.positions.Left}
+            renderNavigationView={() => navigationView}>
+            {this.renderSearch()}
+          </DrawerLayoutAndroid>
+        );
+      }
     }
 
     return (
@@ -132,11 +152,11 @@ module.exports  = React.createClass({
           {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Welcome"
-          selected={this.state.selectedTab === 'welcome'}
+          title="Favorites"
+          selected={this.state.selectedTab === 'favorites'}
           onPress={() => {
             this.setState({
-              selectedTab: 'welcome',
+              selectedTab: 'favorites',
             });
           }}>
           {this.renderContent(user)}

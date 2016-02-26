@@ -58,7 +58,6 @@ module.exports  = React.createClass({
         onPress = {()=>this.props.navigator.pop()}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Back</Text>
       </TouchableHighlight>
-      <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Play Round</Text>
     </View>
     );
 
@@ -94,14 +93,6 @@ module.exports  = React.createClass({
             });
           }}>
           {this.renderContent(user)}
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          title="Play"
-          selected={this.state.selectedTab === 'play'}
-          onPress={() => {
-            this.props.navigator.pop();
-          }}>
-
         </TabBarIOS.Item>
       </TabBarIOS>
     );

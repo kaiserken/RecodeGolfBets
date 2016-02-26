@@ -10,13 +10,13 @@ var {
 
 var Signin = require('./components/authentication/signin');
 var Signup = require('./components/authentication/signup');
-var Welcome  = require('./components/profile/welcome');
+var Favorites  = require('./components/profile/favorites');
 var Profile  = require('./components/profile/profile');
 
 var ROUTES  = {
   signin: Signin,
   signup: Signup,
-  welcome: Welcome,
+  favorites: Favorites,
   profile: Profile,
 };
 
