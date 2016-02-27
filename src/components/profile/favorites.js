@@ -59,10 +59,8 @@ module.exports  = React.createClass({
       <View style = {{flex:1}}>
         <View style={styles.container}>
           <Text style={styles.label}>Welcome Back {user.name}!</Text>
-          <Text style={styles.label}>Start a new round on</Text>
-          <Text style={styles.label}>one of your favorite</Text>
-          <Text style={styles.label}>courses or search for</Text>
-          <Text style={styles.label}>a new one</Text>
+          <Text style={styles.label}></Text>
+          <Text style={styles.label}>Select From Your Favorites</Text>
         </View>
         <ListView
           dataSource = {this.state.dataSource}
@@ -111,7 +109,7 @@ module.exports  = React.createClass({
       </TouchableHighlight>
       <TouchableHighlight
         onPress = {()=>this.setState({selectedTab: 'search'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Search</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Course Search</Text>
       </TouchableHighlight>
     </View>
     );
@@ -161,7 +159,7 @@ module.exports  = React.createClass({
           {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Search"
+          title="Course Search"
           selected={this.state.selectedTab === 'search'}
           onPress={() => {
             this.setState({

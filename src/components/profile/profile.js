@@ -54,6 +54,9 @@ module.exports  = React.createClass({
 
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
+      <TouchableHighlight>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
+      </TouchableHighlight>
       <TouchableHighlight
         onPress = {()=>this.props.navigator.pop()}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Back</Text>
