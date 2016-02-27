@@ -82,7 +82,6 @@ module.exports  = React.createClass({
           onPress={() => {
             this.props.navigator.pop();
           }}>
-
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Profile"

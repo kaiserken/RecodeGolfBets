@@ -12,12 +12,14 @@ var Signin = require('./components/authentication/signin');
 var Signup = require('./components/authentication/signup');
 var Favorites  = require('./components/profile/favorites');
 var Profile  = require('./components/profile/profile');
+var Setup  = require('./components/setup/setup');
 
 var ROUTES  = {
   signin: Signin,
   signup: Signup,
   favorites: Favorites,
   profile: Profile,
+  setup: Setup
 };
 
 module.exports = React.createClass({

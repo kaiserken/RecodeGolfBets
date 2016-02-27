@@ -149,7 +149,6 @@ module.exports  = React.createClass({
           onPress={() => {
             this.props.navigator.push({name: 'profile', data: user});
           }}>
-          {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Favorites"
@@ -198,7 +197,7 @@ module.exports  = React.createClass({
   async onPressCourseRow(rowData){
     try {
       await Post('courseinfo', {coursename: rowData}).then((data)=>{
-      this.props.navigator.push({name: 'profile', data: this.props.route.data, course:data[0]});
+      this.props.navigator.push({name: 'setup', data: this.props.route.data, course:data[0]});
       }).done();
     } catch (error) {
       console.log(error);
@@ -210,7 +209,7 @@ module.exports  = React.createClass({
     console.log('rowData', rowData);
     if (rowData.coursename  === "No Courses Found" || rowData.coursename === "Check the city spelling"){return}
     this.setState({course: rowData});
-    this.props.navigator.push({name: 'profile', data: this.props.route.data, course: this.state.course});
+    this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.state.course});
   },
 
 
