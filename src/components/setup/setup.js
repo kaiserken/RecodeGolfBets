@@ -41,7 +41,7 @@ module.exports  = React.createClass({
 
   },
   onConfirmGroup:function(){
-    //this.props.navigator.push({name: 'profile', data: this.props.route.data, course:data[0]});
+    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course});
   },
   onBackGroup: function(){
     this.setState({groupSubmitted: false});
@@ -51,6 +51,11 @@ module.exports  = React.createClass({
   },
   onBackPlayerSetup: function(){
     this.setState({playerCount: null});
+  },
+  renderSinglePlayer: function(){
+    return(
+      this.renderGroup()
+    );
   },
   renderPlayerSetup: function(){
     var players = [];

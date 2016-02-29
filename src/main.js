@@ -13,13 +13,15 @@ var Signup = require('./components/authentication/signup');
 var Favorites  = require('./components/profile/favorites');
 var Profile  = require('./components/profile/profile');
 var Setup  = require('./components/setup/setup');
+var Games = require('./components/games/games');
 
 var ROUTES  = {
   signin: Signin,
   signup: Signup,
   favorites: Favorites,
   profile: Profile,
-  setup: Setup
+  setup: Setup,
+  games: Games
 };
 
 module.exports = React.createClass({

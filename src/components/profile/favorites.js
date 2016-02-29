@@ -99,7 +99,7 @@ module.exports  = React.createClass({
     console.log(this.state);
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
-      <TouchableHighlight
+      <TouchableHighlight style = {{backgroundColor: 'green'}}
         onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
