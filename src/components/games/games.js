@@ -47,7 +47,7 @@ module.exports  = React.createClass({
 
   renderContent: function(){
     return (
-      <Image source={require('../../assets/grass4.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.row}>
           <Text style={styles.label}>Select Your Game</Text>
         </View>
@@ -126,7 +126,7 @@ module.exports  = React.createClass({
         <View style = {styles.row}>
           <Text style={styles.label}>Nines</Text>
           <View style={styles.descriptionWidth}>
-            <Text style={styles.description}>3 player game. Each hole is worth 9 points. If one player makes birdie, for example, another makes par and the third makes bogey, it is 5-3-1 respectively.</Text>
+            <Text style={styles.description}>3 player game. Each hole is worth 9 points. If one player makes birdie, for example, and two others make par, it is 5-2-2 respectively.</Text>
             <TouchableHighlight onPress={()=>Alert.alert('Nines','Nines is an ideal game for threesomes. Basically each hole is worth nine points (points are assigned a monetary value), with points being divided according to order of finish on each hole. If one player makes birdie, for example, another makes par and the third makes bogey, it is 5-3-1 respectively. If all three players make par, however, each player gets three points. If one player makes birdie and the other two pars, then the player with the birdie is awarded five points with the other two getting two points each. (It always adds up to nine.) Conceivably, a great performance by one player or poor one for another could prove lucrative or costly, but this game usually has a way of evening out at the end.',
               [{text: 'OK', onPress: () => console.log('OK Pressed')}]
               )}>
@@ -225,7 +225,7 @@ var styles = StyleSheet.create({
     fontSize: 10,
   },
   descriptionWidth: {
-    width: 220,
+    width: 210,
   },
   description: {
     color: 'white',

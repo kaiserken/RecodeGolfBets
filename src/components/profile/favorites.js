@@ -11,7 +11,7 @@ var {
   TouchableHighlight,
   ListView,
   TouchableOpacity,
-  Image
+  Image,
 } = React;
 
 var Post = require('../common/post');
@@ -57,7 +57,7 @@ module.exports  = React.createClass({
 
   renderContent: function(user) {
     return (
-      <Image source={require('../../assets/grass4.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.label}>Welcome Back {user.name}!</Text>
           <Text style={styles.label}></Text>
@@ -74,7 +74,7 @@ module.exports  = React.createClass({
 
   renderSearch: function(){
     return (
-      <Image source={require('../../assets/grass4.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.label}>Search for Course by City</Text>
           <TextInput
@@ -194,6 +194,7 @@ module.exports  = React.createClass({
   },
 
   async onPressCourseRow(rowData){
+
     try {
       await Post('courseinfo', {coursename: rowData}).then((data)=>{
       this.props.navigator.push({name: 'setup', data: this.props.route.data, course:data[0]});

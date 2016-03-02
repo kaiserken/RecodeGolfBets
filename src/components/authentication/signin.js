@@ -24,7 +24,10 @@ var React  = require('react-native');
 
   render: function(){
     return (
-      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
+        <View>
+          <Text style = {styles.title}>Golf Bets</Text>
+        </View>
         <View style = {styles.container}>
           <Text style = {styles.label}>Sign In</Text>
           <Text style  = {styles.label}>Email:</Text>
@@ -71,8 +74,16 @@ var React  = require('react-native');
  var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center'
+  },
+  title: {
+    color: "white",
+    fontSize: 45,
+    alignItems: 'center',
+    alignSelf:'center',
+    marginTop: 40,
+    marginBottom:20
+
   },
   label: {
     color: 'white',

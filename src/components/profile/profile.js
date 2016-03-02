@@ -7,7 +7,8 @@ var {
   Platform,
   DrawerLayoutAndroid,
   TabBarIOS,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } = React;
 
 module.exports  = React.createClass({
@@ -35,16 +36,18 @@ module.exports  = React.createClass({
     var avgWinnings  = Math.round(winningSum/user.winnings.length);
 
     return (
-        <View style={styles.container}>
-          <Text style={styles.label}>Betting and Scoring Profile</Text>
-          <Text style={styles.label}>Average Score {avgScore}</Text>
-          <Text style={styles.label}>Low Score {lowScore}</Text>
-          <Text style={styles.label}>Rounds Played {user.scores.length}</Text>
-          <Text style={styles.label}>Total Points Won {winningSum}</Text>
-          <Text style={styles.label}>Average Points Won per Round {avgWinnings}</Text>
-          <Text style={styles.label}>Highest Points Won {highWinnings}</Text>
-          <Text style={styles.label}>Betting Rounds Played {user.winnings.length}</Text>
-        </View>
+        <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+          <View style  = {styles.container}>
+            <Text style={styles.label}>Betting and Scoring Profile</Text>
+            <Text style={styles.label}>Average Score: {avgScore}</Text>
+            <Text style={styles.label}>Low Score: {lowScore}</Text>
+            <Text style={styles.label}>Rounds Played: {user.scores.length}</Text>
+            <Text style={styles.label}>Total Points Won: {winningSum}</Text>
+            <Text style={styles.label}>Average Points Won per Round: {avgWinnings}</Text>
+            <Text style={styles.label}>Highest Points Won: {highWinnings}</Text>
+            <Text style={styles.label}>Betting Rounds Played: {user.winnings.length}</Text>
+          </View>
+        </Image>
     );
   },
 
@@ -77,8 +80,8 @@ module.exports  = React.createClass({
 
     return (
       <TabBarIOS
-        tintColor="white"
-        barTintColor="darkslateblue">
+        tintColor="black"
+        barTintColor="white">
         <TabBarIOS.Item
           title="Back"
           selected={this.state.selectedTab === 'back'}
@@ -110,9 +113,16 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-    color: 'black',
+    color: 'white',
     alignSelf: 'center',
     justifyContent: 'center'
+  },
+  backgroundImage: {
+    marginTop:(Platform.OS === 'ios') ? 20 : 0,
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
   },
 
 

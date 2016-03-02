@@ -26,7 +26,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <Image source={require('../../assets/grass5.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
       <View style = {styles.container}>
         <Text style = {styles.label}>Sign Up</Text>
         <Text style={styles.label}>Username:</Text>

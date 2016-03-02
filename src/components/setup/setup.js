@@ -8,7 +8,9 @@ var {
   DrawerLayoutAndroid,
   TabBarIOS,
   TouchableHighlight,
-  TextInput
+  TextInput,
+  Image,
+  Alert
 } = React;
 
 var Button = require('../common/button');
@@ -28,15 +30,19 @@ module.exports  = React.createClass({
 
   renderGroup: function(){
     return (
-      <View style  = {styles.container}>
-        <Text style={styles.label}>Your Group is:</Text>
-        <Text style={styles.label}>{this.props.route.data.name}</Text>
-        <Text style={styles.label}>{this.state.player2Name}</Text>
-        <Text style={styles.label}>{this.state.player3Name}</Text>
-        <Text style={styles.label}>{this.state.player4Name}</Text>
-        <Button text={'Confirm'} onPress={this.onConfirmGroup}/>
-        <Button text={'Edit Names'} onPress={this.onBackGroup}/>
-      </View>
+      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+        <View style  = {styles.container}>
+          <Text style={styles.label}>Your Group is:</Text>
+          <Text style={styles.label}></Text>
+          <Text style={styles.label}>{this.props.route.data.name}</Text>
+          <Text style={styles.label}>{this.state.player2Name}</Text>
+          <Text style={styles.label}>{this.state.player3Name}</Text>
+          <Text style={styles.label}>{this.state.player4Name}</Text>
+          <Text style={styles.label}></Text>
+          <Button text={'Confirm'} onPress={this.onConfirmGroup}/>
+          <Button text={'Edit Names'} onPress={this.onBackGroup}/>
+        </View>
+      </Image>
     );
 
   },
@@ -52,11 +58,7 @@ module.exports  = React.createClass({
   onBackPlayerSetup: function(){
     this.setState({playerCount: null});
   },
-  renderSinglePlayer: function(){
-    return(
-      this.renderGroup()
-    );
-  },
+
   renderPlayerSetup: function(){
     var players = [];
     for (var i = 2; i <= this.state.playerCount; i++){
@@ -71,12 +73,14 @@ module.exports  = React.createClass({
       }
     }
     return (
-      <View style  = {styles.container}>
-        <Text style={styles.label}>Enter Playing Partners</Text>
-        {players}
-        <Button text={'Submit'} onPress={this.onSubmitGroup}/>
-        <Button text={'Edit # Players'} onPress={this.onBackPlayerSetup}/>
-      </View>
+      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+        <View style  = {styles.container}>
+          <Text style={styles.label}>Enter Playing Partner Names</Text>
+          {players}
+          <Button text={'Submit'} onPress={this.onSubmitGroup}/>
+          <Button text={'Edit # Players'} onPress={this.onBackPlayerSetup}/>
+        </View>
+      </Image>
     );
   },
   renderContent: function(user){
@@ -85,24 +89,38 @@ module.exports  = React.createClass({
         this.renderGroup()
       );
     }
+    // if (this.state.playerCount === null){
+    //   Alert.alert('Players','Select the number of players including yourself',
+    //     [{text: 'One', onPress: () => this.setState({playerCount:1})},
+    //     {text: 'Two', onPress: () => this.setState({playerCount:2})},
+    //     {text: 'Three', onPress: () => this.setState({playerCount:3})},
+    //     {text: 'Four', onPress: () => this.setState({playerCount:4})}]
+    //   );
+    // }
     if (this.state.playerCount === null){
       return (
-        <View style  = {styles.container}>
-          <Text style={styles.label}>Tap the Number of Players</Text>
-          <Text style={styles.label}>Including Yourself</Text>
-          <TouchableHighlight onPress={()=>this.setState({playerCount: 1})}>
-            <Text style={styles.numbers}>1</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={()=>this.setState({playerCount: 2})}>
-            <Text style={styles.numbers}>2</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={()=>this.setState({playerCount: 3})}>
-            <Text style={styles.numbers}>3</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={()=>this.setState({playerCount: 4})}>
-            <Text style={styles.numbers}>4</Text>
-          </TouchableHighlight>
-        </View>
+        <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+          <View style  = {styles.container}>
+            <Text style={styles.label}>Tap the number of players</Text>
+            <Text style={styles.label}>incuding yourself</Text>
+            <TouchableHighlight
+              onPress={()=>this.setState({playerCount: 1})}>
+              <Text style={styles.numbers}>1</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={()=>this.setState({playerCount: 2})}>
+              <Text style={styles.numbers}>2</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={()=>this.setState({playerCount: 3})}>
+              <Text style={styles.numbers}>3</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              onPress={()=>this.setState({playerCount: 4})}>
+              <Text style={styles.numbers}>4</Text>
+            </TouchableHighlight>
+          </View>
+        </Image>
       );
     }
     if (this.state.playerCount > 1){
@@ -112,7 +130,16 @@ module.exports  = React.createClass({
     }
     if (this.state.playerCount === 1){
       return(
-        this.renderSinglePlayer()
+        <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+          <View style  = {styles.container}>
+            <Text style={styles.label}>{this.props.route.data.name}</Text>
+            <Text style={styles.label}></Text>
+            <Text style={styles.label}>You selected 1 player</Text>
+            <Text style={styles.label}></Text>
+            <Button text={'Confirm'} onPress={this.onConfirmGroup}/>
+            <Button text={'Go back'} onPress={this.onBackPlayerSetup}/>
+          </View>
+        </Image>
       );
     }
 
@@ -154,8 +181,8 @@ module.exports  = React.createClass({
 
     return (
       <TabBarIOS
-        tintColor="white"
-        barTintColor="darkslateblue">
+        tintColor="black"
+        barTintColor="white">
         <TabBarIOS.Item
           title="Profile"
           selected={this.state.selectedTab === 'profile'}
@@ -195,11 +222,21 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-    color: 'black',
+    color: 'white',
+    fontSize: 18,
   },
-  numbers: {
-    color: 'black',
+  numbers : {
+    color: 'white',
     fontSize: 40,
-    padding: 10,
+    fontWeight: "700",
+    marginTop: 10,
+    marginBottom:10,
+  },
+  backgroundImage: {
+    marginTop:(Platform.OS === 'ios') ? 20 : 0,
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
   },
 });
