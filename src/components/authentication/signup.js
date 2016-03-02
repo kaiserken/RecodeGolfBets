@@ -5,7 +5,8 @@ var {
   StyleSheet,
   View,
   TextInput,
-  Platform
+  Platform,
+  Image
 } = React;
 
 var Button = require('../common/button');
@@ -25,6 +26,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
+      <Image source={require('../../assets/grass5.jpeg')} style={styles.backgroundImage}>
       <View style = {styles.container}>
         <Text style = {styles.label}>Sign Up</Text>
         <Text style={styles.label}>Username:</Text>
@@ -57,6 +59,7 @@ module.exports = React.createClass({
         <Button text={'Signup'} onPress={this.onSignupPress}/>
         <Button text={'I have an account'} onPress={this.onSigninPress}/>
       </View>
+      </Image>
     );
   },
   onSignupPress: function(){
@@ -91,7 +94,7 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   label:{
-    color: 'black'
+    color: 'white'
   },
   input: {
     padding: 4,
@@ -103,5 +106,12 @@ var styles = StyleSheet.create({
     margin: 5,
     width: 200,
     alignSelf: 'center'
-  }
+  },
+  backgroundImage: {
+    marginTop:(Platform.OS === 'ios') ? 20 : 0,
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+  },
 });

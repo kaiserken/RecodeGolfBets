@@ -11,6 +11,7 @@ var {
   TouchableHighlight,
   ListView,
   TouchableOpacity,
+  Image
 } = React;
 
 var Post = require('../common/post');
@@ -56,7 +57,7 @@ module.exports  = React.createClass({
 
   renderContent: function(user) {
     return (
-      <View style = {{flex:1}}>
+      <Image source={require('../../assets/grass4.jpeg')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.label}>Welcome Back {user.name}!</Text>
           <Text style={styles.label}></Text>
@@ -67,13 +68,13 @@ module.exports  = React.createClass({
           renderRow = {this.renderCourse}
           style = {styles.ListView}
         />
-      </View>
+      </Image>
     );
   },
 
   renderSearch: function(){
     return (
-      <View style = {{flex:1}}>
+      <Image source={require('../../assets/grass4.jpeg')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.label}>Search for Course by City</Text>
           <TextInput
@@ -88,7 +89,7 @@ module.exports  = React.createClass({
           renderRow = {this.renderCourseSearch}
           style = {styles.ListView}
         />
-      </View>
+    </Image>
 
     );
   },
@@ -139,8 +140,8 @@ module.exports  = React.createClass({
 
     return (
       <TabBarIOS
-        tintColor="white"
-        barTintColor="darkslateblue">
+        tintColor="black"
+        barTintColor="white">
         <TabBarIOS.Item
           title="Profile"
           selected={this.state.selectedTab === 'profile'}
@@ -176,7 +177,7 @@ module.exports  = React.createClass({
       return (
       <TouchableOpacity onPress = {()=>this.onPressCourseRow(rowData)}>
         <View style  = {styles.row}>
-          <Text>{rowData}</Text>
+          <Text style  = {styles.label}>{rowData}</Text>
         </View>
       </TouchableOpacity>
       );
@@ -186,7 +187,7 @@ module.exports  = React.createClass({
       return (
       <TouchableOpacity onPress = {()=>this.onPressCourseSearchRow(rowData)}>
         <View style  = {styles.row}>
-          <Text>{rowData.coursename}</Text>
+          <Text style  = {styles.label}>{rowData.coursename}</Text>
         </View>
       </TouchableOpacity>
       );
@@ -220,7 +221,7 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-    color: 'black',
+    color: 'white',
   },
   input: {
     padding: 4,
@@ -243,7 +244,15 @@ var styles = StyleSheet.create({
   listView: {
     flex: 1,
     paddingTop: 20,
+    color: 'white',
     backgroundColor: 'transparent',
+  },
+  backgroundImage: {
+    marginTop:(Platform.OS === 'ios') ? 20 : 0,
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
   },
 
 });

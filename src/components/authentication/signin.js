@@ -5,7 +5,8 @@ var React  = require('react-native');
    Text,
    StyleSheet,
    TextInput,
-   Platform
+   Platform,
+   Image
  } = React;
 
  var Button  = require('../common/button');
@@ -23,10 +24,12 @@ var React  = require('react-native');
 
   render: function(){
     return (
-      <View style = {styles.container}>
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+        <View style = {styles.container}>
           <Text style = {styles.label}>Sign In</Text>
           <Text style  = {styles.label}>Email:</Text>
           <TextInput
+            placeholder = {'Email'}
             style  = {styles.input}
             value  = {this.state.email}
             onChangeText = {(text)=>this.setState({email: text})}
@@ -34,6 +37,7 @@ var React  = require('react-native');
             <Text style  = {styles.label}>Password:</Text>
             <TextInput
             secureTextEntry = {true}
+            placeholder = {'Password'}
             style  = {styles.input}
             value = {this.state.password}
             onChangeText={(text)=>this.setState({password: text})}
@@ -41,7 +45,9 @@ var React  = require('react-native');
             <Text style = {styles.label}>{this.state.errorMessage}</Text>
             <Button text = {'Sign In'} onPress={this.onPress}/>
             <Button text = {"I need an account..."} onPress={this.onSignupPress}/>
-      </View>
+        </View>
+
+      </Image>
     );
   },
 
@@ -69,7 +75,7 @@ var React  = require('react-native');
     alignItems: 'center'
   },
   label: {
-    color: 'black'
+    color: 'white',
   },
   input: {
     padding: 4,
@@ -81,6 +87,13 @@ var React  = require('react-native');
     margin: 5,
     width: 200,
     alignSelf: 'center'
-  }
+  },
+  backgroundImage: {
+    marginTop:(Platform.OS === 'ios') ? 20 : 0,
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+  },
 
  });
