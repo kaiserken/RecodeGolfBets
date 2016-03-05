@@ -1,5 +1,5 @@
 
-var rootUrl = 'http://192.168.1.141:3000/';
+var rootUrl = 'http://10.0.1.13:3000/';
 
 module.exports = function(serverRoute){
   var url  = `${rootUrl}${serverRoute}`;
