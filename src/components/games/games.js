@@ -39,6 +39,9 @@ module.exports  = React.createClass({
       [{text: 'OK', onPress: () => console.log('OK Pressed')}]
       );
     }
+    if (this.state.keepScoreSwitch === true && count === 1){
+      this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name});
+    }
 
 
 
@@ -46,6 +49,9 @@ module.exports  = React.createClass({
   },
 
   renderContent: function(){
+    console.log(this.props);
+    console.log(this.state);
+
     return (
       <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.row}>

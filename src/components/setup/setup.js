@@ -47,7 +47,7 @@ module.exports  = React.createClass({
 
   },
   onConfirmGroup:function(){
-    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course});
+    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
   },
   onBackGroup: function(){
     this.setState({groupSubmitted: false});

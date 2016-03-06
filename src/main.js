@@ -14,6 +14,7 @@ var Favorites  = require('./components/profile/favorites');
 var Profile  = require('./components/profile/profile');
 var Setup  = require('./components/setup/setup');
 var Games = require('./components/games/games');
+var Hole  = require('./components/score/hole');
 
 var ROUTES  = {
   signin: Signin,
@@ -21,7 +22,8 @@ var ROUTES  = {
   favorites: Favorites,
   profile: Profile,
   setup: Setup,
-  games: Games
+  games: Games,
+  hole: Hole
 };
 
 module.exports = React.createClass({
