@@ -15,6 +15,7 @@ var Profile  = require('./components/profile/profile');
 var Setup  = require('./components/setup/setup');
 var Games = require('./components/games/games');
 var Hole  = require('./components/score/hole');
+var Setbets = require('./components/games/setbets');
 
 var ROUTES  = {
   signin: Signin,
@@ -23,7 +24,8 @@ var ROUTES  = {
   profile: Profile,
   setup: Setup,
   games: Games,
-  hole: Hole
+  hole: Hole,
+  setbets: Setbets
 };
 
 module.exports = React.createClass({
