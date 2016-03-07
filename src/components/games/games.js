@@ -40,12 +40,8 @@ module.exports  = React.createClass({
       );
     }
     if (this.state.keepScoreSwitch === true && count === 1){
-      this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name});
+      this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, indexUsed: true, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
     }
-
-
-
-
   },
 
   renderContent: function(){
