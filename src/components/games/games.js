@@ -27,6 +27,9 @@ module.exports  = React.createClass({
     };
   },
 
+  onRouteChange: function(route, game){
+    this.props.navigator.push({name: route, data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: game, indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+  },
   onSubmit: function(){
     var count = 0;
     if (this.state.keepScoreSwitch === true){count++;}
@@ -39,15 +42,12 @@ module.exports  = React.createClass({
       [{text: 'OK', onPress: () => console.log('OK Pressed')}]
       );
     }
-    // don't forget to change index used to false and and remove score adjust from keep score switch
-    if (this.state.keepScoreSwitch === true && count === 1){
-      this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, indexUsed: true, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
-    } else if (count === 1){
-      this.props.navigator.push({name: 'setbets', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name });
-    } else {
-      return;
-    }
-
+    if (this.state.keepScoreSwitch === true && count === 1) this.onRouteChange('hole', "Just Keep Score");
+    if (this.state.nassauSwitch === true && count === 1)this.onRouteChange('setbets', "Nassau");
+    if (this.state.roundRobinSwitch === true && count === 1)this.onRouteChange('setbets', "Carts / Round Robin");
+    if (this.state.matchPlaySwitch === true && count === 1)this.onRouteChange('setbets', "Match Play");
+    if (this.state.skinsSwitch === true && count === 1)this.onRouteChange('setbets', "Skins");
+    if (this.state.ninesSwitch === true && count === 1)this.onRouteChange('setbets', "Nines");
 
   },
 

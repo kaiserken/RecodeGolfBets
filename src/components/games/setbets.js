@@ -13,7 +13,9 @@ var {
   Image,
   TextInput
 } = React;
+
 var Button = require('../common/button');
+var PlayerIndex = require('./playerindex');
 
 module.exports  = React.createClass({
   getInitialState: function() {
@@ -28,80 +30,141 @@ module.exports  = React.createClass({
       player2Hcp: null,
       player3Hcp: null,
       player4Hcp: null,
+      betFrontNassau: null,
+      betBackNassau: null,
+      betTotalNassau: null,
+      auto9: false,
+      auto18: false,
+      teamMember: null,
+      teams:[]
     };
-  },
-  renderPlayer1Index: function(){
-    if (this.props.route.playerCount>=1){
-      return (
-        <View style  = {styles.row}>
-        <Text style  = {styles.name}>{this.props.route.data.name}</Text>
-        <TextInput
-          style  = {styles.input}
-          placeholder = "HCP"
-          value  = {this.state.player1Hcp}
-          onChangeText = {(text)=> this.setState({player1Hcp: text})}
-          />
-        </View>
-      );
-    }
-  },
-  renderPlayer2Index: function(){
-    if (this.props.route.playerCount>=2){
-      return (
-        <View style  = {styles.row}>
-        <Text style  = {styles.name}>{this.props.route.player2Name}</Text>
-        <TextInput
-          style  = {styles.input}
-          placeholder = "HCP"
-          value  = {this.state.player2Hcp}
-          onChangeText = {(text)=> this.setState({player2Hcp: text})}
-          />
-        </View>
-      );
-    }
-  },
-  renderPlayer3Index: function(){
-    if (this.props.route.playerCount>=3){
-      return (
-        <View style  = {styles.row}>
-        <Text style  = {styles.name}>{this.props.route.player3Name}</Text>
-        <TextInput
-          style  = {styles.input}
-          placeholder = "HCP"
-          value  = {this.state.player3Hcp}
-          onChangeText = {(text)=> this.setState({player3Hcp: text})}
-          />
-        </View>
-      );
-    }
-  },
-  renderPlayer4Index: function(){
-    if (this.props.route.playerCount>=4){
-      return (
-        <View style  = {styles.row}>
-        <Text style  = {styles.name}>{this.props.route.player4Name}</Text>
-        <TextInput
-          style  = {styles.input}
-          placeholder = "HCP"
-          value  = {this.state.player4Hcp}
-          onChangeText = {(text)=> this.setState({player4Hcp: text})}
-          />
-        </View>
-      );
-    }
   },
   renderIndexUsed: function(){
     if (this.state.indexUsed === true){
       return (
         <View>
-          {this.renderPlayer1Index()}
-          {this.renderPlayer2Index()}
-          {this.renderPlayer3Index()}
-          {this.renderPlayer4Index()}
+          {this.renderPlayerIndex()}
         </View>
       );
     }
   },
+  renderPlayerIndex: function(){
+    var players = [];
+    for (var i = 1; i <= this.props.route.playerCount; i++){
+      if (i===1){
+        players.push(<PlayerIndex key = {i} text = {this.props.route.data.name} value = {this.state.player1Hcp} onChangeText = {(text)=> this.setState({player1Hcp: text})}/>);
+      }
+      if (i===2){
+        players.push(<PlayerIndex key = {i} text = {this.props.route.player2Name} value = {this.state.player2Hcp} onChangeText = {(text)=> this.setState({player2Hcp: text})}/>);
+      }
+      if (i===3){
+        players.push(<PlayerIndex key = {i} text = {this.props.route.player3Name} value = {this.state.player3Hcp} onChangeText = {(text)=> this.setState({player3Hcp: text})}/>);
+      }
+      if (i===4){
+        players.push(<PlayerIndex key = {i} text = {this.props.route.player4Name} value = {this.state.player4Hcp} onChangeText = {(text)=> this.setState({player4Hcp: text})}/>);
+      }
+    }
+    return (
+      <View>
+      {players}
+      </View>
+    );
+  },
+  renderBets: function(){
+    var game = this.props.route.gameSelected;
+    if (game === "Nassau"){
+      return(
+        <View>
+          <View style = {styles.row}>
+            <Text style={styles.labelnassau}>Front/Back Nine Bet (pts)</Text>
+            <TextInput
+              style  = {styles.input}
+              placeholder = "Pts"
+              keyboardType = 'numbers-and-punctuation'
+              value  = {this.props.value}
+              onChangeText = {(text)=>this.setState({betFrontNassau: text, betBackNassau: text})}
+              />
+          </View>
+          <View style = {styles.row}>
+            <Text style={styles.labelnassau}>Auto press 9 hole bets</Text>
+            <Switch
+            onValueChange={(value) => this.setState({auto9: value})}
+            value={this.state.auto9} />
+          </View>
+          <View style = {styles.row}>
+            <Text style={styles.labelnassau}>18 hole Bet (pts)</Text>
+            <TextInput
+              style  = {styles.input}
+              placeholder = "Pts"
+              keyboardType = 'numbers-and-punctuation'
+              value  = {this.props.value}
+              onChangeText = {(text)=>this.setState({betTotalNassau: text})}
+              />
+          </View>
+          <View style = {styles.row}>
+            <Text style={styles.labelnassau}>Auto press 18 hole bets</Text>
+            <Switch
+            onValueChange={(value) => this.setState({auto18: value})}
+            value={this.state.auto18} />
+          </View>
+        </View>
+      );
+    }
+  },
+  renderTeams: function(){
+    var game = this.props.route.gameSelected;
+    if (this.props.route.playerCount === 4 && this.state.teamMember === null && (game === 'Nassau' || game === "Match Play")){
+      return (
+      <View style = {{flex:1}}>
+        <View style  = {styles.container}>
+          <Text style = {styles.label} >Select your Partner to Form Teams</Text>
+        </View>
+        <View style = {styles.row}>
+          <TouchableHighlight
+            onPress={()=>this.setState({teamMember: 2, teams:[1,2,3,4]})}>
+            <Text style={styles.labelchange}>{this.props.route.player2Name}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={()=>this.setState({teamMember: 3, teams:[1,3,2,4]})}>
+            <Text style={styles.labelchange}>{this.props.route.player3Name}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={()=>this.setState({teamMember: 4, teams:[1,4,2,3]})}>
+            <Text style={styles.labelchange}>{this.props.route.player4Name}</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+    }
+    if (this.props.route.playerCount === 4 && (game === 'Nassau' || game === "Match Play")){
+      return (
+      <View style = {{flex:1}}>
+        <View style  = {styles.container}>
+          <Text style={styles.label}>{this.props.route.data.name} and  {this.props.route[`player${this.state.teams[1]}Name`]}</Text>
+          <Text style={styles.label}>vs.</Text>
+          <Text style={styles.label}>{this.props.route[`player${this.state.teams[2]}Name`]} and {this.props.route[`player${this.state.teams[3]}Name`]}</Text>
+          <Text style={styles.label}></Text>
+          <TouchableHighlight
+            onPress={()=>this.setState({teamMember: null})}>
+            <Text style={styles.labelchange}>Change Partners</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+    }
+
+
+
+
+
+  },
+  renderTeamSelected: function(){
+    // if (this.state.teamMember === 2){this.setState({teams:[1,2,3,4]});}
+    // if (this.state.teamMember === 3){this.setState({teams:[1,3,2,4]});}
+    // if (this.state.teamMember === 4){this.setState({teams:[1,4,2,3]});}
+  },
+
+
   renderContent: function(){
     console.log(this.props);
     console.log(this.state);
@@ -109,22 +172,22 @@ module.exports  = React.createClass({
     return (
       <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.container}>
-          <Text style={styles.label}>This is the Set Bets Page</Text>
+          <Text style={styles.title}>{this.props.route.gameSelected}</Text>
         </View>
         <View style = {styles.row}>
-          <Text style={styles.label}>Use HCP indexes</Text>
+          <Text style={styles.label}>Use Handicaps</Text>
           <Switch
           onValueChange={(value) => this.setState({indexUsed: value})}
           value={this.state.indexUsed} />
           {this.renderIndexUsed()}
         </View>
+        <View style = {{flex:1}}>
+          {this.renderBets()}
+        </View>
+        <View style = {{flex:1}}>
+          {this.renderTeams()}
+        </View>
         <View style = {styles.container}>
-
-        </View>
-        <View style = {styles.row}>
-          <Text style={styles.label}>just another option</Text>
-        </View>
-        <View style = {styles.row}>
         <Button text={"Submit"} onPress={this.onSubmit}/>
         </View>
     </Image>
@@ -200,20 +263,32 @@ module.exports  = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: .5,
     justifyContent: 'center',
     alignItems: 'center'
   },
+  title: {
+    color: 'white',
+    fontSize: 20
+  },
+  labelchange: {
+    color: 'greenyellow',
+  },
+
   label: {
     color: 'white',
+  },
+  labelnassau: {
+    color: 'white',
+    width: 200,
   },
   name: {
     color: 'white',
     width: 75
   },
   input: {
-    padding: 1,
-    height: 20,
+    padding: 2,
+    height: 25,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
