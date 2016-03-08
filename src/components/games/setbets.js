@@ -152,6 +152,15 @@ module.exports  = React.createClass({
       </View>
     );
     }
+    if (this.props.route.playerCount === 2 && (game === 'Nassau' || game === "Match Play")){
+      return (
+      <View style = {{flex:1}}>
+        <View style  = {styles.container}>
+          <Text style={styles.label}>{this.props.route.data.name} vs. {this.props.route.player2Name}</Text>
+        </View>
+      </View>
+    );
+    }
 
 
 
@@ -181,9 +190,7 @@ module.exports  = React.createClass({
           value={this.state.indexUsed} />
           {this.renderIndexUsed()}
         </View>
-        <View style = {{flex:1}}>
-          {this.renderBets()}
-        </View>
+        {this.renderBets()}
         <View style = {{flex:1}}>
           {this.renderTeams()}
         </View>
