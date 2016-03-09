@@ -162,10 +162,22 @@ module.exports  = React.createClass({
   },
   renderStrokes: function(){
     var strokes;
-    if (this.props.route.playerCount === 4 && this.state.player1Hcp && this.state.player2Hcp && this.state.player3Hcp && this.state.player4Hcp){
-      strokes = Strokes(this.props.route.playerCount, parseFloat(this.state.player1Hcp), parseFloat(this.state.player2Hcp), parseFloat(this.state.player3Hcp), parseFloat(this.state.player4Hcp));
+    if (this.state.indexUsed === true && this.props.route.playerCount === 4 && this.state.player1Hcp && this.state.player2Hcp && this.state.player3Hcp && this.state.player4Hcp){
+      strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
+
+      return (
+        <View style = {styles.row2}>
+          <View>
+            <Text style={styles.label}>{this.props.route.data.name} gets {strokes[0]} strokes</Text>
+            <Text style={styles.label}>{this.props.route.player2Name} gets {strokes[1]} strokes</Text>
+          </View>
+          <View>
+            <Text style={styles.label}>{this.props.route.player3Name} gets {strokes[2]} strokes</Text>
+            <Text style={styles.label}>{this.props.route.player4Name} gets {strokes[3]} strokes</Text>
+          </View>
+        </View>
+      );
     }
-    console.log(strokes);
   },
 
 
@@ -302,6 +314,14 @@ var styles = StyleSheet.create({
   },
   row:{
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderTopWidth: 1,
+    borderBottomWidth: 1
+  },
+  row2:{
+    flex: .3,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
