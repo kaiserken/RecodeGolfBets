@@ -16,16 +16,13 @@ var {
 
 var Button = require('../common/button');
 var PlayerIndex = require('./playerindex');
+var Strokes  = require('../common/strokes');
 
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
       selectedTab: 'setbets',
       indexUsed: false,
-      scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       player1Hcp: null,
       player2Hcp: null,
       player3Hcp: null,
@@ -149,6 +146,7 @@ module.exports  = React.createClass({
             <Text style={styles.labelchange}>Change Partners</Text>
           </TouchableHighlight>
         </View>
+        {this.renderStrokes()}
       </View>
     );
     }
@@ -161,17 +159,15 @@ module.exports  = React.createClass({
       </View>
     );
     }
-
-
-
-
-
   },
-  renderTeamSelected: function(){
-    // if (this.state.teamMember === 2){this.setState({teams:[1,2,3,4]});}
-    // if (this.state.teamMember === 3){this.setState({teams:[1,3,2,4]});}
-    // if (this.state.teamMember === 4){this.setState({teams:[1,4,2,3]});}
+  renderStrokes: function(){
+    var strokes;
+    if (this.props.route.playerCount === 4 && this.state.player1Hcp && this.state.player2Hcp && this.state.player3Hcp && this.state.player4Hcp){
+      strokes = Strokes(this.props.route.playerCount, parseFloat(this.state.player1Hcp), parseFloat(this.state.player2Hcp), parseFloat(this.state.player3Hcp), parseFloat(this.state.player4Hcp));
+    }
+    console.log(strokes);
   },
+
 
 
   renderContent: function(){

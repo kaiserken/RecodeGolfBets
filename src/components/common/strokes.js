@@ -1,4 +1,4 @@
-module.exports  = function ( playerCount, hcp1, hcp2, hcp3, hcp4){
+module.exports  = function(playerCount, hcp1, hcp2, hcp3, hcp4){
   var strokes1;
   var strokes2;
   var strokes3;
@@ -59,4 +59,4 @@ module.exports  = function ( playerCount, hcp1, hcp2, hcp3, hcp4){
     strokesGiven.push(strokes1, strokes2, strokes3, strokes4);
     return strokesGiven;
   }
-}
+};
