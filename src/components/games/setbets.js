@@ -156,6 +156,7 @@ module.exports  = React.createClass({
         <View style  = {styles.container}>
           <Text style={styles.label}>{this.props.route.data.name} vs. {this.props.route.player2Name}</Text>
         </View>
+        {this.renderStrokes()}
       </View>
     );
     }
@@ -174,6 +175,20 @@ module.exports  = React.createClass({
           <View>
             <Text style={styles.label}>{this.props.route.player3Name} gets {strokes[2]} strokes</Text>
             <Text style={styles.label}>{this.props.route.player4Name} gets {strokes[3]} strokes</Text>
+          </View>
+        </View>
+      );
+    }
+    if (this.state.indexUsed === true && this.props.route.playerCount === 2 && this.state.player1Hcp && this.state.player2Hcp){
+      strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
+
+      return (
+        <View style = {styles.row2}>
+          <View>
+            <Text style={styles.label}>{this.props.route.data.name} gets {strokes[0]} strokes</Text>
+          </View>
+          <View>
+            <Text style={styles.label}>{this.props.route.player2Name} gets {strokes[1]} strokes</Text>
           </View>
         </View>
       );
