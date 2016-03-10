@@ -30,7 +30,7 @@ module.exports  = React.createClass({
 
   onSubmitGroup: function(){
     this.setState({groupSubmitted: true});
-    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
+    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
   },
   onBackPlayerSetup: function(){
     this.setState({playerCount: null, player2Name: null, player3Name: null, player4Name: null,});
