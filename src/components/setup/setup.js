@@ -28,35 +28,12 @@ module.exports  = React.createClass({
     };
   },
 
-  renderGroup: function(){
-    return (
-      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
-        <View style  = {styles.container}>
-          <Text style={styles.label}>Your Group is:</Text>
-          <Text style={styles.label}></Text>
-          <Text style={styles.label}>{this.props.route.data.name}</Text>
-          <Text style={styles.label}>{this.state.player2Name}</Text>
-          <Text style={styles.label}>{this.state.player3Name}</Text>
-          <Text style={styles.label}>{this.state.player4Name}</Text>
-          <Text style={styles.label}></Text>
-          <Button text={'Confirm'} onPress={this.onConfirmGroup}/>
-          <Button text={'Edit Names'} onPress={this.onBackGroup}/>
-        </View>
-      </Image>
-    );
-
-  },
-  onConfirmGroup:function(){
-    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
-  },
-  onBackGroup: function(){
-    this.setState({groupSubmitted: false});
-  },
   onSubmitGroup: function(){
     this.setState({groupSubmitted: true});
+    this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
   },
   onBackPlayerSetup: function(){
-    this.setState({playerCount: null});
+    this.setState({playerCount: null, player2Name: null, player3Name: null, player4Name: null,});
   },
 
   renderPlayerSetup: function(){
@@ -73,9 +50,13 @@ module.exports  = React.createClass({
       }
     }
     return (
-      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         <View style  = {styles.container}>
-          <Text style={styles.label}>Enter Playing Partner Names</Text>
+          <Text style={styles.label}>{this.props.route.data.name}</Text>
+          <Text style={styles.label1}>Enter the names of your playing</Text>
+          <Text style={styles.label1}>partners for todays round at</Text>
+          <Text style={styles.label1}>{this.props.route.course.coursename}</Text>
+          <Text style={styles.label}></Text>
           {players}
           <Button text={'Submit'} onPress={this.onSubmitGroup}/>
           <Button text={'Edit # Players'} onPress={this.onBackPlayerSetup}/>
@@ -84,25 +65,14 @@ module.exports  = React.createClass({
     );
   },
   renderContent: function(user){
-    if (this.state.groupSubmitted === true){
-      return(
-        this.renderGroup()
-      );
-    }
-    // if (this.state.playerCount === null){
-    //   Alert.alert('Players','Select the number of players including yourself',
-    //     [{text: 'One', onPress: () => this.setState({playerCount:1})},
-    //     {text: 'Two', onPress: () => this.setState({playerCount:2})},
-    //     {text: 'Three', onPress: () => this.setState({playerCount:3})},
-    //     {text: 'Four', onPress: () => this.setState({playerCount:4})}]
-    //   );
-    // }
     if (this.state.playerCount === null){
       return (
-        <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+        <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
           <View style  = {styles.container}>
-            <Text style={styles.label}>Tap the number of players</Text>
-            <Text style={styles.label}>incuding yourself</Text>
+            <Text style={styles.label1}>Tap the number of players</Text>
+            <Text style={styles.label1}>incuding yourself for</Text>
+            <Text style={styles.label1}>todays round</Text>
+            <Text style={styles.label}></Text>
             <TouchableHighlight
               onPress={()=>this.setState({playerCount: 1})}>
               <Text style={styles.numbers}>1</Text>
@@ -130,7 +100,7 @@ module.exports  = React.createClass({
     }
     if (this.state.playerCount === 1){
       return(
-        <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+        <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
           <View style  = {styles.container}>
             <Text style={styles.label}>{this.props.route.data.name}</Text>
             <Text style={styles.label}></Text>
@@ -224,6 +194,10 @@ var styles = StyleSheet.create({
   label: {
     color: 'white',
     fontSize: 18,
+  },
+  label1: {
+    color: 'white',
+    fontSize: 12,
   },
   numbers : {
     color: 'white',

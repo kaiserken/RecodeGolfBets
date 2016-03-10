@@ -57,7 +57,7 @@ module.exports  = React.createClass({
 
   renderContent: function(user) {
     return (
-      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.label}>Welcome Back {user.name}!</Text>
           <Text style={styles.label}></Text>
@@ -74,7 +74,7 @@ module.exports  = React.createClass({
 
   renderSearch: function(){
     return (
-      <Image source={require('../../assets/darkgrass.jpg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.label}>Search for Course by City</Text>
           <TextInput
