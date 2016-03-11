@@ -123,7 +123,7 @@ module.exports  = React.createClass({
           <Text style={styles.label}>Skins </Text>
           <View style={styles.descriptionWidth}>
             <Text style={styles.description}>2 to 4 player game. Each hole is worth a skin and can only be won with a single low score on that hole. Skins not won are carried to the next hole.</Text>
-            <TouchableHighlight onPress={()=>Alert.alert('Skins','The best score on each hole wins the points for that hole as long as there is not a tie. Points roll over if there are ties for the best scores. That leaves an opportunity for the vulture, who could have 10 bad holes in a row, but pick the right moment to record a crucial birdie.',
+            <TouchableHighlight onPress={()=>Alert.alert('Skins','The best score on each hole wins the points for that hole as long as there is not a tie. Points can roll over if there are ties for the best scores. That leaves an opportunity for the vulture, who could have 10 bad holes in a row, but pick the right moment to record a crucial birdie.',
               [{text: 'OK', onPress: () => console.log('OK Pressed')}]
               )}>
               <Text style={styles.more}>more...</Text>
@@ -137,7 +137,7 @@ module.exports  = React.createClass({
           <Text style={styles.label}>Nines</Text>
           <View style={styles.descriptionWidth}>
             <Text style={styles.description}>3 player game. Each hole is worth 9 points. If one player makes birdie, for example, and two others make par, it is 5-2-2 respectively.</Text>
-            <TouchableHighlight onPress={()=>Alert.alert('Nines','Nines is an ideal game for threesomes. Basically each hole is worth nine points (points are assigned a monetary value), with points being divided according to order of finish on each hole. If one player makes birdie, for example, another makes par and the third makes bogey, it is 5-3-1 respectively. If all three players make par, however, each player gets three points. If one player makes birdie and the other two pars, then the player with the birdie is awarded five points with the other two getting two points each. (It always adds up to nine.) Conceivably, a great performance by one player or poor one for another could prove lucrative or costly, but this game usually has a way of evening out at the end.',
+            <TouchableHighlight onPress={()=>Alert.alert('Nines','Nines is an ideal game for threesomes. Basically each hole is worth nine points, with points being divided according to order of finish on each hole. If one player makes birdie, for example, another makes par and the third makes bogey, it is 5-3-1 respectively. If all three players make par, however, each player gets three points. If one player makes birdie and the other two pars, then the player with the birdie is awarded five points with the other two getting two points each. (It always adds up to nine.) Conceivably, a great performance by one player or poor one for another could prove lucrative or costly, but this game usually has a way of evening out at the end.',
               [{text: 'OK', onPress: () => console.log('OK Pressed')}]
               )}>
               <Text style={styles.more}>more...</Text>

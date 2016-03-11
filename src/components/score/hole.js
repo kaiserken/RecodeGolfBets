@@ -87,7 +87,7 @@ module.exports  = React.createClass({
 
   renderContent: function(){
     return (
-      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/grass5.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.container}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
           <Text style = {styles.title}>Hole {this.state.holeNumber}</Text>

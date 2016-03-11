@@ -161,6 +161,13 @@ module.exports  = React.createClass({
         </View>
       );
     }
+    if (game === "Nines"){
+      return(
+          <View style = {styles.container}>
+            <Text style={styles.label}>Each Hole is worth 9 points</Text>
+          </View>
+      );
+    }
   },
   renderLowScoreBet: function(){
     if (this.state.lowScore === true){
