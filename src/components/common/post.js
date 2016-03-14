@@ -1,4 +1,4 @@
-var rootUrl = 'http://10.0.1.13:3000/';
+var rootUrl = 'http://127.0.0.1:3000/';
 
 
 module.exports = function(serverRoute, content){
