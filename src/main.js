@@ -17,6 +17,7 @@ var Games = require('./components/games/games');
 var Hole  = require('./components/score/hole');
 var Setbets = require('./components/games/setbets');
 var Reload  = require('./components/reload/reload');
+var BetResults  = require('./components/score/betresults');
 
 var ROUTES  = {
   signin: Signin,
@@ -27,7 +28,8 @@ var ROUTES  = {
   setup: Setup,
   games: Games,
   hole: Hole,
-  setbets: Setbets
+  setbets: Setbets,
+  betresults:BetResults
 };
 
 module.exports = React.createClass({
@@ -65,7 +67,7 @@ renderScene: function(route, navigator){
 
 render: function(){
   console.log("state", this.state);
-
+  // need to change back to false  - for testing only
   if (this.state.currentGame === true){
     return (
       <Navigator

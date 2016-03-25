@@ -17,6 +17,28 @@ var Button = require('../common/button');
 
 module.exports  = React.createClass({
   getInitialState: function() {
+    if (this.props.route.reload === true){
+      return {
+        selectedTab: 'currenthole',
+        player1Score: this.props.route.player1Score,
+        player2Score: this.props.route.player2Score,
+        player3Score: this.props.route.player3Score,
+        player4Score:this.props.route.player4Score,
+        player1NetScore: this.props.route.player1NetScore,
+        player2NetScore: this.props.route.player2NetScore,
+        player3NetScore: this.props.route.player3NetScore,
+        player4NetScore:this.props.route.player4NetScore,
+        score1:null,
+        score2:null,
+        score3:null,
+        score4:null,
+        netScore1: null,
+        netScore2: null,
+        netScore3: null,
+        netScore4: null,
+        holeNumber: this.props.route.holeNumber,
+      };
+    }
     return {
       selectedTab: 'currenthole',
       player1Score: [],
@@ -225,6 +247,47 @@ module.exports  = React.createClass({
     }
   },
 
+  onBetResults: function(){
+    this.props.navigator.push({
+      name: 'betresults',
+      data: this.props.route.data,
+      course:this.props.route.course,
+      playerCount: this.props.route.playerCount,
+      player1Name: this.props.route.player1Name,
+      player2Name: this.props.route.player2Name,
+      player3Name: this.props.route.player3Name,
+      player4Name: this.props.route.player4Name,
+      gameSelected: this.props.route.gameSelected,
+      indexUsed: this.state.indexUsed,
+      scoreAdj1: this.state.scoreAdj1,
+      scoreAdj2: this.state.scoreAdj2,
+      scoreAdj3: this.state.scoreAdj3,
+      scoreAdj4: this.state.scoreAdj4,
+      betFrontNassau: this.state.betFrontNassau,
+      betBackNassau: this.state.betBackNassau,
+      betTotalNassau: this.state.betTotalNassau,
+      betLowScore: this.state.betLowScore,
+      betLowTotal: this.state.betLowTotal,
+      skinsBet: this.state.skinsBet,
+      auto9: this.state.auto9,
+      auto18: this.state.auto18,
+      lowScore: this.state.lowScore,
+      lowTotal: this.state.lowTotal,
+      skinsCarry: this.state.skinsCarry,
+      teamMember: this.state.teamMember,
+      teams:this.state.teams,
+      player1Score: this.state.player1Score,
+      player2Score: this.state.player2Score,
+      player3Score: this.state.player3Score,
+      player4Score:this.state.player4Score,
+      player1NetScore: this.state.player1NetScore,
+      player2NetScore: this.state.player2NetScore,
+      player3NetScore: this.state.player3NetScore,
+      player4NetScore:this.state.player4NetScore,
+      holeNumber: this.state.holeNumber-1,
+
+    });
+  },
 
 
 
@@ -236,8 +299,8 @@ module.exports  = React.createClass({
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
       <TouchableHighlight
-        onPress = {()=>this.props.navigator.pop()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Games</Text>
+        onPress = {()=>this.onBetResults()}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Bets</Text>
       </TouchableHighlight>
       <TouchableHighlight
         onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
@@ -283,10 +346,10 @@ module.exports  = React.createClass({
           {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Games"
-          selected={this.state.selectedTab === 'games'}
+          title="Bets"
+          selected={this.state.selectedTab === 'betresults'}
           onPress={() => {
-            this.props.navigator.pop();
+            this.onBetResults();
           }}>
         </TabBarIOS.Item>
       </TabBarIOS>
