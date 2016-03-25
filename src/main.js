@@ -16,10 +16,12 @@ var Setup  = require('./components/setup/setup');
 var Games = require('./components/games/games');
 var Hole  = require('./components/score/hole');
 var Setbets = require('./components/games/setbets');
+var Reload  = require('./components/reload/reload');
 
 var ROUTES  = {
   signin: Signin,
   signup: Signup,
+  reload: Reload,
   favorites: Favorites,
   profile: Profile,
   setup: Setup,
@@ -29,6 +31,9 @@ var ROUTES  = {
 };
 
 module.exports = React.createClass({
+
+
+
 
 componentDidMount: function(){
   this._loadInitialState().done();
@@ -61,7 +66,7 @@ renderScene: function(route, navigator){
 render: function(){
   console.log("state", this.state);
 
-  if (this.state.currentGame === false){
+  if (this.state.currentGame === true){
     return (
       <Navigator
       style  = {styles.container}
@@ -70,11 +75,11 @@ render: function(){
       configureScene = {()=>{return Navigator.SceneConfigs.FloatFromRight;}}
       />
     );
-  } else if (this.state.currentGame === true){
+  } else if (this.state.currentGame === false){
     return (
       <Navigator
       style  = {styles.container}
-      initialRoute = {{ name: 'signin' }}
+      initialRoute = {{ name: 'reload' }}
       renderScene = {this.renderScene}
       configureScene = {()=>{return Navigator.SceneConfigs.FloatFromRight;}}
       />

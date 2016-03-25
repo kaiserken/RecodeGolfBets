@@ -18,6 +18,7 @@ var Button = require('../common/button');
 var PlayerIndex = require('./playerindex');
 var Strokes  = require('../common/strokes');
 var Random  = require('../common/random');
+var ScoreAdjust = require('../common/scoreadjust');
 
 module.exports  = React.createClass({
   getInitialState: function() {
@@ -28,6 +29,10 @@ module.exports  = React.createClass({
       player2Hcp: null,
       player3Hcp: null,
       player4Hcp: null,
+      scoreAdj1: [],
+      scoreAdj2: [],
+      scoreAdj3: [],
+      scoreAdj4: [],
       betFrontNassau: null,
       betBackNassau: null,
       betTotalNassau: null,
@@ -363,6 +368,45 @@ module.exports  = React.createClass({
         </View>
     </Image>
     );
+  },
+
+  onSubmit: function(){
+    if (this.state.indexUsed === true){
+      this.setState({
+        scoreAdj1: ScoreAdjust(Math.round(parseFloat(this.state.player1Hcp)), this.props.route.course.coursehcp),
+        scoreAdj2: ScoreAdjust(Math.round(parseFloat(this.state.player2Hcp)), this.props.route.course.coursehcp),
+        scoreAdj3: ScoreAdjust(Math.round(parseFloat(this.state.player3Hcp)), this.props.route.course.coursehcp),
+        scoreAdj4: ScoreAdjust(Math.round(parseFloat(this.state.player4Hcp)), this.props.route.course.coursehcp),
+      });
+    }
+    this.props.navigator.push({
+      name: "hole",
+      data: this.props.route.data,
+      course:this.props.route.course,
+      playerCount: this.props.route.playerCount,
+      player1Name: this.props.route.player1Name,
+      player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name,
+      player4Name: this.props.route.player4Name,
+      gameSelected: this.props.route.gameSelected,
+      indexUsed: this.state.indexUsed,
+      scoreAdj1: this.state.scoreAdj1,
+      scoreAdj2: this.state.scoreAdj2,
+      scoreAdj3: this.state.scoreAdj3,
+      scoreAdj4: this.state.scoreAdj4,
+      betFrontNassau: this.state.betFrontNassau,
+      betBackNassau: this.state.betBackNassau,
+      betTotalNassau: this.state.betTotalNassau,
+      betLowScore: this.state.betLowScore,
+      betLowTotal: this.state.betLowTotal,
+      skinsBet: this.state.skinsBet,
+      auto9: this.state.auto9,
+      auto18: this.state.auto18,
+      lowScore: this.state.lowScore,
+      lowTotal: this.state.lowTotal,
+      skinsCarry: this.state.skinsCarry,
+      teamMember: this.state.teamMember,
+      teams:this.state.teams
+    });
   },
 
   render: function(){

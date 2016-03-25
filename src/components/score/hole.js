@@ -23,6 +23,10 @@ module.exports  = React.createClass({
       player2Score: [],
       player3Score: [],
       player4Score:[],
+      player1NetScore: [],
+      player2NetScore: [],
+      player3NetScore: [],
+      player4NetScore:[],
       score1:null,
       score2:null,
       score3:null,
@@ -52,10 +56,10 @@ module.exports  = React.createClass({
     }
     else {
       this.setState({
-        score1: this.state.player1Score[this.state.holeNumber-1], netScore1:this.state.player1Score[this.state.holeNumber-1]-this.props.route.scoreAdj1[this.state.holeNumber-1],
-        score2: this.state.player2Score[this.state.holeNumber-1], netScore2:this.state.player2Score[this.state.holeNumber-1]-this.props.route.scoreAdj2[this.state.holeNumber-1],
-        score3: this.state.player3Score[this.state.holeNumber-1], netScore3:this.state.player3Score[this.state.holeNumber-1]-this.props.route.scoreAdj3[this.state.holeNumber-1],
-        score4: this.state.player4Score[this.state.holeNumber-1], netScore4:this.state.player4Score[this.state.holeNumber-1]-this.props.route.scoreAdj4[this.state.holeNumber-1],
+        score1: this.state.player1Score[this.state.holeNumber-1], netScore1:this.state.player1NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj1[this.state.holeNumber-1],
+        score2: this.state.player2Score[this.state.holeNumber-1], netScore2:this.state.player2NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj2[this.state.holeNumber-1],
+        score3: this.state.player3Score[this.state.holeNumber-1], netScore3:this.state.player3NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj3[this.state.holeNumber-1],
+        score4: this.state.player4Score[this.state.holeNumber-1], netScore4:this.state.player4NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj4[this.state.holeNumber-1],
       });
     }
   },
@@ -63,21 +67,31 @@ module.exports  = React.createClass({
   onSubmitScores: function(){
     var updatedScore1 = this.state.player1Score;
     updatedScore1[this.state.holeNumber-1]= this.state.score1;
-    this.setState({player1Score: updatedScore1});
+    var updatedNetScore1 = this.state.player1NetScore;
+    updatedNetScore1[this.state.holeNumber-1]= this.state.netScore1;
+    this.setState({player1Score: updatedScore1, player1NetScore: updatedNetScore1});
+
+
     if (this.props.route.playerCount >= 2){
       var updatedScore2 = this.state.player2Score;
       updatedScore2[this.state.holeNumber-1]= this.state.score2;
-      this.setState({player2Score: updatedScore2});
+      var updatedNetScore2 = this.state.player2NetScore;
+      updatedNetScore2[this.state.holeNumber-1]= this.state.netScore2;
+      this.setState({player2Score: updatedScore2, player2NetScore: updatedNetScore2});
     }
     if (this.props.route.playerCount >= 3){
       var updatedScore3 = this.state.player3Score;
       updatedScore3[this.state.holeNumber-1]= this.state.score3;
-      this.setState({player3Score: updatedScore3});
+      var updatedNetScore3 = this.state.player3NetScore;
+      updatedNetScore3[this.state.holeNumber-1]= this.state.netScore3;
+      this.setState({player3Score: updatedScore3, player3NetScore: updatedNetScore3});
     }
     if (this.props.route.playerCount >= 4){
       var updatedScore4 = this.state.player4Score;
       updatedScore4[this.state.holeNumber-1]= this.state.score4;
-      this.setState({player4Score: updatedScore4});
+      var updatedNetScore4 = this.state.player4NetScore;
+      updatedNetScore4[this.state.holeNumber-1]= this.state.netScore4;
+      this.setState({player4Score: updatedScore4, player4NetScore: updatedNetScore4});
     }
     this.setState({holeNumber: ++this.state.holeNumber});
     this.setHole();
@@ -87,12 +101,17 @@ module.exports  = React.createClass({
 
   renderContent: function(){
     return (
-      <Image source={require('../../assets/grass5.jpeg')} style={styles.backgroundImage}>
-        <View style = {styles.container}>
+      <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
+        <View style = {styles.titlecontainer}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
-          <Text style = {styles.title}>Hole {this.state.holeNumber}</Text>
-          <Text style = {styles.title}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
+          <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
+          <View style = {styles.rowheader}>
+            <Text style = {styles.title2}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
+            <Text style = {styles.title2}>Hdcp {this.props.route.course.coursehcp[this.state.holeNumber-1]}</Text>
+          </View>
+          <Text style = {styles.title3}>Adjust Gross Score with + & - Net Score will update</Text>
         </View>
+        <View style  = {{flex:.1}}></View>
         <View style  = {{flex:1}}>
           <View style = {styles.row}>
             <Text style = {styles.name}>{this.props.route.data.name}</Text>
@@ -111,6 +130,7 @@ module.exports  = React.createClass({
           {this.renderPlayer3()}
           {this.renderPlayer4()}
         </View>
+        <View style  = {{flex:.25}}></View>
         <View style = {styles.container}>
           <Button text={'Submit Scores'} onPress={this.onSubmitScores}/>
         </View>
@@ -281,21 +301,42 @@ var styles = StyleSheet.create({
 
   title: {
     color: 'white',
-    fontSize: 20
+    fontSize: 22,
+  },
+  title1: {
+    color: 'white',
+    fontSize: 20,
+  },
+  title2: {
+    color: 'white',
+    fontSize: 17,
+    marginLeft:5,
+    marginRight:5,
+  },
+  title3: {
+    color:'greenyellow',
+    fontSize: 10,
+    marginLeft:5,
+    marginRight:5,
   },
   name: {
-    fontSize: 18,
+    fontSize: 20,
     color: 'white',
-    width: 75
+    width: 75,
   },
   label: {
-    fontSize: 18,
+    fontSize: 20,
     color: 'white',
   },
   plusMinus: {
-    color: 'white',
     fontWeight: "800",
-    fontSize: 40,
+    fontSize: 45,
+    color:'greenyellow',
+  },
+  titlecontainer: {
+    flex: .75,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   container: {
     flex: .5,
@@ -303,13 +344,17 @@ var styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 
+  rowheader:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
   row:{
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderBottomWidth: 1
+
   },
   backgroundImage: {
     marginTop:(Platform.OS === 'ios') ? 20 : 0,
