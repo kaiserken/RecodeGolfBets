@@ -119,7 +119,6 @@ var React  = require('react-native');
        ]
        );if (value !== null){
          this.setState({x: value});
-        this._appendMessage('Recovered selection from disk: ' + value);
       }
      } catch (error) {
        console.log("AsyncStorage Error " + error);

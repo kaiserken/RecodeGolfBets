@@ -24,12 +24,11 @@ module.exports  = React.createClass({
       matchPlaySwitch: false,
       skinsSwitch: false,
       ninesSwitch: false,
-      indexUsed: false
     };
   },
 
   onRouteChange: function(route, game){
-    this.props.navigator.push({name: route, data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player1Name: this.props.route.player1Name, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: game, indexUsed: this.state.indexUsed});
+    this.props.navigator.push({name: route, data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player1Name: this.props.route.player1Name, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: game});
   },
 
   onSubmit: function(){

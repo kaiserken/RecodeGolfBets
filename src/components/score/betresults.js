@@ -12,35 +12,150 @@ var {
   Alert,
   Image
 } = React;
-
+var Nines  = require('../common/nines');
 var Button = require('../common/button');
 
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
       selectedTab: 'betresults',
+      viewTotals: false
     };
   },
+  holesFront: function(){
+    var holesfront = [1,2,3,4,5,6,7,8,9].map(function(element, index){
+      return (
+        <Text key = {index} style = {styles.title3}>{element}</Text>
+      );
+    });
+    return (holesfront);
+
+  },
+  holesBack: function(){
+    var holesback = [10,11,12,13,14,15,16,17,18].map(function(element, index){
+      return (
+        <Text key = {index} style = {styles.title3}>{element}</Text>
+      );
+    });
+    return (holesback);
+
+  },
+  betResults: function(resultsArray){
+    if (resultsArray.length<9){
+      while(resultsArray.length<9){
+        resultsArray.push('');
+      }
+    }
+    var playerResults = resultsArray.map(function(element, index){
+      return (
+        <Text key = {index} style = {styles.title4}>{element}</Text>
+      );
+    });
+    return (playerResults);
+  },
   renderNines: function(){
-    return (
-      <View style = {styles.row}>
-        <Text style = {styles.name}>{this.props.route.player2Name}</Text>
-        <Text style = {styles.name}>{this.props.route.player2Name}</Text>
-      </View>
-    );
+    var results;
+    if (this.props.route.indexUsed === true){
+      results  = Nines(this.props.route.player1NetScore, this.props.route.player2NetScore, this.props.route.player3NetScore);
+    } else {
+      results  = Nines(this.props.route.player1Score, this.props.route.player2Score, this.props.route.player3Score);
+    }
+    if (this.state.viewTotals === true){
+      return (
+        this.renderTotals(results)
+      );
+    } else{
+      var self = this;
+      var front = results.map(function(element, index){
+        return(
+          <View key = {index} style = {styles.row}>
+            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+            {self.betResults(element.slice(0,9))}
+          </View>
+        );
+      });
+      var back = results.map(function(element, index){
+        return(
+          <View key = {index} style = {styles.row}>
+            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+            {self.betResults(element.slice(9))}
+          </View>
+        );
+      });
+      return (
+        <View style = {{flex:1}}>
+          <Text style = {styles.title6}>Front Nine</Text>
+          <View style = {styles.row}>
+            <Text style = {styles.title2}>Hole #</Text>
+            {this.holesFront()}
+          </View>
+          {front}
+          <View style = {{flex:1}}/>
+          <Text style = {styles.title6}>Back Nine</Text>
+          <View style = {styles.row}>
+            <Text style = {styles.title2}>Hole #</Text>
+            {this.holesBack()}
+          </View>
+          {back}
+          <View style = {{flex:1}}/>
+          <TouchableHighlight
+            onPress={()=>this.setState({viewTotals: true})}>
+            <Text style={styles.title7}>See Totals</Text>
+          </TouchableHighlight>
+          <View style = {{flex:5}}/>
+        </View>
+
+      );
+    }
+  },
+  renderTotals: function(resultsArray){
+      var self = this;
+      var totals  = resultsArray.map(function(element){
+        return (
+          element.reduce(function(sum, points){
+          return sum + points;
+          },0)
+        );
+      });
+      console.log('totals', totals);
+      var results = totals.map(function(element, index){
+        return(
+          <View key = {index} style = {styles.row2}>
+            <Text style = {styles.title8}>{self.props.route[`player${index+1}Name`]}</Text>
+            <Text style = {styles.title2}></Text>
+            <Text style = {styles.title9}>{element}</Text>
+          </View>
+        );
+      });
+      console.log('results',results);
+      return (
+        <View style = {{flex:1}}>
+          {results}
+          <View style = {{flex:1}}/>
+          <TouchableHighlight
+            onPress={()=>this.setState({viewTotals: false})}>
+            <Text style={styles.title7}>Results by Hole</Text>
+          </TouchableHighlight>
+          <View style = {{flex:1}}/>
+        </View>
+      );
   },
 
-
   renderContent: function(){
+
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.titlecontainer}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
+        </View>
+        <View style  = {{flex:.10}}></View>
+        <View style  = {{flex:.75, justifyContent:"center", opacity:0.8}}>
           <Text style = {styles.title1}>Bet Results through Hole {this.props.route.holeNumber}</Text>
         </View>
-        <View style  = {{flex:1}}>
+        <View style  = {{flex:3}}>
         {this[`render${this.props.route.gameSelected}`]()}
         </View>
+        <View style  = {{flex:1}}></View>
       </Image>
     );
   },
@@ -110,22 +225,72 @@ var styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 22,
+    alignSelf: 'center'
   },
   title1: {
     color: 'white',
     fontSize: 15,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: "darkolivegreen",
+    borderRadius: 5,
+    padding: 10,
+    borderColor: 'darkgreen',
+    fontWeight: "500",
   },
+
   title2: {
-    color: 'white',
-    fontSize: 17,
-    marginLeft:5,
-    marginRight:5,
+    color:'yellowgreen',
+    fontSize: 14,
+    width:60,
+
   },
   title3: {
     color:'greenyellow',
-    fontSize: 10,
-    marginLeft:5,
-    marginRight:5,
+    fontSize: 14,
+    width:20,
+    textAlign: 'center',
+
+  },
+  title4: {
+    color:'white',
+    fontWeight: "500",
+    fontSize: 14,
+    width:20,
+    textAlign: 'center',
+    backgroundColor: "darkolivegreen"
+  },
+  title5: {
+    color:'white',
+    fontSize: 14,
+    width:60,
+  },
+  title6: {
+    color: 'white',
+    fontSize: 15,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  title7: {
+    color:'white',
+    fontSize: 17,
+    textAlign: 'center',
+    alignSelf: "center",
+    justifyContent:"center",
+    backgroundColor: "darkolivegreen",
+    borderRadius: 5,
+    padding: 5,
+    fontWeight: "500",
+    width: 150,
+  },
+  title8: {
+    color:'white',
+    fontSize: 18,
+    width:90,
+  },
+  title9: {
+    color:'white',
+    fontSize: 18,
   },
   name: {
     fontSize: 20,
@@ -142,7 +307,9 @@ var styles = StyleSheet.create({
     color:'greenyellow',
   },
   titlecontainer: {
-    flex: .75,
+    backgroundColor: "black",
+    opacity: 0.7,
+    flex: .6,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
@@ -162,7 +329,12 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-
+  },
+  row2:{
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   backgroundImage: {
     marginTop:(Platform.OS === 'ios') ? 20 : 0,

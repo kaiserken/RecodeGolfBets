@@ -44,5 +44,5 @@ module.exports  = function (arr1, arr2, arr3){
       result1.push(1); result2.push(3); result3.push(5); continue;
     }
   }
-  console.log("result1", result1, "result2", result2, "result3" , result3);
-}
+  return [result1, result2, result3];
+};
