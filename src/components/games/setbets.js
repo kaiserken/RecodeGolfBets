@@ -58,7 +58,7 @@ module.exports  = React.createClass({
     }
   },
   componentDidMount: function(){
-    if (this.props.route.gameSelected === "Carts / Round Robin"){
+    if (this.props.route.gameSelected === "RoundRobin"){
       this.setState({teams: Random()});
     }
   },
@@ -124,7 +124,7 @@ module.exports  = React.createClass({
         </View>
       );
     }
-    if (game === "Carts / Round Robin"){
+    if (game === "RoundRobin"){
       return(
         <View>
           <View style = {styles.row}>
@@ -209,7 +209,7 @@ module.exports  = React.createClass({
   renderTeams: function(){
     var rrTeams  = Random();
     var game = this.props.route.gameSelected;
-    if (game === "Carts / Round Robin"){
+    if (game === "RoundRobin"){
       return (
       <View style = {{flex:1}}>
         <View style = {styles.row}>
@@ -394,12 +394,12 @@ module.exports  = React.createClass({
       scoreAdj2: this.state.scoreAdj2,
       scoreAdj3: this.state.scoreAdj3,
       scoreAdj4: this.state.scoreAdj4,
-      betFrontNassau: this.state.betFrontNassau,
-      betBackNassau: this.state.betBackNassau,
-      betTotalNassau: this.state.betTotalNassau,
-      betLowScore: this.state.betLowScore,
-      betLowTotal: this.state.betLowTotal,
-      skinsBet: this.state.skinsBet,
+      betFrontNassau: parseInt(this.state.betFrontNassau),
+      betBackNassau: parseInt(this.state.betBackNassau),
+      betTotalNassau: parseInt(this.state.betTotalNassau),
+      betLowScore: parseInt(this.state.betLowScore),
+      betLowTotal: parseInt(this.state.betLowTotal),
+      skinsBet: parseInt(this.state.skinsBet),
       auto9: this.state.auto9,
       auto18: this.state.auto18,
       lowScore: this.state.lowScore,

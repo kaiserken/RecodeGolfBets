@@ -24,7 +24,7 @@ var styles  = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "black",
+    backgroundColor: "darkolivegreen",
     borderWidth: 1,
     borderRadius: 5,
     padding: 5,

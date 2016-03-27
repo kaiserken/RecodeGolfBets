@@ -12,7 +12,8 @@ var {
   Alert,
   Image
 } = React;
-var Nines  = require('../common/nines');
+var Nines  = require('../betcalcs/nines');
+var RoundRobin  = require('../betcalcs/roundrobin');
 var Button = require('../common/button');
 
 module.exports  = React.createClass({
@@ -53,6 +54,64 @@ module.exports  = React.createClass({
     });
     return (playerResults);
   },
+  renderRoundRobin: function(){
+    var lowS = this.props.route.betLowScore || 0;
+    var lowT = this.props.route.betLowTotal || 0;
+    var results;
+    if (this.props.route.indexUsed === true){
+      results  = RoundRobin([this.props.route.player1NetScore, this.props.route.player2NetScore, this.props.route.player3NetScore, this.props.route.player4NetScore], this.props.route.teams, lowS, lowT);
+    } else {
+      results  = RoundRobin([this.props.route.player1Score, this.props.route.player2Score, this.props.route.player3Score, this.props.route.player4Score], this.props.route.teams, lowS, lowT);
+    }
+    if (this.state.viewTotals === true){
+      return (
+        this.renderTotals(results)
+      );
+    } else{
+      var self = this;
+      var front = results.map(function(element, index){
+        return(
+          <View key = {index} style = {styles.row}>
+            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+            {self.betResults(element.slice(0,9))}
+          </View>
+        );
+      });
+      var back = results.map(function(element, index){
+        return(
+          <View key = {index} style = {styles.row}>
+            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+            {self.betResults(element.slice(9))}
+          </View>
+        );
+      });
+      return (
+        <View style = {{flex:3}}>
+          <Text style = {styles.title6}>Front Nine</Text>
+          <View style = {styles.row}>
+            <Text style = {styles.title2}>Hole #</Text>
+            {this.holesFront()}
+          </View>
+          {front}
+          <View style = {{flex:1}}/>
+          <Text style = {styles.title6}>Back Nine</Text>
+          <View style = {styles.row}>
+            <Text style = {styles.title2}>Hole #</Text>
+            {this.holesBack()}
+          </View>
+          {back}
+          <View style = {{flex:1}}/>
+          <TouchableHighlight
+            onPress={()=>this.setState({viewTotals: true})}>
+            <Text style={styles.title7}>See Totals</Text>
+          </TouchableHighlight>
+          <View style = {{flex:4}}/>
+        </View>
+
+      );
+    }
+  },
+
   renderNines: function(){
     var results;
     if (this.props.route.indexUsed === true){
@@ -83,7 +142,7 @@ module.exports  = React.createClass({
         );
       });
       return (
-        <View style = {{flex:1}}>
+        <View style = {{flex:3}}>
           <Text style = {styles.title6}>Front Nine</Text>
           <View style = {styles.row}>
             <Text style = {styles.title2}>Hole #</Text>
@@ -102,7 +161,7 @@ module.exports  = React.createClass({
             onPress={()=>this.setState({viewTotals: true})}>
             <Text style={styles.title7}>See Totals</Text>
           </TouchableHighlight>
-          <View style = {{flex:5}}/>
+          <View style = {{flex:4}}/>
         </View>
 
       );
@@ -254,20 +313,27 @@ var styles = StyleSheet.create({
   },
   title4: {
     color:'white',
-    fontWeight: "500",
+    fontWeight: "400",
     fontSize: 14,
     width:20,
+    height:16,
     textAlign: 'center',
-    backgroundColor: "darkolivegreen"
+    alignSelf: 'center',
+    backgroundColor: "darkolivegreen",
+    marginTop: 1,
+    marginBottom: 1,
   },
   title5: {
     color:'white',
     fontSize: 14,
     width:60,
+    height:16,
+    marginTop: 1,
+    marginBottom: 1,
   },
   title6: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 14,
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -282,15 +348,17 @@ var styles = StyleSheet.create({
     padding: 5,
     fontWeight: "500",
     width: 150,
+    borderColor: 'white',
+    borderWidth: 1
   },
   title8: {
     color:'white',
-    fontSize: 18,
+    fontSize: 17,
     width:90,
   },
   title9: {
     color:'white',
-    fontSize: 18,
+    fontSize: 17,
   },
   name: {
     fontSize: 20,

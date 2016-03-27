@@ -285,7 +285,6 @@ module.exports  = React.createClass({
       player3NetScore: this.state.player3NetScore,
       player4NetScore:this.state.player4NetScore,
       holeNumber: this.state.holeNumber-1,
-
     });
   },
 
