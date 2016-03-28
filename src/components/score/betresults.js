@@ -14,15 +14,17 @@ var {
 } = React;
 var Nines  = require('../betcalcs/nines');
 var RoundRobin  = require('../betcalcs/roundrobin');
+var Skins  = require('../betcalcs/skins');
 var Button = require('../common/button');
 
-module.exports  = React.createClass({
+module.exports = React.createClass({
   getInitialState: function() {
     return {
       selectedTab: 'betresults',
       viewTotals: false
     };
   },
+
   holesFront: function(){
     var holesfront = [1,2,3,4,5,6,7,8,9].map(function(element, index){
       return (
@@ -32,6 +34,7 @@ module.exports  = React.createClass({
     return (holesfront);
 
   },
+
   holesBack: function(){
     var holesback = [10,11,12,13,14,15,16,17,18].map(function(element, index){
       return (
@@ -39,8 +42,8 @@ module.exports  = React.createClass({
       );
     });
     return (holesback);
-
   },
+
   betResults: function(resultsArray){
     if (resultsArray.length<9){
       while(resultsArray.length<9){
@@ -54,6 +57,24 @@ module.exports  = React.createClass({
     });
     return (playerResults);
   },
+
+  renderSkins: function(){
+    var results;
+    var arr = [];
+    if (this.props.route.indexUsed === true){
+      for (var i = 1; i<=this.props.route.playerCount; i++){
+        arr.push(this.props.route[`player${i}NetScore`]);
+      }
+      results  = Skins(arr, this.props.route.skinsBet, this.props.route.skinsCarry);
+    } else {
+      for (var i = 1; i<=this.props.route.playerCount; i++){
+        arr.push(this.props.route[`player${i}Score`]);
+      }
+      results  = Skins(arr, this.props.route.skinsBet, this.props.route.skinsCarry);
+    }
+    return this.renderResults(results);
+  },
+
   renderRoundRobin: function(){
     var lowS = this.props.route.betLowScore || 0;
     var lowT = this.props.route.betLowTotal || 0;
@@ -63,53 +84,7 @@ module.exports  = React.createClass({
     } else {
       results  = RoundRobin([this.props.route.player1Score, this.props.route.player2Score, this.props.route.player3Score, this.props.route.player4Score], this.props.route.teams, lowS, lowT);
     }
-    if (this.state.viewTotals === true){
-      return (
-        this.renderTotals(results)
-      );
-    } else{
-      var self = this;
-      var front = results.map(function(element, index){
-        return(
-          <View key = {index} style = {styles.row}>
-            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
-            {self.betResults(element.slice(0,9))}
-          </View>
-        );
-      });
-      var back = results.map(function(element, index){
-        return(
-          <View key = {index} style = {styles.row}>
-            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
-            {self.betResults(element.slice(9))}
-          </View>
-        );
-      });
-      return (
-        <View style = {{flex:3}}>
-          <Text style = {styles.title6}>Front Nine</Text>
-          <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
-            {this.holesFront()}
-          </View>
-          {front}
-          <View style = {{flex:1}}/>
-          <Text style = {styles.title6}>Back Nine</Text>
-          <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
-            {this.holesBack()}
-          </View>
-          {back}
-          <View style = {{flex:1}}/>
-          <TouchableHighlight
-            onPress={()=>this.setState({viewTotals: true})}>
-            <Text style={styles.title7}>See Totals</Text>
-          </TouchableHighlight>
-          <View style = {{flex:4}}/>
-        </View>
-
-      );
-    }
+    return this.renderResults(results);
   },
 
   renderNines: function(){
@@ -119,10 +94,12 @@ module.exports  = React.createClass({
     } else {
       results  = Nines(this.props.route.player1Score, this.props.route.player2Score, this.props.route.player3Score);
     }
+    return this.renderResults(results);
+  },
+
+  renderResults: function(results){
     if (this.state.viewTotals === true){
-      return (
-        this.renderTotals(results)
-      );
+      return this.renderTotals(results);
     } else{
       var self = this;
       var front = results.map(function(element, index){
@@ -163,10 +140,10 @@ module.exports  = React.createClass({
           </TouchableHighlight>
           <View style = {{flex:4}}/>
         </View>
-
       );
     }
   },
+
   renderTotals: function(resultsArray){
       var self = this;
       var totals  = resultsArray.map(function(element){
@@ -201,7 +178,6 @@ module.exports  = React.createClass({
   },
 
   renderContent: function(){
-
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.titlecontainer}>
@@ -218,10 +194,6 @@ module.exports  = React.createClass({
       </Image>
     );
   },
-
-
-
-
 
   render: function(){
     console.log('hole state', this.state);
