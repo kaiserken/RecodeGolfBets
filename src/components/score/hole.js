@@ -126,11 +126,19 @@ module.exports  = React.createClass({
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
         <View style = {styles.titlecontainer}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
-          <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
-          <View style = {styles.rowheader}>
-            <Text style = {styles.title2}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
-            <Text style = {styles.title2}>Hdcp {this.props.route.course.coursehcp[this.state.holeNumber-1]}</Text>
+        </View>
+        <View style  = {{flex:.1}}></View>
+        <View>
+          <View style = {styles.titlecontainer2}>
+            <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
+            <View style = {styles.rowheader}>
+              <Text style = {styles.title2}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
+              <Text style = {styles.title2}>Hdcp {this.props.route.course.coursehcp[this.state.holeNumber-1]}</Text>
+            </View>
           </View>
+        </View>
+        <View style  = {{flex:.1}}></View>
+        <View>
           <Text style = {styles.title3}>Adjust Gross Score with + & - Net Score will update</Text>
         </View>
         <View style  = {{flex:.1}}></View>
@@ -152,11 +160,11 @@ module.exports  = React.createClass({
           {this.renderPlayer3()}
           {this.renderPlayer4()}
         </View>
-        <View style  = {{flex:.25}}></View>
+
         <View style = {styles.container}>
           <Button text={'Submit Scores'} onPress={this.onSubmitScores}/>
         </View>
-
+        <View style  = {{flex:.75}}></View>
       </Image>
     );
   },
@@ -377,9 +385,10 @@ var styles = StyleSheet.create({
   },
   title3: {
     color:'greenyellow',
-    fontSize: 10,
+    fontSize: 11,
     marginLeft:5,
     marginRight:5,
+    alignSelf: 'center'
   },
   name: {
     fontSize: 20,
@@ -392,18 +401,39 @@ var styles = StyleSheet.create({
   },
   plusMinus: {
     fontWeight: "800",
-    fontSize: 45,
+    fontSize: 30,
     color:'greenyellow',
+    borderRadius: 20,
+    backgroundColor: "darkolivegreen",
+  	width: 40,
+  	height: 40,
+    borderColor: 'white',
+    alignSelf:'center',
+    textAlign: 'center',
+    justifyContent:'center'
   },
   titlecontainer: {
-    flex: .75,
+    backgroundColor: "black",
+    opacity: 0.7,
+    flex: .3,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  container: {
-    flex: .5,
+  titlecontainer2: {
+    backgroundColor: "darkolivegreen",
+    opacity: 0.8,
+    flex: .3,
+    alignSelf:'center',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    borderRadius: 5,
+    padding: 5,
+    width:300,
+  },
+  container: {
+    flex: .25,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   rowheader:{
