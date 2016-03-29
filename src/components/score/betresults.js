@@ -12,9 +12,11 @@ var {
   Alert,
   Image
 } = React;
+
 var Nines  = require('../betcalcs/nines');
 var RoundRobin  = require('../betcalcs/roundrobin');
 var Skins  = require('../betcalcs/skins');
+var MatchPlay = require('../betcalcs/matchplay');
 var Button = require('../common/button');
 
 module.exports = React.createClass({
@@ -58,6 +60,23 @@ module.exports = React.createClass({
     return (playerResults);
   },
 
+  renderMatchPlay: function(){
+    var results;
+    var arr = [];
+    if (this.props.route.indexUsed === true){
+      for (var i = 1; i<=this.props.route.playerCount; i++){
+        arr.push(this.props.route[`player${i}NetScore`]);
+      }
+      results  = MatchPlay(arr, this.props.route.teams);
+    } else {
+      for (var i = 1; i<=this.props.route.playerCount; i++){
+        arr.push(this.props.route[`player${i}Score`]);
+      }
+      results  = MatchPlay(arr, this.props.route.teams);
+    }
+    return this.renderResults(results);
+  },
+
   renderSkins: function(){
     var results;
     var arr = [];
@@ -98,6 +117,9 @@ module.exports = React.createClass({
   },
 
   renderResults: function(results){
+    if (this.props.route.gameSelected === "MatchPlay"){
+      return this.renderMatchPlayResults(results);
+    }
     if (this.state.viewTotals === true){
       return this.renderTotals(results);
     } else{
@@ -144,6 +166,56 @@ module.exports = React.createClass({
     }
   },
 
+  renderMatchPlayResults: function(results){
+    var name1;
+    var name2;
+    if (this.props.route.playerCount===2){
+      name1 = this.props.route.player1Name;
+      name2 = this.props.route.player2Name;
+    }
+    if (this.props.route.playerCount===4){
+      name1 = this.props.route[`player${this.props.route.teams[0]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[1]}Name`].slice(0,1);
+      name2 = this.props.route[`player${this.props.route.teams[2]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[3]}Name`].slice(0,1);
+    }
+    var self = this;
+    var front = results.map(function(element, index){
+      return(
+        <View key = {index}style = {styles.row}>
+          <Text style = {styles.title5}>{name1}</Text>
+          {self.betResults(element.slice(0,9))}
+        </View>
+      );
+    });
+    var back = results.map(function(element, index){
+      return(
+        <View key = {index} style = {styles.row}>
+          <Text style = {styles.title5}>{name1}</Text>
+          {self.betResults(element.slice(9))}
+        </View>
+      );
+    });
+    return (
+      <View style = {{flex:3}}>
+        <Text style = {styles.title1}>{this.props.route[`player${this.props.route.teams[0]}Name`]} & {this.props.route[`player${this.props.route.teams[1]}Name`]} vs. {this.props.route[`player${this.props.route.teams[2]}Name`]} & {this.props.route[`player${this.props.route.teams[3]}Name`]}</Text>
+        <Text style = {styles.title6}></Text>
+        <Text style = {styles.title6}>Front Nine</Text>
+        <View style = {styles.row}>
+          <Text style = {styles.title2}>Hole #</Text>
+          {this.holesFront()}
+        </View>
+        {front}
+        <View style = {{flex:1}}/>
+        <Text style = {styles.title6}>Back Nine</Text>
+        <View style = {styles.row}>
+          <Text style = {styles.title2}>Hole #</Text>
+          {this.holesBack()}
+        </View>
+        {back}
+        <View style = {{flex:5}}/>
+      </View>
+    );
+  },
+
   renderTotals: function(resultsArray){
       var self = this;
       var totals  = resultsArray.map(function(element){
@@ -184,8 +256,8 @@ module.exports = React.createClass({
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
         </View>
         <View style  = {{flex:.10}}></View>
-        <View style  = {{flex:.75, justifyContent:"center", opacity:0.8}}>
-          <Text style = {styles.title1}>Bet Results through Hole {this.props.route.holeNumber}</Text>
+        <View style  = {{flex:.75, justifyContent:"center"}}>
+          <Text style = {styles.title1}>Results for {this.props.route.gameSelected} through Hole {this.props.route.holeNumber}</Text>
         </View>
         <View style  = {{flex:3}}>
         {this[`render${this.props.route.gameSelected}`]()}
@@ -268,6 +340,7 @@ var styles = StyleSheet.create({
     padding: 10,
     borderColor: 'darkgreen',
     fontWeight: "500",
+    opacity: 0.8
   },
 
   title2: {
@@ -331,6 +404,15 @@ var styles = StyleSheet.create({
   title9: {
     color:'white',
     fontSize: 17,
+  },
+  title10: {
+    color:'white',
+    fontSize: 14,
+    width:90,
+    height:16,
+    marginTop: 1,
+    marginBottom: 1,
+    marginLeft:1
   },
   name: {
     fontSize: 20,

@@ -14,6 +14,7 @@ module.exports = React.createClass({
         <Text style  = {styles.name}>{this.props.text}</Text>
         <TextInput
           style  = {styles.input}
+          keyboardType = 'numbers-and-punctuation'
           placeholder = "HCP"
           value  = {this.props.value}
           onChangeText = {this.props.onChangeText}

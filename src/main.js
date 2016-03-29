@@ -68,7 +68,7 @@ renderScene: function(route, navigator){
 render: function(){
   console.log("state", this.state);
   // need to change back to false  - for testing only
-  if (this.state.currentGame === false){
+  if (this.state.currentGame === true){
     return (
       <Navigator
       style  = {styles.container}

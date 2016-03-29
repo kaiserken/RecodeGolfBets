@@ -51,7 +51,7 @@ var React  = require('react-native');
          ["player2Name", "Tommy"],
          ["player3Name", "Richard"],
          ["player4Name", "Ed"],
-         ["gameSelected", "RoundRobin"],
+         ["gameSelected", "MatchPlay"],
          ["indexUsed", JSON.stringify(true)],
          ["scoreAdj1", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
          ["scoreAdj2", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],

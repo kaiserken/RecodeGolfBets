@@ -244,7 +244,7 @@ module.exports  = React.createClass({
       </View>
     );
     }
-    if (this.props.route.playerCount === 4 && this.state.teamMember === null && (game === 'Nassau' || game === "Match Play")){
+    if (this.props.route.playerCount === 4 && this.state.teamMember === null && (game === 'Nassau' || game === "MatchPlay")){
       return (
       <View style = {{flex:1}}>
         <View style  = {styles.container}>
@@ -267,7 +267,7 @@ module.exports  = React.createClass({
       </View>
     );
     }
-    if (this.props.route.playerCount === 4 && (game === 'Nassau' || game === "Match Play")){
+    if (this.props.route.playerCount === 4 && (game === 'Nassau' || game === "MatchPlay")){
       return (
       <View style = {{flex:1}}>
         <View style  = {styles.container}>
@@ -283,7 +283,7 @@ module.exports  = React.createClass({
       </View>
     );
     }
-    if (this.props.route.playerCount === 2 && (game === 'Nassau' || game === "Match Play")){
+    if (this.props.route.playerCount === 2 && (game === 'Nassau' || game === "MatchPlay")){
       return (
       <View style = {{flex:1}}>
         <View style  = {styles.container}>
@@ -298,7 +298,7 @@ module.exports  = React.createClass({
   renderStrokes: function(){
     var game = this.props.route.gameSelected;
     var strokes;
-    if ((this.state.indexUsed === true && this.props.route.playerCount === 4 && this.state.player1Hcp && this.state.player2Hcp && this.state.player3Hcp && this.state.player4Hcp) && (game === "Nassau" || game === "Match Play")){
+    if ((this.state.indexUsed === true && this.props.route.playerCount === 4 && this.state.player1Hcp && this.state.player2Hcp && this.state.player3Hcp && this.state.player4Hcp) && (game === "Nassau" || game === "MatchPlay")){
       strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
 
       return (
@@ -314,7 +314,7 @@ module.exports  = React.createClass({
         </View>
       );
     }
-    if ((this.state.indexUsed === true && this.props.route.playerCount === 2 && this.state.player1Hcp && this.state.player2Hcp)&& (game === "Nassau" || game === "Match Play")){
+    if ((this.state.indexUsed === true && this.props.route.playerCount === 2 && this.state.player1Hcp && this.state.player2Hcp)&& (game === "Nassau" || game === "MatchPlay")){
       strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
 
       return (
@@ -328,7 +328,7 @@ module.exports  = React.createClass({
         </View>
       );
     }
-    if (this.state.indexUsed === true && game !== "Nassau" && game !== "Match Play"){
+    if (this.state.indexUsed === true && game !== "Nassau" && game !== "MatchPlay"){
       return (
         <View style = {styles.row2}>
           <View>
@@ -371,6 +371,20 @@ module.exports  = React.createClass({
   },
 
   onSubmit: function(){
+    var game = this.props.route.gameSelected;
+    var strokes;
+    if ((this.state.indexUsed === true && this.props.route.playerCount === 2 && this.state.player1Hcp && this.state.player2Hcp)&& (game === "Nassau" || game === "MatchPlay")){
+      strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
+      this.setState({
+        player1Hcp: strokes[0]+'', player2Hcp: strokes[1]+''
+      });
+    }
+    if ((this.state.indexUsed === true && this.props.route.playerCount === 4 && this.state.player1Hcp && this.state.player2Hcp && this.state.player3Hcp && this.state.player4Hcp) && (game === "Nassau" || game === "MatchPlay")){
+      strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
+      this.setState({
+        player1Hcp: strokes[0]+'', player2Hcp: strokes[1]+'', player3Hcp: strokes[2]+'', player4Hcp: strokes[3]+''
+      });
+    }
     if (this.state.indexUsed === true){
       this.setState({
         scoreAdj1: ScoreAdjust(Math.round(parseFloat(this.state.player1Hcp)), this.props.route.course.coursehcp),

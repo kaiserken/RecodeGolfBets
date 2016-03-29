@@ -47,7 +47,7 @@ module.exports  = React.createClass({
     if (this.state.keepScoreSwitch === true && count === 1) this.onRouteChange('hole', "Just Keep Score");
     if (this.state.nassauSwitch === true && count === 1)this.onRouteChange('setbets', "Nassau");
     if (this.state.roundRobinSwitch === true && count === 1)this.onRouteChange('setbets', "RoundRobin");
-    if (this.state.matchPlaySwitch === true && count === 1)this.onRouteChange('setbets', "Match Play");
+    if (this.state.matchPlaySwitch === true && count === 1)this.onRouteChange('setbets', "MatchPlay");
     if (this.state.skinsSwitch === true && count === 1)this.onRouteChange('setbets', "Skins");
     if (this.state.ninesSwitch === true && count === 1)this.onRouteChange('setbets', "Nines");
 
