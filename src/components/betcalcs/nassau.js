@@ -31,11 +31,11 @@ module.exports = function(scores, team) {
   Bets(scores, total, team, totalbets);
 
   totalbets.map(function(element){
-    var y  = totalbets[0].length;
-    while (element.length < y){
-      element.unshift('-');
+    var y  = totalbets[0].length-1;
+    while (element.length <= y){
+      element.unshift('');
     }
   });
-  
+  console.log('totalbets', totalbets);
   return totalbets;
 };

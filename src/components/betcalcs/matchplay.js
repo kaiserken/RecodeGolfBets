@@ -32,7 +32,11 @@ module.exports = function(arr, team, nassau) {
           matchResults.push(state);
         }
       }
-      if (Math.abs(state)>18-results1.length){break;}
+      if(!nassau){
+        if (Math.abs(state)>18-results1.length){
+          break;
+        }
+      }
     }
   }
   if (arr.length === 4){
@@ -61,7 +65,11 @@ module.exports = function(arr, team, nassau) {
           matchResults.push(state);
         }
       }
-      if (Math.abs(state)>18-results1.length){break;}
+      if(!nassau){
+        if (Math.abs(state)>18-results1.length){
+          break;
+        }
+      }
     }
   }
   if(nassau){return [matchResults, stateArray];}
