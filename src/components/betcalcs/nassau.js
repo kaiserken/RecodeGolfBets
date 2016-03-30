@@ -29,5 +29,13 @@ module.exports = function(scores, team) {
     return;
   }
   Bets(scores, total, team, totalbets);
+
+  totalbets.map(function(element){
+    var y  = totalbets[0].length;
+    while (element.length < y){
+      element.unshift('-');
+    }
+  });
+  
   return totalbets;
 };

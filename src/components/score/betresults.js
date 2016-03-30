@@ -138,7 +138,7 @@ module.exports = React.createClass({
     if (this.props.route.gameSelected === "MatchPlay"){
       return this.renderMatchPlayResults(results);
     }
-    if (this.props.route.gameSelected === "MatchPlay"){
+    if (this.props.route.gameSelected === "Nassau"){
       return this.renderNassauResults(results);
     }
     if (this.state.viewTotals === true){
@@ -186,7 +186,71 @@ module.exports = React.createClass({
       );
     }
   },
-
+  renderNassauResults: function(results){
+    var name1;
+    var name2;
+    if (this.props.route.playerCount===2){
+      name1 = this.props.route.player1Name;
+      name2 = this.props.route.player2Name;
+    }
+    if (this.props.route.playerCount===4){
+      name1 = this.props.route[`player${this.props.route.teams[0]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[1]}Name`].slice(0,1);
+      name2 = this.props.route[`player${this.props.route.teams[2]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[3]}Name`].slice(0,1);
+    }
+    var self = this;
+    var front = results.map(function(element, index){
+      if (index ===0){
+        return(
+          <View key = {index}style = {styles.row}>
+            <Text style = {styles.title5}>{name1}</Text>
+            {self.betResults(element.slice(0,9))}
+          </View>
+        );
+      }
+      return(
+        <View key = {index}style = {styles.row}>
+          <Text style = {styles.title5}>Press {index}</Text>
+          {self.betResults(element.slice(0,9))}
+        </View>
+      );
+    });
+    var back = results.map(function(element, index){
+      if (index ===0){
+        return(
+          <View key = {index} style = {styles.row}>
+            <Text style = {styles.title5}>{name1}</Text>
+            {self.betResults(element.slice(9))}
+          </View>
+        );
+      }
+      return(
+        <View key = {index} style = {styles.row}>
+          <Text style = {styles.title5}>Press {index}</Text>
+          {self.betResults(element.slice(9))}
+        </View>
+      );
+    });
+    return (
+      <View style = {{flex:3}}>
+        <Text style = {styles.title1}>{this.props.route[`player${this.props.route.teams[0]}Name`]} & {this.props.route[`player${this.props.route.teams[1]}Name`]} vs. {this.props.route[`player${this.props.route.teams[2]}Name`]} & {this.props.route[`player${this.props.route.teams[3]}Name`]}</Text>
+        <Text style = {styles.title6}></Text>
+        <Text style = {styles.title6}>Front Nine</Text>
+        <View style = {styles.row}>
+          <Text style = {styles.title2}>Hole #</Text>
+          {this.holesFront()}
+        </View>
+        {front}
+        <View style = {{flex:1}}/>
+        <Text style = {styles.title6}>Back Nine</Text>
+        <View style = {styles.row}>
+          <Text style = {styles.title2}>Hole #</Text>
+          {this.holesBack()}
+        </View>
+        {back}
+        <View style = {{flex:5}}/>
+      </View>
+    );
+  },
   renderMatchPlayResults: function(results){
     var name1;
     var name2;
