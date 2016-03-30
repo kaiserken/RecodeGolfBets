@@ -1,9 +1,10 @@
 
 // takes an array (arr) of player score arrays between 2-4 returns an nested array of results
-module.exports = function(arr, team) {
+module.exports = function(arr, team, nassau) {
   var results1 = [],
     matchResults = [],
     state = 0;
+    stateArray = [];
 
   if (arr.length === 2){
     for (var i = 0; i<arr[0].length; i++){
@@ -19,7 +20,9 @@ module.exports = function(arr, team) {
       state = results1.reduce(function(sum, result){
         return sum + result;
       },0);
-      console.log(state);
+
+      if (nassau){stateArray.push(state);}
+
       if (state===0){
         matchResults.push("AS");
       } else {
@@ -46,6 +49,9 @@ module.exports = function(arr, team) {
       state = results1.reduce(function(sum, result){
         return sum + result;
       },0);
+
+      if (nassau){stateArray.push(state);}
+
       if (state===0){
         matchResults.push("AS");
       } else {
@@ -58,5 +64,6 @@ module.exports = function(arr, team) {
       if (Math.abs(state)>18-results1.length){break;}
     }
   }
+  if(nassau){return [matchResults, stateArray];}
   return [matchResults];
 };

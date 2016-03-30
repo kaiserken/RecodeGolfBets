@@ -17,6 +17,7 @@ var Nines  = require('../betcalcs/nines');
 var RoundRobin  = require('../betcalcs/roundrobin');
 var Skins  = require('../betcalcs/skins');
 var MatchPlay = require('../betcalcs/matchplay');
+var Nassau = require('../betcalcs/nassau');
 var Button = require('../common/button');
 
 module.exports = React.createClass({
@@ -58,6 +59,23 @@ module.exports = React.createClass({
       );
     });
     return (playerResults);
+  },
+
+  renderNassau: function(){
+    var results;
+    var arr = [];
+    if (this.props.route.indexUsed === true){
+      for (var i = 1; i<=this.props.route.playerCount; i++){
+        arr.push(this.props.route[`player${i}NetScore`]);
+      }
+      results  = Nassau(arr, this.props.route.teams);
+    } else {
+      for (var i = 1; i<=this.props.route.playerCount; i++){
+        arr.push(this.props.route[`player${i}Score`]);
+      }
+      results  = Nassau(arr, this.props.route.teams);
+    }
+    return this.renderResults(results);
   },
 
   renderMatchPlay: function(){
@@ -119,6 +137,9 @@ module.exports = React.createClass({
   renderResults: function(results){
     if (this.props.route.gameSelected === "MatchPlay"){
       return this.renderMatchPlayResults(results);
+    }
+    if (this.props.route.gameSelected === "MatchPlay"){
+      return this.renderNassauResults(results);
     }
     if (this.state.viewTotals === true){
       return this.renderTotals(results);
