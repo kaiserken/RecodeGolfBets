@@ -511,6 +511,7 @@ var styles = StyleSheet.create({
     backgroundColor: "darkolivegreen",
     marginTop: 1,
     marginBottom: 1,
+    borderRadius: 3,
   },
   title5: {
     color:'white',
