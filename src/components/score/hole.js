@@ -116,6 +116,8 @@ module.exports  = React.createClass({
       this.setState({player4Score: updatedScore4, player4NetScore: updatedNetScore4});
     }
     this.setState({holeNumber: ++this.state.holeNumber});
+    if (this.state.holeNumber<1){this.setState({holeNumber: 1});}
+    if (this.state.holeNumber>18){this.setState({holeNumber: 18});}
     this.setHole();
   },
 
@@ -407,8 +409,7 @@ var styles = StyleSheet.create({
     backgroundColor: "darkolivegreen",
   	width: 40,
   	height: 40,
-    borderColor: 'white',
-    alignSelf:'center',
+    //alignSelf:'center',
     textAlign: 'center',
     justifyContent:'center'
   },

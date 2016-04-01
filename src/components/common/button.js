@@ -11,7 +11,7 @@ module.exports = React.createClass({
     return (
       <TouchableHighlight
         style  = {styles.button}
-        underlayColor = {'gray'}
+        underlayColor = {'darkolivegreen'}
         onPress = {this.props.onPress}
       >
         <Text style  = {styles.buttonText}>{this.props.text}</Text>

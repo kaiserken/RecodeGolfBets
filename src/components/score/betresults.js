@@ -18,6 +18,7 @@ var RoundRobin  = require('../betcalcs/roundrobin');
 var Skins  = require('../betcalcs/skins');
 var MatchPlay = require('../betcalcs/matchplay');
 var Nassau = require('../betcalcs/nassau');
+var NassauResults  = require('../betcalcs/nassauresults');
 var Button = require('../common/button');
 
 module.exports = React.createClass({
@@ -70,6 +71,7 @@ module.exports = React.createClass({
     var arr = [];
     var arrFront = [];
     var arrBack = [];
+    var resultsTotal  = [];
     if (this.props.route.indexUsed === true){
       for (var i = 1; i<=this.props.route.playerCount; i++){
         arr.push(this.props.route[`player${i}NetScore`]);
@@ -79,6 +81,7 @@ module.exports = React.createClass({
       results  = Nassau(arr, this.props.route.teams, this.props.route.auto18);
       resultsFront  = Nassau(arrFront, this.props.route.teams, this.props.route.auto9);
       resultsBack  = Nassau(arrBack, this.props.route.teams, this.props.route.auto9);
+      resultsTotal.push(NassauResults(resultsFront, this.props.route.betFrontNassau), NassauResults(resultsBack, this.props.route.betBackNassau), NassauResults(results, this.props.route.betTotalNassau));
         console.log('results front', resultsFront);
     } else {
       for (var i = 1; i<=this.props.route.playerCount; i++){
@@ -90,7 +93,7 @@ module.exports = React.createClass({
       resultsFront  = Nassau(arrFront, this.props.route.teams, this.props.route.auto9);
       resultsBack  = Nassau(arrBack, this.props.route.teams, this.props.route.auto9);
     }
-    return this.renderNassauResults(results, resultsFront, resultsBack);
+    return this.renderNassauResults(results, resultsFront, resultsBack, resultsTotal);
   },
 
   renderMatchPlay: function(){
@@ -186,140 +189,156 @@ module.exports = React.createClass({
           </View>
           {back}
           <View style = {{flex:1}}/>
-          <TouchableHighlight
-            onPress={()=>this.setState({viewTotals: true})}>
-            <Text style={styles.title7}>See Totals</Text>
-          </TouchableHighlight>
+          <View style = {styles.container}>
+            <Button text={'Current Totals'} onPress={()=>this.setState({viewTotals: true})}/>
+          </View>
           <View style = {{flex:4}}/>
         </View>
       );
     }
   },
-  renderNassauResults: function(results, resultsFront, resultsBack){
+  renderNassauResults: function(results, resultsFront, resultsBack, resultsTotal){
     var name1;
     var name2;
+    var nameheading1;
     if (this.state.betView=== "Front 9 Bets"){results = resultsFront;}
 
     if (this.state.betView=== "Back 9 Bets"){results = resultsBack;}
-    console.log('Nassau', results)
+    console.log('Nassau', resultsTotal)
     if (this.props.route.playerCount===2){
       name1 = this.props.route.player1Name;
       name2 = this.props.route.player2Name;
+      nameheading1 = this.props.route.player1Name + ' vs. ' + this.props.route.player2Name;
     }
     if (this.props.route.playerCount===4){
       name1 = this.props.route[`player${this.props.route.teams[0]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[1]}Name`].slice(0,1);
       name2 = this.props.route[`player${this.props.route.teams[2]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[3]}Name`].slice(0,1);
+      nameheading1 = this.props.route[`player${this.props.route.teams[0]}Name`]+' & '+ this.props.route[`player${this.props.route.teams[1]}Name`] + " vs. " + this.props.route[`player${this.props.route.teams[2]}Name`]+' & '+ this.props.route[`player${this.props.route.teams[3]}Name`];
     }
     var self = this;
-    if (this.state.betView ==='18 Hole Bets'|| this.state.betView ==='Front 9 Bets'){
-      var front = results.map(function(element, index){
-        if (index ===0){
+    if (this.state.viewTotals === true){
+      return this.renderTotals(resultsTotal, nameheading1);
+    }else{
+      if (this.state.betView ==='18 Hole Bets'|| this.state.betView ==='Front 9 Bets'){
+        var front = results.map(function(element, index){
+          if (index ===0){
+            return(
+              <View key = {index}style = {styles.row}>
+                <Text style = {styles.title5}>{name1}</Text>
+                {self.betResults(element.slice(0,9))}
+              </View>
+            );
+          }
           return(
             <View key = {index}style = {styles.row}>
-              <Text style = {styles.title5}>{name1}</Text>
+              <Text style = {styles.title5}>Press {index}</Text>
               {self.betResults(element.slice(0,9))}
             </View>
           );
-        }
-        return(
-          <View key = {index}style = {styles.row}>
-            <Text style = {styles.title5}>Press {index}</Text>
-            {self.betResults(element.slice(0,9))}
-          </View>
-        );
-      });
-      var frontHeading =
-        <View>
-          <Text style = {styles.title6}></Text>
-          <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
-            {this.holesFront()}
-          </View>
-        </View>;
-    }
-    if (this.state.betView ==='18 Hole Bets'){
-      var back = results.map(function(element, index){
-        if (index ===0){
+        });
+        var frontHeading =
+          <View>
+            <Text style = {styles.title6}></Text>
+            <View style = {styles.row}>
+              <Text style = {styles.title2}>Hole #</Text>
+              {this.holesFront()}
+            </View>
+          </View>;
+      }
+      if (this.state.betView ==='18 Hole Bets'){
+        var back = results.map(function(element, index){
+          if (index ===0){
+            return(
+              <View key = {index} style = {styles.row}>
+                <Text style = {styles.title5}>{name1}</Text>
+                {self.betResults(element.slice(9))}
+              </View>
+            );
+          }
           return(
             <View key = {index} style = {styles.row}>
-              <Text style = {styles.title5}>{name1}</Text>
+              <Text style = {styles.title5}>Press {index}</Text>
               {self.betResults(element.slice(9))}
             </View>
           );
-        }
-        return(
-          <View key = {index} style = {styles.row}>
-            <Text style = {styles.title5}>Press {index}</Text>
-            {self.betResults(element.slice(9))}
-          </View>
-        );
-      });
-      var backHeading =
-        <View>
-          <Text style = {styles.title6}></Text>
-          <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
-            {this.holesBack()}
-          </View>
-        </View>;
-    }
-    if (this.state.betView ==='Back 9 Bets'){
-      var back = results.map(function(element, index){
-        if (index ===0){
+        });
+        var backHeading =
+          <View>
+            <Text style = {styles.title6}></Text>
+            <View style = {styles.row}>
+              <Text style = {styles.title2}>Hole #</Text>
+              {this.holesBack()}
+            </View>
+          </View>;
+      }
+      if (this.state.betView ==='Back 9 Bets'){
+        var back = results.map(function(element, index){
+          if (index ===0){
+            return(
+              <View key = {index} style = {styles.row}>
+                <Text style = {styles.title5}>{name1}</Text>
+                {self.betResults(element.slice(0,9))}
+              </View>
+            );
+          }
           return(
             <View key = {index} style = {styles.row}>
-              <Text style = {styles.title5}>{name1}</Text>
+              <Text style = {styles.title5}>Press {index}</Text>
               {self.betResults(element.slice(0,9))}
             </View>
           );
-        }
-        return(
-          <View key = {index} style = {styles.row}>
-            <Text style = {styles.title5}>Press {index}</Text>
-            {self.betResults(element.slice(0,9))}
+        });
+        var backHeading =
+          <View>
+            <Text style = {styles.title6}></Text>
+            <View style = {styles.row}>
+              <Text style = {styles.title2}>Hole #</Text>
+              {this.holesBack()}
+            </View>
+          </View>;
+      }
+      return (
+        <View style = {{flex:4}}>
+          <View></View>
+          <View style  = {{justifyContent:"center", alignItems: "center", borderRadius:5}}>
+            <Text style = {styles.title1}>{nameheading1}</Text>
           </View>
-        );
-      });
-      var backHeading =
-        <View>
-          <Text style = {styles.title6}></Text>
+          <View style  = {{flex:.25}}></View>
+          <Text style = {styles.title11}>{this.state.betView}</Text>
+          <View style  = {{flex:.5}}></View>
+
+          {frontHeading}
+          {front}
+
+          {backHeading}
+          {back}
+          <View style = {{flex:4}}/>
           <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
-            {this.holesBack()}
+            <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bets'})}/>
+            <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bets'})}/>
+            <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bets'})}/>
           </View>
-        </View>;
-    }
-    return (
-      <View style = {{flex:3}}>
-        <Text style = {styles.title1}>{this.props.route[`player${this.props.route.teams[0]}Name`]} & {this.props.route[`player${this.props.route.teams[1]}Name`]} vs. {this.props.route[`player${this.props.route.teams[2]}Name`]} & {this.props.route[`player${this.props.route.teams[3]}Name`]}</Text>
-        <View style  = {{flex:.25}}></View>
-        <Text style = {styles.title11}>{this.state.betView}</Text>
-        <View style  = {{flex:.5}}></View>
-
-        {frontHeading}
-        {front}
-
-        {backHeading}
-        {back}
-        <View style = {{flex:4}}/>
-        <View style = {styles.row}>
-          <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bets'})}/>
-          <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bets'})}/>
-          <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bets'})}/>
+          <View style = {{flex:1}}/>
+          <View style = {styles.container}>
+            <Button text={'Current Totals'} onPress={()=>this.setState({viewTotals: true})}/>
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
   },
   renderMatchPlayResults: function(results){
     var name1;
     var name2;
+    var nameheading1;
     if (this.props.route.playerCount===2){
       name1 = this.props.route.player1Name;
       name2 = this.props.route.player2Name;
+      nameheading1 = this.props.route.player1Name + ' vs. ' + this.props.route.player2Name;
     }
     if (this.props.route.playerCount===4){
       name1 = this.props.route[`player${this.props.route.teams[0]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[1]}Name`].slice(0,1);
       name2 = this.props.route[`player${this.props.route.teams[2]}Name`].slice(0,1)+' & '+ this.props.route[`player${this.props.route.teams[3]}Name`].slice(0,1);
+      nameheading1 = this.props.route[`player${this.props.route.teams[0]}Name`]+' & '+ this.props.route[`player${this.props.route.teams[1]}Name`] + " vs. " + this.props.route[`player${this.props.route.teams[2]}Name`]+' & '+ this.props.route[`player${this.props.route.teams[3]}Name`];
     }
     var self = this;
     var front = results.map(function(element, index){
@@ -340,7 +359,9 @@ module.exports = React.createClass({
     });
     return (
       <View style = {{flex:3}}>
-        <Text style = {styles.title1}>{this.props.route[`player${this.props.route.teams[0]}Name`]} & {this.props.route[`player${this.props.route.teams[1]}Name`]} vs. {this.props.route[`player${this.props.route.teams[2]}Name`]} & {this.props.route[`player${this.props.route.teams[3]}Name`]}</Text>
+        <View style  = {{flex:.75, justifyContent:"center", alignItems: "center", borderRadius:5}}>
+          <Text style = {styles.title1}>{nameheading1}</Text>
+        </View>
         <Text style = {styles.title6}></Text>
         <Text style = {styles.title6}>Front Nine</Text>
         <View style = {styles.row}>
@@ -360,8 +381,43 @@ module.exports = React.createClass({
     );
   },
 
-  renderTotals: function(resultsArray){
+  renderTotals: function(resultsArray, nameheading1){
       var self = this;
+
+      if (this.props.route.gameSelected === 'Nassau'){
+        var totals = resultsArray[0]+resultsArray[1]+resultsArray[2];
+        return(
+          <View style = {{flex:1}}>
+            <View style  = {{flex:.75, justifyContent:"center", alignItems: "center", borderRadius:5}}>
+              <Text style = {styles.title1}>{nameheading1}</Text>
+            </View>
+            <View style  = {{flex:.75, justifyContent:"center"}}>
+              <Text style = {styles.title13}>Current State of Points Won/Lost</Text>
+            </View>
+            <View style = {styles.row2}>
+              <Text style = {styles.title12}>Front 9 Bets</Text>
+              <Text style = {styles.title9}>{resultsArray[0]}</Text>
+            </View>
+            <View style = {styles.row2}>
+              <Text style = {styles.title12}>Back 9 Bets</Text>
+              <Text style = {styles.title9}>{resultsArray[1]}</Text>
+            </View>
+            <View style = {styles.row2}>
+              <Text style = {styles.title12}>18 hole Bets</Text>
+              <Text style = {styles.title9}>{resultsArray[2]}</Text>
+            </View>
+            <View style = {styles.row2}>
+              <Text style = {styles.title12}>Totals</Text>
+              <Text style = {styles.title9}>{totals}</Text>
+            </View>
+            <View style = {{flex:1}}/>
+            <View style = {styles.container}>
+              <Button text={'Results by Hole'} onPress={()=>this.setState({viewTotals: false})}/>
+            </View>
+            <View style = {{flex:1}}/>
+          </View>
+        );
+      }
       var totals  = resultsArray.map(function(element){
         return (
           element.reduce(function(sum, points){
@@ -374,7 +430,6 @@ module.exports = React.createClass({
         return(
           <View key = {index} style = {styles.row2}>
             <Text style = {styles.title8}>{self.props.route[`player${index+1}Name`]}</Text>
-            <Text style = {styles.title2}></Text>
             <Text style = {styles.title9}>{element}</Text>
           </View>
         );
@@ -384,10 +439,9 @@ module.exports = React.createClass({
         <View style = {{flex:1}}>
           {results}
           <View style = {{flex:1}}/>
-          <TouchableHighlight
-            onPress={()=>this.setState({viewTotals: false})}>
-            <Text style={styles.title7}>Results by Hole</Text>
-          </TouchableHighlight>
+          <View style = {styles.container}>
+            <Button text={'Results by Hole'} onPress={()=>this.setState({viewTotals: false})}/>
+          </View>
           <View style = {{flex:1}}/>
         </View>
       );
@@ -400,10 +454,10 @@ module.exports = React.createClass({
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
         </View>
         <View style  = {{flex:.10}}></View>
-        <View style  = {{flex:.75, justifyContent:"center"}}>
+        <View style  = {{flex:.75, justifyContent:"center", alignItems: "center", borderRadius:5}}>
           <Text style = {styles.title1}>Results for {this.props.route.gameSelected} through Hole {this.props.route.holeNumber}</Text>
         </View>
-        <View style  = {{flex: (this.props.route.gameSelected === 'Nassau') ? 7 : 1}}>
+        <View style  = {{flex: (this.props.route.gameSelected === 'Nassau') ? 7 : 5}}>
         {this[`render${this.props.route.gameSelected}`]()}
         </View>
         <View style  = {{flex: (this.props.route.gameSelected === 'Nassau') ? .5 : 1}}></View>
@@ -477,8 +531,9 @@ var styles = StyleSheet.create({
   title1: {
     color: 'white',
     fontSize: 15,
-    justifyContent: 'center',
-    alignSelf: 'center',
+    justifyContent: "center",
+    alignItems: 'center',
+    textAlign: 'center',
     backgroundColor: "darkolivegreen",
     borderRadius: 5,
     padding: 10,
@@ -571,6 +626,16 @@ var styles = StyleSheet.create({
     fontWeight: "500",
     opacity: 0.8
   },
+  title12: {
+    color:'white',
+    fontSize: 17,
+    width:100,
+  },
+  title13: {
+    color:'yellowgreen',
+    fontSize: 14,
+    alignSelf:"center"
+  },
   name: {
     fontSize: 20,
     color: 'white',
@@ -597,6 +662,11 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
+  container1: {
+    flex: .25,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   rowheader:{
     flexDirection: 'row',
@@ -613,7 +683,8 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+
   },
   backgroundImage: {
     marginTop:(Platform.OS === 'ios') ? 20 : 0,
