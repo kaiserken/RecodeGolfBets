@@ -288,14 +288,7 @@ var styles = StyleSheet.create({
     fontSize: 22,
     alignSelf: 'center'
   },
-  title1: {
-    color: 'white',
-    fontSize: 15,
-    textAlign: 'center',
-    alignSelf: 'center',
-    fontWeight: "500",
-    opacity: 0.9,
-  },
+  
 
   title2: {
     color:'yellowgreen',
@@ -393,32 +386,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  container: {
-    flex: .5,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  container1: {
-    flex: .5,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  container2: {
-    backgroundColor: "darkolivegreen",
-    opacity: 0.8,
-    flex: .5,
-    alignSelf:'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    padding: 5
-  },
 
-  rowheader:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
   row:{
     flex: 1,
     flexDirection: 'row',
