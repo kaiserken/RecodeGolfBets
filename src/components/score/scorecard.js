@@ -28,7 +28,7 @@ module.exports  = React.createClass({
   holesFront: function(){
     var holesfront = [1,2,3,4,5,6,7,8,9].map(function(element, index){
       return (
-        <Text key = {index} style = {styles.title3}>{element}</Text>
+        <Text key = {index} style = {styles.title12}>{element}</Text>
       );
     });
     return (holesfront);
@@ -74,7 +74,7 @@ module.exports  = React.createClass({
   holesBack: function(){
     var holesback = [10,11,12,13,14,15,16,17,18].map(function(element, index){
       return (
-        <Text key = {index} style = {styles.title3}>{element}</Text>
+        <Text key = {index} style = {styles.title12}>{element}</Text>
       );
     });
     return (holesback);
@@ -157,33 +157,35 @@ module.exports  = React.createClass({
         <View style = {{flex:3}}>
           <View style = {{flex:1}}/>
           <Text style = {styles.title6}>Front Nine</Text>
-          <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
+          <View style = {styles.row3}>
+            <Text style = {styles.title11}>Hole</Text>
             {this.holesFront()}
           </View>
           <View style = {styles.row2}>
             <Text style = {styles.title9}>Par</Text>
             {this.parFront()}
           </View>
-          <View style = {styles.row3}>
+          <View style = {styles.row4}>
             <Text style = {styles.title2}>Hcp</Text>
             {this.hcpFront()}
           </View>
+          <View style = {{flex:.1}}/>
           {front}
           <View style = {{flex:1}}/>
           <Text style = {styles.title6}>Back Nine</Text>
-          <View style = {styles.row}>
-            <Text style = {styles.title2}>Hole #</Text>
+          <View style = {styles.row3}>
+            <Text style = {styles.title11}>Hole</Text>
             {this.holesBack()}
           </View>
           <View style = {styles.row2}>
             <Text style = {styles.title9}>Par</Text>
             {this.parBack()}
           </View>
-          <View style = {styles.row3}>
+          <View style = {styles.row4}>
             <Text style = {styles.title2}>Hcp</Text>
             {this.hcpBack()}
           </View>
+          <View style = {{flex:.1}}/>
           {back}
           <View style = {{flex:1}}/>
           <View style = {styles.row}>
@@ -306,8 +308,6 @@ var styles = StyleSheet.create({
     fontSize: 14,
     width:20,
     textAlign: 'center',
-  
-
   },
 
   title4: {
@@ -370,6 +370,21 @@ var styles = StyleSheet.create({
     width:20,
     textAlign: 'center',
   },
+  title11: {
+    color:'black',
+    fontSize: 14,
+    width:60,
+    fontWeight: '500'
+
+  },
+  title12: {
+    color:'black',
+    fontSize: 14,
+    width:20,
+    textAlign: 'center',
+    fontWeight: '500'
+  },
+
 
   titlecontainer: {
     backgroundColor: "black",
@@ -423,7 +438,15 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: 'black'
+    backgroundColor: 'white'
+  },
+  row4:{
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: 'black',
+    opacity:0.8
   },
   backgroundImage: {
     marginTop:(Platform.OS === 'ios') ? 20 : 0,
