@@ -300,12 +300,14 @@ module.exports = React.createClass({
       return (
         <View style = {{flex:4}}>
           <View></View>
-          <View style  = {{justifyContent:"center", alignItems: "center", borderRadius:5}}>
+          <View style  = {styles.container2}>
             <Text style = {styles.title1}>{nameheading1}</Text>
           </View>
-          <View style  = {{flex:.25}}></View>
-          <Text style = {styles.title11}>{this.state.betView}</Text>
-          <View style  = {{flex:.5}}></View>
+          <View style  = {{flex:.4}}></View>
+          <View style  = {styles.container2}>
+            <Text style = {styles.title1}>{this.state.betView}</Text>
+          </View>
+          <View style  = {{flex:.4}}></View>
 
           {frontHeading}
           {front}
@@ -313,14 +315,16 @@ module.exports = React.createClass({
           {backHeading}
           {back}
           <View style = {{flex:4}}/>
-          <View style = {styles.row}>
-            <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bets'})}/>
-            <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bets'})}/>
-            <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bets'})}/>
-          </View>
-          <View style = {{flex:1}}/>
-          <View style = {styles.container}>
-            <Button text={'Current Totals'} onPress={()=>this.setState({viewTotals: true})}/>
+          <View style  = {{flex:3}}>
+            <View style = {styles.row}>
+              <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bets'})}/>
+              <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bets'})}/>
+              <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bets'})}/>
+            </View>
+            <View style = {{flex:1}}/>
+            <View style = {styles.container}>
+              <Button text={'Current Totals'} onPress={()=>this.setState({viewTotals: true})}/>
+            </View>
           </View>
         </View>
       );
@@ -359,7 +363,7 @@ module.exports = React.createClass({
     });
     return (
       <View style = {{flex:3}}>
-        <View style  = {{flex:.75, justifyContent:"center", alignItems: "center", borderRadius:5}}>
+        <View style  = {styles.container2}>
           <Text style = {styles.title1}>{nameheading1}</Text>
         </View>
         <Text style = {styles.title6}></Text>
@@ -388,7 +392,7 @@ module.exports = React.createClass({
         var totals = resultsArray[0]+resultsArray[1]+resultsArray[2];
         return(
           <View style = {{flex:1}}>
-            <View style  = {{flex:.75, justifyContent:"center", alignItems: "center", borderRadius:5}}>
+            <View style  = {styles.container2}>
               <Text style = {styles.title1}>{nameheading1}</Text>
             </View>
             <View style  = {{flex:.75, justifyContent:"center"}}>
@@ -453,10 +457,11 @@ module.exports = React.createClass({
         <View style = {styles.titlecontainer}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
         </View>
-        <View style  = {{flex:.10}}></View>
-        <View style  = {{flex:.75, justifyContent:"center", alignItems: "center", borderRadius:5}}>
+        <View style  = {{flex:.2}}></View>
+        <View style  = {styles.container2}>
           <Text style = {styles.title1}>Results for {this.props.route.gameSelected} through Hole {this.props.route.holeNumber}</Text>
         </View>
+        <View style  = {{flex:.2}}></View>
         <View style  = {{flex: (this.props.route.gameSelected === 'Nassau') ? 7 : 5}}>
         {this[`render${this.props.route.gameSelected}`]()}
         </View>
@@ -531,15 +536,10 @@ var styles = StyleSheet.create({
   title1: {
     color: 'white',
     fontSize: 15,
-    justifyContent: "center",
-    alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: "darkolivegreen",
-    borderRadius: 5,
-    padding: 10,
-    borderColor: 'darkgreen',
+    alignSelf: 'center',
     fontWeight: "500",
-    opacity: 0.8
+    opacity: 0.9,
   },
 
   title2: {
@@ -616,7 +616,7 @@ var styles = StyleSheet.create({
   },
   title11: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 14,
     justifyContent: 'center',
     alignSelf: 'center',
     backgroundColor: "darkolivegreen",
@@ -663,9 +663,19 @@ var styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   container1: {
-    flex: .25,
+    flex: .5,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  container2: {
+    backgroundColor: "darkolivegreen",
+    opacity: 0.8,
+    flex: .5,
+    alignSelf:'center',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 5,
+    padding: 5
   },
 
   rowheader:{

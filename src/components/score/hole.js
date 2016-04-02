@@ -297,7 +297,23 @@ module.exports  = React.createClass({
       holeNumber: this.state.holeNumber-1,
     });
   },
-
+  onScorecard: function(){
+    this.props.navigator.push({
+      name: 'scorecard',
+      data: this.props.route.data,
+      course:this.props.route.course,
+      playerCount: this.props.route.playerCount,
+      player1Name: this.props.route.player1Name,
+      player2Name: this.props.route.player2Name,
+      player3Name: this.props.route.player3Name,
+      player4Name: this.props.route.player4Name,
+      player1Score: this.state.player1Score,
+      player2Score: this.state.player2Score,
+      player3Score: this.state.player3Score,
+      player4Score:this.state.player4Score,
+      holeNumber: this.state.holeNumber-1,
+    });
+  },
 
 
 
@@ -318,6 +334,10 @@ module.exports  = React.createClass({
       <TouchableHighlight
         onPress = {()=>this.setState({selectedTab: 'currenthole'})}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Current Hole</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        onPress = {()=>this.onScorecard()}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>ScoreCard</Text>
       </TouchableHighlight>
     </View>
     );
@@ -359,6 +379,13 @@ module.exports  = React.createClass({
           selected={this.state.selectedTab === 'betresults'}
           onPress={() => {
             this.onBetResults();
+          }}>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          title="Scorecard"
+          selected={this.state.selectedTab === 'scorecard'}
+          onPress={() => {
+            this.onScorecard();
           }}>
         </TabBarIOS.Item>
       </TabBarIOS>

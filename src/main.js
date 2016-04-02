@@ -18,6 +18,7 @@ var Hole  = require('./components/score/hole');
 var Setbets = require('./components/games/setbets');
 var Reload  = require('./components/reload/reload');
 var BetResults  = require('./components/score/betresults');
+var Scorecard = require('./components/score/scorecard');
 
 var ROUTES  = {
   signin: Signin,
@@ -29,7 +30,8 @@ var ROUTES  = {
   games: Games,
   hole: Hole,
   setbets: Setbets,
-  betresults:BetResults
+  betresults:BetResults,
+  scorecard: Scorecard
 };
 
 module.exports = React.createClass({
