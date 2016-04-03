@@ -33,6 +33,7 @@ module.exports  = React.createClass({
 
   onSubmit: function(){
     // still need to check to make sure player count is accurate for chosen game
+
     var count = 0;
     if (this.state.keepScoreSwitch === true){count++;}
     if (this.state.nassauSwitch === true){count++;}
@@ -40,17 +41,51 @@ module.exports  = React.createClass({
     if (this.state.matchPlaySwitch === true){count++;}
     if (this.state.skinsSwitch === true){count++;}
     if (this.state.ninesSwitch === true){count++;}
-    if (count === 0 || count > 1){ Alert.alert('Game Options','Please select a game before submitting',
+    if (count === 0 || count > 1){ Alert.alert('Game Options','Please select a game before submitting. Only one game may be selected',
       [{text: 'OK', onPress: () => console.log('OK Pressed')}]
       );
     }
-    if (this.state.keepScoreSwitch === true && count === 1) this.onRouteChange('hole', "Just Keep Score");
-    if (this.state.nassauSwitch === true && count === 1)this.onRouteChange('setbets', "Nassau");
-    if (this.state.roundRobinSwitch === true && count === 1)this.onRouteChange('setbets', "RoundRobin");
-    if (this.state.matchPlaySwitch === true && count === 1)this.onRouteChange('setbets', "MatchPlay");
-    if (this.state.skinsSwitch === true && count === 1)this.onRouteChange('setbets', "Skins");
-    if (this.state.ninesSwitch === true && count === 1)this.onRouteChange('setbets', "Nines");
 
+    if (this.state.nassauSwitch === true && count === 1){
+      if (this.props.route.playerCount===2 || this.props.route.playerCount===4 ){
+        this.onRouteChange('setbets', "Nassau");
+      }else {
+        Alert.alert('Game Options','Nassau is a 2 or 4 player Game - Go back and adjust number of players or select a different game',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+      }
+    }
+    if (this.state.roundRobinSwitch === true && count === 1){
+      if (this.props.route.playerCount===4){
+        this.onRouteChange('setbets', "RoundRobin");
+      } else {
+        Alert.alert('Game Options','RoundRobin/Carts is a 4 player Game - Go back and adjust number of players or select a different game',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+      }
+    }
+    if (this.state.matchPlaySwitch === true && count === 1){
+      if (this.props.route.playerCount===2 || this.props.route.playerCount===4){
+        this.onRouteChange('setbets', "MatchPlay");
+      } else {
+        Alert.alert('Game Options','MatchPlay is a 2 or 4 player Game - Go back and adjust number of players or select a different game',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+      }
+    }
+    if (this.state.skinsSwitch === true && count === 1)this.onRouteChange('setbets', "Skins");
+
+    if (this.state.ninesSwitch === true && count === 1){
+      if (this.props.route.playerCount===3){
+        this.onRouteChange('setbets', "Nines");
+      }else {
+        Alert.alert('Game Options','Nines is a 3 player Game - Go back and adjust number of players or select a different game',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+      }
+    }  
+
+    if (this.state.keepScoreSwitch === true && count === 1) this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player1Name: this.props.route.player1Name, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
   },
 
   renderContent: function(){
@@ -75,7 +110,7 @@ module.exports  = React.createClass({
           <Text style={styles.label}>Nassau</Text>
           <View style={styles.descriptionWidth}>
             <Text style={styles.description}>2 player or 2 team game. Scoring is match play format. Seperate bets are made on front, back and total. Additional press bets are optional.</Text>
-            <TouchableHighlight onPress={()=>Alert.alert('Nassau','The Nassau is one of the most common side bets on a golf course. You can play individual or team Nassaus, which are basically three bets -- front, back and overall match play. In team Nassaus it is the two better balls from each team. Many players, however, play automatic two-downs, which means there is a press (e.g. a new $5 bet ) each time a side gets two holes down. A $5 Nassau, which is worth $15 overall, can easily triple if one side dominates in automatic two downs.',
+            <TouchableHighlight onPress={()=>Alert.alert('Nassau','The Nassau is one of the most common side bets on a golf course. You can play individual or team Nassaus, which are basically three bets -- front, back and overall match play. In team Nassaus it is the better ball from each team. Many players, however, play automatic two-downs, which means there is a press (e.g. a new $5 bet ) each time a side gets two holes down. A $5 Nassau, which is worth $15 overall, can easily triple if one side dominates in automatic two downs.',
               [{text: 'OK', onPress: () => console.log('OK Pressed')}]
               )}>
               <Text style={styles.more}>more...</Text>

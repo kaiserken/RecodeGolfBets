@@ -389,6 +389,7 @@ module.exports = React.createClass({
       var self = this;
 
       if (this.props.route.gameSelected === 'Nassau'){
+        if (!resultsArray[1]){resultsArray[1]=0}
         var totals = resultsArray[0]+resultsArray[1]+resultsArray[2];
         return(
           <View style = {{flex:1}}>
