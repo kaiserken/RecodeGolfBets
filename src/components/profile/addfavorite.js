@@ -29,22 +29,20 @@ module.exports  = React.createClass({
 
 
 
-  async addFavorite(){
-    try {
-      await Post('coursecity', {city: this.state.city}).then((data)=>{
-        if (data.length === 0){
-          data = [{coursename: "No Courses Found"}, {coursename:"Check the city spelling"}];
-        }
-        this.setState({
-          coursefav: "Succesfully Saved to Favorites"
-        });
-      }).done();
-    } catch (error) {
-      console.log(error);
-    }
+  addFavorite(){
+    Post('addfavorite', {email: this.props.route.data.email, coursename: this.props.route.course.coursename}).then((data)=>{
+      console.log('data',data);
+      if (data === undefined){
+        this.setState({coursefav: "Error - Not Added"});
+      } else {
+        // route to course favs page  - or profile page
+        this.setState({coursefav: "Successfully added to favorites!"});
+      }
+    }).done();
   },
 
   renderContent: function(user) {
+    console.log('props', this.props)
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
         <View style={styles.titlecontainer}>
@@ -57,9 +55,12 @@ module.exports  = React.createClass({
           <View style={styles.container1}>
             <Text style={styles.label}>{this.props.route.course.coursename}</Text>
           </View>
+          <View style  = {{flex:.2}}/>
           <Button text = {'Add Course to Favorites'} onPress={()=>{this.addFavorite()}}/>
-          <Text style={styles.label}>{this.state.coursefav}</Text>
-          <Button text = {"Continue"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
+          <View style  = {{flex:.2}}/>
+          <Text style={styles.label1}>{this.state.coursefav}</Text>
+          <View style  = {{flex:.2}}/>
+          <Button text = {"Continue to Player Setup"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
         </View>
         <View style  = {{flex:.05}}/>
 
@@ -147,7 +148,8 @@ var styles = StyleSheet.create({
 
   container: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: .85
   },
   container1: {
     flex: .2,
