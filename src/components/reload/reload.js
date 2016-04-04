@@ -29,14 +29,14 @@ var React  = require('react-native');
      try {
        var value  = await AsyncStorage.multiSet([
          ["selectedTab", 'currenthole'],
-         ["player1Score", JSON.stringify([4,3,4,4,3,4,4,3,4,4,3,4,4,5])],
-         ["player2Score", JSON.stringify([2,2,7,2,5,7,2,5,7,2,5,7,4,5])],
-         ["player3Score", JSON.stringify([5,3,4,5,3,4,5,3,4,5,3,2,3,5])],
-         ["player4Score", JSON.stringify([3,6,3,3,6,3,3,6,3,3,6,3,6,4])],
-         ["player1NetScore",JSON.stringify([3,6,3,3,6,3,3,6,3,3,6,3,4,5])],
-         ["player2NetScore",JSON.stringify([5,7,4,5,4,4,5,3,4,5,3,4,5,4])],
-         ["player3NetScore",JSON.stringify([2,5,7,2,2,7,2,5,7,2,2,2,2,4])],
-         ["player4NetScore",JSON.stringify([4,8,4,4,3,4,4,3,4,4,3,4,5,3])],
+         ["player1Score", JSON.stringify([])],
+         ["player2Score", JSON.stringify([])],
+         ["player3Score", JSON.stringify([])],
+         ["player4Score", JSON.stringify([])],
+         ["player1NetScore",JSON.stringify([])],
+         ["player2NetScore",JSON.stringify([])],
+         ["player3NetScore",JSON.stringify([])],
+         ["player4NetScore",JSON.stringify([])],
          ["holeNumber",JSON.stringify(15)],
          ["name","hole"],
          ["data", JSON.stringify({
@@ -79,6 +79,7 @@ var React  = require('react-native');
          ["lowTotal", JSON.stringify(false)],
          ["skinsCarry", JSON.stringify(false)],
          ["teams", JSON.stringify([1,3,4,2,1,2,3,4,1,4,2,3])],
+         ["startHole", JSON.stringify(7)],
          ["reload", JSON.stringify(true)],
        ]);
      } catch (error) {
@@ -125,6 +126,7 @@ var React  = require('react-native');
          "lowTotal",
          "skinsCarry",
          "teams",
+         'startHole',
          'reload'
        ]
        );if (value !== null){
@@ -194,7 +196,8 @@ var React  = require('react-native');
      "lowTotal": JSON.parse(value[33][1]),
      "skinsCarry": JSON.parse(value[34][1]),
      "teams": JSON.parse(value[35][1]),
-     "reload": JSON.parse(value[36][1])
+     "startHole":JSON.parse(value[36][1]),
+     "reload": JSON.parse(value[37][1])
    });
 
   }

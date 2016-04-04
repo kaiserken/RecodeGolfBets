@@ -36,7 +36,8 @@ module.exports  = React.createClass({
         netScore2: null,
         netScore3: null,
         netScore4: null,
-        holeNumber: this.props.route.holeNumber,
+        holeNumber: this.props.route.startHole,
+        startHole: this.props.route.startHole
       };
     }
     return {
@@ -57,7 +58,8 @@ module.exports  = React.createClass({
       netScore2: null,
       netScore3: null,
       netScore4: null,
-      holeNumber: 1,
+      holeNumber: this.props.route.startHole,
+      startHole: this.props.route.startHole,
 
     };
   },
@@ -69,6 +71,8 @@ module.exports  = React.createClass({
   },
 
   setHole: function(){
+    if (this.state.holeNumber<1){this.setState({holeNumber:18});}
+    if (this.state.holeNumber>18){this.setState({holeNumber:1});}
     if (this.state.player1Score[this.state.holeNumber-1]=== undefined){
       this.setState({
         score1: this.props.route.course.coursepar[this.state.holeNumber-1], netScore1:this.props.route.course.coursepar[this.state.holeNumber-1]-this.props.route.scoreAdj1[this.state.holeNumber-1], score2: this.props.route.course.coursepar[this.state.holeNumber-1], netScore2:this.props.route.course.coursepar[this.state.holeNumber-1]-this.props.route.scoreAdj2[this.state.holeNumber-1],
@@ -132,7 +136,21 @@ module.exports  = React.createClass({
         <View style  = {{flex:.1}}></View>
         <View>
           <View style = {styles.titlecontainer2}>
-            <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
+            <View style = {styles.rowheader}>
+              <TouchableHighlight
+                style  = {styles.touchablehighlight1}
+                onPress={()=>{this.setState({score2: --this.state.holeNumber});this.setHole();} }>
+                <Text style={styles.plusMinus}>-</Text>
+              </TouchableHighlight>
+              <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
+              <TouchableHighlight
+                style  = {styles.touchablehighlight1}
+                onPress={()=>{this.setState({score2: ++this.state.holeNumber}); this.setHole();}}>
+                <Text style={styles.plusMinus}>+</Text>
+              </TouchableHighlight>
+            </View>
+
+
             <View style = {styles.rowheader}>
               <Text style = {styles.title2}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
               <Text style = {styles.title2}>Hdcp {this.props.route.course.coursehcp[this.state.holeNumber-1]}</Text>
@@ -266,6 +284,54 @@ module.exports  = React.createClass({
   },
 
   onBetResults: function(){
+    var betScore1 = [];
+    var betScore2 = [];
+    var betScore3 = [];
+    var betScore4 = [];
+    var betNetScore1 = [];
+    var betNetScore2 = [];
+    var betNetScore3 = [];
+    var betNetScore4 = [];
+
+    for (var i  = this.state.startHole; i <=19; i++){
+      if (this.state.player1NetScore[i-1] !== undefined){
+        betNetScore1.push(this.state.player1NetScore[i-1]);
+        betNetScore2.push(this.state.player2NetScore[i-1]);
+        betNetScore3.push(this.state.player3NetScore[i-1]);
+        betNetScore4.push(this.state.player4NetScore[i-1]);
+      }
+    }
+    i = 1;
+    while (i < this.state.startHole){
+      if (this.state.player1NetScore[i-1] !== undefined){
+        betNetScore1.push(this.state.player1NetScore[i-1]);
+        betNetScore2.push(this.state.player2NetScore[i-1]);
+        betNetScore3.push(this.state.player3NetScore[i-1]);
+        betNetScore4.push(this.state.player4NetScore[i-1]);
+      }
+      i++;
+    }
+    for (var i  = this.state.startHole; i <=19; i++){
+      if (this.state.player1NetScore[i-1] !== undefined){
+        betScore1.push(this.state.player1Score[i-1]);
+        betScore2.push(this.state.player2Score[i-1]);
+        betScore3.push(this.state.player3Score[i-1]);
+        betScore4.push(this.state.player4Score[i-1]);
+      }
+    }
+    i = 1;
+    while (i < this.state.startHole){
+      if (this.state.player1NetScore[i-1] !== undefined){
+        betScore1.push(this.state.player1Score[i-1]);
+        betScore2.push(this.state.player2Score[i-1]);
+        betScore3.push(this.state.player3Score[i-1]);
+        betScore4.push(this.state.player4Score[i-1]);
+      }
+      i++;
+    }
+    console.log("betScore1", betScore1);
+
+
     this.props.navigator.push({
       name: 'betresults',
       data: this.props.route.data,
@@ -294,15 +360,16 @@ module.exports  = React.createClass({
       skinsCarry: this.props.route.skinsCarry,
       teamMember: this.props.route.teamMember,
       teams:this.props.route.teams,
-      player1Score: this.state.player1Score,
-      player2Score: this.state.player2Score,
-      player3Score: this.state.player3Score,
-      player4Score:this.state.player4Score,
-      player1NetScore: this.state.player1NetScore,
-      player2NetScore: this.state.player2NetScore,
-      player3NetScore: this.state.player3NetScore,
-      player4NetScore:this.state.player4NetScore,
+      player1Score: betScore1,
+      player2Score: betScore2,
+      player3Score: betScore3,
+      player4Score: betScore4,
+      player1NetScore: betNetScore1,
+      player2NetScore: betNetScore2,
+      player3NetScore: betNetScore3,
+      player4NetScore: betNetScore4,
       holeNumber: this.state.holeNumber-1,
+      startHole: this.props.route.startHole
     });
   },
   onScorecard: function(){
@@ -413,7 +480,10 @@ var styles = StyleSheet.create({
   title1: {
     color: 'greenyellow',
     fontSize: 20,
-    fontWeight: "500"
+    fontWeight: "500",
+    marginRight: 10,
+    marginLeft: 10,
+
   },
   title2: {
     color: 'white',
@@ -438,6 +508,14 @@ var styles = StyleSheet.create({
     color: 'white',
   },
   touchablehighlight:{
+    borderRadius: 20,
+    backgroundColor: "darkolivegreen",
+  	width: 40,
+  	height: 40,
+    justifyContent:'center',
+    alignItems: "center"
+  },
+  touchablehighlight1:{
     borderRadius: 20,
     backgroundColor: "darkolivegreen",
   	width: 40,

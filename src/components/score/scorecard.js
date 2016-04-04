@@ -90,11 +90,17 @@ module.exports  = React.createClass({
   },
 
   scoreResults: function(resultsArray){
-    var playerResults = resultsArray.map(function(element, index){
-      return (
-        <Text key = {index} style = {styles.title4}>{element}</Text>
-      );
-    });
+    var playerResults = [
+      <Text key  = {1} style = {styles.title4}>{resultsArray[0]}</Text>,
+      <Text key  = {2} style = {styles.title4}>{resultsArray[1]}</Text>,
+      <Text key  = {3} style = {styles.title4}>{resultsArray[2]}</Text>,
+      <Text key  = {4} style = {styles.title4}>{resultsArray[3]}</Text>,
+      <Text key  = {5} style = {styles.title4}>{resultsArray[4]}</Text>,
+      <Text key  = {6} style = {styles.title4}>{resultsArray[5]}</Text>,
+      <Text key  = {7} style = {styles.title4}>{resultsArray[6]}</Text>,
+      <Text key  = {8} style = {styles.title4}>{resultsArray[7]}</Text>,
+      <Text key  = {9} style = {styles.title4}>{resultsArray[8]}</Text>
+    ];
     return (playerResults);
   },
 
@@ -288,7 +294,7 @@ var styles = StyleSheet.create({
     fontSize: 22,
     alignSelf: 'center'
   },
-  
+
 
   title2: {
     color:'yellowgreen',

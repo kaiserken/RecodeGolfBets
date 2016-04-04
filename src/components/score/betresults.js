@@ -32,7 +32,9 @@ module.exports = React.createClass({
   },
 
   holesFront: function(){
-    var holesfront = [1,2,3,4,5,6,7,8,9].map(function(element, index){
+    var holesArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+    var frontArray  = holesArray.slice(this.props.route.startHole-1, this.props.route.startHole+8);
+    var holesfront = frontArray.map(function(element, index){
       return (
         <Text key = {index} style = {styles.title3}>{element}</Text>
       );
@@ -42,7 +44,9 @@ module.exports = React.createClass({
   },
 
   holesBack: function(){
-    var holesback = [10,11,12,13,14,15,16,17,18].map(function(element, index){
+    var holesArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+    var backArray = holesArray.slice(this.props.route.startHole+8, this.props.route.startHole+17);
+    var holesback = backArray.map(function(element, index){
       return (
         <Text key = {index} style = {styles.title3}>{element}</Text>
       );
@@ -74,6 +78,7 @@ module.exports = React.createClass({
     var resultsTotal  = [];
     if (this.props.route.indexUsed === true){
       for (var i = 1; i<=this.props.route.playerCount; i++){
+        console.log('playernetscore from bets', this.props.route[`player${i}NetScore`]);
         arr.push(this.props.route[`player${i}NetScore`]);
         arrFront.push(this.props.route[`player${i}NetScore`].slice(0,9));
         arrBack.push(this.props.route[`player${i}NetScore`].slice(9));
