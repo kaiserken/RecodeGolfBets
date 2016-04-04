@@ -43,7 +43,7 @@ var React  = require('react-native');
             "__v":0,
             "_id":"56c582a5b7dbd6361540ef73",
             "email":"kenkaiser@yahoo.com",
-            "favorites":["Arroyo Trabuco Golf Club"],
+            "favorites":["Arroyo Trabuco Golf Club", "Strawberry Farms Golf Club", "Oak Creek Golf Club"],
             "name":"Ken",
             "password":"$2a$10$ONpnNHmvxlDTB9Mebkfps.InLM5t1OFQRqLIioCuMU/sauyU1Y0F.",
             "scores":[88,92,93],
@@ -157,7 +157,7 @@ var React  = require('react-native');
   onPress: function(){
   console.log("value in press", this.state.x);
   var value  = this.state.x;
-    this.props.navigator.push({name:'setup',
+    this.props.navigator.push({name:'favorites',
     // "selectedTab": value[0][1],
     //  "player1Score": JSON.parse(value[1][1]),
     //  "player2Score": JSON.parse(value[2][1]),
@@ -170,7 +170,7 @@ var React  = require('react-native');
     //  "holeNumber": JSON.parse(value[9][1]),
     //  "name": value[10][1],
      "data": JSON.parse(value[11][1]),
-     "course": JSON.parse(value[12][1]),
+    //"course": JSON.parse(value[12][1]),
     //  "playerCount": JSON.parse(value[13][1]),
     //  "player1Name": value[14][1],
     //  "player2Name": value[15][1],

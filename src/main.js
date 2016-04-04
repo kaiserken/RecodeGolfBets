@@ -11,6 +11,7 @@ var {
 var Signin = require('./components/authentication/signin');
 var Signup = require('./components/authentication/signup');
 var Favorites  = require('./components/profile/favorites');
+var AddFavorites  = require('./components/profile/addfavorite');
 var Profile  = require('./components/profile/profile');
 var Setup  = require('./components/setup/setup');
 var Games = require('./components/games/games');
@@ -25,6 +26,7 @@ var ROUTES  = {
   signup: Signup,
   reload: Reload,
   favorites: Favorites,
+  addfavorites: AddFavorites,
   profile: Profile,
   setup: Setup,
   games: Games,

@@ -32,6 +32,11 @@ module.exports  = React.createClass({
     this.setState({groupSubmitted: true});
     this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
   },
+
+  onConfirmGroup: function(){
+    this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: "", player3Name: "", player4Name: "", gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+  },
+
   onBackPlayerSetup: function(){
     this.setState({playerCount: null, player2Name: null, player3Name: null, player4Name: null,});
   },
@@ -50,46 +55,63 @@ module.exports  = React.createClass({
       }
     }
     return (
-      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
-        <View style  = {styles.container}>
-          <Text style={styles.label}>{this.props.route.data.name}</Text>
-          <Text style={styles.label1}>Enter the names of your playing</Text>
-          <Text style={styles.label1}>partners for todays round at</Text>
-          <Text style={styles.label1}>{this.props.route.course.coursename}</Text>
-          <Text style={styles.label}></Text>
-          {players}
-          <Button text={'Submit'} onPress={this.onSubmitGroup}/>
-          <Button text={'Edit # Players'} onPress={this.onBackPlayerSetup}/>
+      <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
+        <View style = {styles.titlecontainer}>
+          <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
         </View>
+        <View style  =  {styles.container}>
+          <View style  = {{flex:.1}}/>
+          <View style  = {styles.container1}>
+          <Text style={styles.label}>{this.props.route.data.name}</Text>
+          <Text style={styles.label1}>Enter the names for the </Text>
+          <Text style={styles.label1}>rest of your group</Text>
+          </View>
+          <View style  = {{flex:.1}}/>
+          {players}
+          <View style  = {{flex:.1}}/>
+          <Button text={'Submit'} onPress={this.onSubmitGroup}/>
+          <View style  = {{flex:.1}}/>
+          <Button text={'Edit Number of Players'} onPress={this.onBackPlayerSetup}/>
+        </View>
+        <View style  = {{flex:.5}}/>
       </Image>
     );
   },
   renderContent: function(user){
     if (this.state.playerCount === null){
       return (
-        <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+        <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
+          <View style = {styles.titlecontainer}>
+            <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
+          </View>
+          <View style = {{flex:.1}}/>
           <View style  = {styles.container}>
+            <View style  = {styles.container1}>
             <Text style={styles.label1}>Tap the number of players</Text>
-            <Text style={styles.label1}>incuding yourself for</Text>
-            <Text style={styles.label1}>todays round</Text>
-            <Text style={styles.label}></Text>
+            <Text style={styles.label1}>including yourself</Text>
+            </View>
             <TouchableHighlight
+              style = {styles.touchableHighlight}
               onPress={()=>this.setState({playerCount: 1})}>
               <Text style={styles.numbers}>1</Text>
             </TouchableHighlight>
             <TouchableHighlight
+              style = {styles.touchableHighlight}
               onPress={()=>this.setState({playerCount: 2})}>
               <Text style={styles.numbers}>2</Text>
             </TouchableHighlight>
             <TouchableHighlight
+              style = {styles.touchableHighlight}
               onPress={()=>this.setState({playerCount: 3})}>
               <Text style={styles.numbers}>3</Text>
             </TouchableHighlight>
             <TouchableHighlight
+              style = {styles.touchableHighlight}
               onPress={()=>this.setState({playerCount: 4})}>
               <Text style={styles.numbers}>4</Text>
             </TouchableHighlight>
           </View>
+          <View style = {{flex:.5}}/>
         </Image>
       );
     }
@@ -100,15 +122,29 @@ module.exports  = React.createClass({
     }
     if (this.state.playerCount === 1){
       return(
-        <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
-          <View style  = {styles.container}>
-            <Text style={styles.label}>{this.props.route.data.name}</Text>
-            <Text style={styles.label}></Text>
-            <Text style={styles.label}>You selected 1 player</Text>
-            <Text style={styles.label}></Text>
-            <Button text={'Confirm'} onPress={this.onConfirmGroup}/>
-            <Button text={'Go back'} onPress={this.onBackPlayerSetup}/>
+        <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
+          <View style = {styles.titlecontainer}>
+            <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
           </View>
+          <View style  = {styles.container}>
+            <View style = {{flex:.1}}/>
+            <View style  = {styles.container1}>
+              <Text style={styles.label}>{this.props.route.data.name}</Text>
+              <Text style={styles.label1}></Text>
+              <Text style={styles.label1}>You selected one player</Text>
+              <Text style={styles.label1}></Text>
+              <Text style={styles.label1}>There are not any one player games</Text>
+              <Text style={styles.label1}></Text>
+              <Text style={styles.label1}>Press start round to use the app</Text>
+              <Text style={styles.label1}>to keep your score </Text>
+            </View>
+            <View style = {{flex:.05}}/>
+            <Button text={'Start Round'} onPress={this.onConfirmGroup}/>
+            <View style = {{flex:.05}}/>
+            <Button text={'Edit Number of Players'} onPress={this.onBackPlayerSetup}/>
+            <View style = {{flex:.05}}/>
+          </View>
+          <View style = {{flex:.5}}/>
         </Image>
       );
     }
@@ -186,25 +222,59 @@ module.exports  = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  titlecontainer: {
+    backgroundColor: "black",
+    opacity: 0.7,
+    flex: .15,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
+  container1: {
+    flex: .6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding:10,
+    borderRadius:5,
+    backgroundColor: "darkolivegreen",
+    opacity: 0.8
+  },
   label: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: '500'
   },
   label1: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
+  },
+  titlelabel: {
+    color: 'white',
+    fontSize: 22,
+  },
+  touchableHighlight: {
+    borderRadius: 25,
+    backgroundColor: "darkolivegreen",
+    padding:15,
+    width: 50,
+    height: 50,
+    marginTop:20,
+    justifyContent:'center',
+    opacity: 0.9,
+    borderColor: 'white',
+    borderWidth:2
   },
   numbers : {
-    color: 'white',
-    fontSize: 40,
-    fontWeight: "700",
-    marginTop: 10,
-    marginBottom:10,
+    fontWeight: "800",
+    fontSize: 25,
+    color:'white',
+    textAlign: 'center',
+    alignSelf: 'center'
   },
   backgroundImage: {
     marginTop:(Platform.OS === 'ios') ? 20 : 0,

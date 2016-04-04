@@ -20,37 +20,23 @@ var Button = require('../common/button');
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'favorites',
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      dataSource2: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
+      selectedTab: 'addfavorites',
       course: null,
       city: "",
       coursefav: "",
     };
   },
 
-  componentDidMount: function(){
-    var courses = this.props.route.data.favorites;
-    if (courses.length ===0){
-      courses = ["You Don't Have Any Favorites Yet", "Use Course Search to Find Course"];
-    }
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(courses)
-    });
-  },
 
-  async courseSearch(){
+
+  async addFavorite(){
     try {
       await Post('coursecity', {city: this.state.city}).then((data)=>{
         if (data.length === 0){
           data = [{coursename: "No Courses Found"}, {coursename:"Check the city spelling"}];
         }
         this.setState({
-          dataSource2: this.state.dataSource2.cloneWithRows(data),
+          coursefav: "Succesfully Saved to Favorites"
         });
       }).done();
     } catch (error) {
@@ -66,57 +52,23 @@ module.exports  = React.createClass({
         </View>
         <View style  = {{flex:.05}}/>
         <View style  = {styles.container}>
-          <Text style={styles.label1}>Welcome Back {user.name}!</Text>
+          <Text style={styles.label1}>You selected</Text>
           <Text style={styles.label1}></Text>
           <View style={styles.container1}>
-            <Text style={styles.label}>Select from your favorites</Text>
-            <Text style={styles.label}>or</Text>
-            <Text style={styles.label}>Search for a course</Text>
+            <Text style={styles.label}>{this.props.route.course.coursename}</Text>
           </View>
+          <Button text = {'Add Course to Favorites'} onPress={()=>{this.addFavorite()}}/>
+          <Text style={styles.label}>{this.state.coursefav}</Text>
+          <Button text = {"Continue"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
         </View>
         <View style  = {{flex:.05}}/>
-        <ListView
-          dataSource = {this.state.dataSource}
-          renderRow = {this.renderCourse}
-          style = {styles.ListView}
-        />
+
       <View style={{flex:.6}}/>
       </Image>
     );
   },
 
-  renderSearch: function(){
-    return (
-      <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-        <View style={styles.titlecontainer}>
-          <Text style={styles.titlelabel}>Golf Bets</Text>
-        </View>
-        <View style  = {{flex:.05}}/>
-        <View style  = {styles.container}>
-          <View style={styles.container1}>
-            <Text style={styles.label1}>Search for a course by city</Text>
-          </View>
 
-          <TextInput
-            style={styles.input}
-            value  = {this.state.city}
-            placeholder = {'City Name'}
-            onChangeText= {(text)=>this.setState({city : text})}
-          />
-
-
-          <Button text={'Search'} onPress={this.courseSearch}/>
-        </View>
-        <ListView
-          dataSource = {this.state.dataSource2}
-          renderRow = {this.renderCourseSearch}
-          style = {styles.ListView}
-        />
-      <View style={{flex: .6}}/>
-    </Image>
-
-    );
-  },
 
 
   render: function(){
@@ -129,18 +81,17 @@ module.exports  = React.createClass({
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress = {()=>this.setState({selectedTab: 'favorites'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Favorites</Text>
+        onPress = {()=>this.setState({selectedTab: 'addfavorites'})}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Add Favorites</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress = {()=>this.setState({selectedTab: 'search'})}>
+        onPress = {()=>this.props.navigator.pop()}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Course Search</Text>
       </TouchableHighlight>
     </View>
     );
 
     if (Platform.OS === "android"){
-      if (this.state.selectedTab === "favorites"){
         return (
           <DrawerLayoutAndroid
             drawerWidth={200}
@@ -149,17 +100,6 @@ module.exports  = React.createClass({
             {this.renderContent(user)}
           </DrawerLayoutAndroid>
         );
-      }
-      if (this.state.selectedTab === "search"){
-        return (
-          <DrawerLayoutAndroid
-            drawerWidth={200}
-            drawerPosition={DrawerLayoutAndroid.positions.Left}
-            renderNavigationView={() => navigationView}>
-            {this.renderSearch()}
-          </DrawerLayoutAndroid>
-        );
-      }
     }
 
     return (
@@ -174,11 +114,11 @@ module.exports  = React.createClass({
           }}>
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Favorites"
-          selected={this.state.selectedTab === 'favorites'}
+          title="Add Favorites"
+          selected={this.state.selectedTab === 'addfavorites'}
           onPress={() => {
             this.setState({
-              selectedTab: 'favorites',
+              selectedTab: 'addfavorites',
             });
           }}>
           {this.renderContent(user)}
@@ -187,55 +127,12 @@ module.exports  = React.createClass({
           title="Course Search"
           selected={this.state.selectedTab === 'search'}
           onPress={() => {
-            this.setState({
-              selectedTab: 'search',
-            });
+            this.props.navigator.pop()
           }}>
-          {this.renderSearch()}
         </TabBarIOS.Item>
       </TabBarIOS>
     );
   },
-  renderCourse: function(rowData){
-    console.log('rowdata', rowData);
-      return (
-      <TouchableOpacity onPress = {()=>this.onPressCourseRow(rowData)}>
-        <View style  = {styles.row}>
-          <Text style  = {styles.label}>{rowData}</Text>
-        </View>
-      </TouchableOpacity>
-      );
-  },
-  renderCourseSearch: function(rowData){
-    console.log('rowdata', rowData);
-      return (
-      <TouchableOpacity onPress = {()=>this.onPressCourseSearchRow(rowData)}>
-        <View style  = {styles.row}>
-          <Text style  = {styles.label}>{rowData.coursename}</Text>
-        </View>
-      </TouchableOpacity>
-      );
-  },
-
-  async onPressCourseRow(rowData){
-
-    try {
-      await Post('courseinfo', {coursename: rowData}).then((data)=>{
-      this.props.navigator.push({name: 'setup', data: this.props.route.data, course:data[0]});
-      }).done();
-    } catch (error) {
-      console.log(error);
-    }
-
-  },
-
-  onPressCourseSearchRow: function(rowData){
-    console.log('rowData', rowData);
-    if (rowData.coursename  === "No Courses Found" || rowData.coursename === "Check the city spelling"){return}
-    this.setState({course: rowData});
-    this.props.navigator.push({name: 'addfavorites', data: this.props.route.data, course: this.state.course});
-  },
-
 
 });
 

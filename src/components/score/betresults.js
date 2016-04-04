@@ -92,6 +92,7 @@ module.exports = React.createClass({
       results  = Nassau(arr, this.props.route.teams,this.props.route.auto18);
       resultsFront  = Nassau(arrFront, this.props.route.teams, this.props.route.auto9);
       resultsBack  = Nassau(arrBack, this.props.route.teams, this.props.route.auto9);
+      resultsTotal.push(NassauResults(resultsFront, this.props.route.betFrontNassau), NassauResults(resultsBack, this.props.route.betBackNassau), NassauResults(results, this.props.route.betTotalNassau));
     }
     return this.renderNassauResults(results, resultsFront, resultsBack, resultsTotal);
   },
