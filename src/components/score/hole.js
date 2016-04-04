@@ -446,7 +446,7 @@ var styles = StyleSheet.create({
     alignItems: "center"
   },
   plusMinus: {
-    fontWeight: "800",
+    fontWeight: "900",
     fontSize: 20,
     color:'greenyellow',
     textAlign: 'center',
