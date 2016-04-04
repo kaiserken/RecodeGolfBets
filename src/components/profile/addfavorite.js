@@ -23,7 +23,7 @@ module.exports  = React.createClass({
       selectedTab: 'addfavorites',
       course: null,
       city: "",
-      coursefav: "",
+      coursefav: null,
     };
   },
 
@@ -41,6 +41,14 @@ module.exports  = React.createClass({
     }).done();
   },
 
+  addButton: function(){
+    if (!this.state.coursefav){
+      return (
+        <Button text = {'Add Course to Favorites'} onPress={()=>{this.addFavorite()}}/>
+      );
+    }
+  },
+
   renderContent: function(user) {
     console.log('props', this.props)
     return (
@@ -56,11 +64,12 @@ module.exports  = React.createClass({
             <Text style={styles.label}>{this.props.route.course.coursename}</Text>
           </View>
           <View style  = {{flex:.2}}/>
-          <Button text = {'Add Course to Favorites'} onPress={()=>{this.addFavorite()}}/>
+          <Button text = {"Continue to Player Setup"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
+          <View style  = {{flex:.2}}/>
+          {this.addButton()}
+
           <View style  = {{flex:.2}}/>
           <Text style={styles.label1}>{this.state.coursefav}</Text>
-          <View style  = {{flex:.2}}/>
-          <Button text = {"Continue to Player Setup"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
         </View>
         <View style  = {{flex:.05}}/>
 
@@ -158,7 +167,6 @@ var styles = StyleSheet.create({
     padding:10,
     borderRadius:5,
     backgroundColor: "darkolivegreen",
-    opacity: 0.6,
   },
   titlelabel: {
     color: 'white',

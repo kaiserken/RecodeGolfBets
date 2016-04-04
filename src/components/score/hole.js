@@ -148,11 +148,13 @@ module.exports  = React.createClass({
           <View style = {styles.row}>
             <Text style = {styles.name}>{this.props.route.data.name}</Text>
             <TouchableHighlight
+              style  = {styles.touchablehighlight}
               onPress={()=>this.setState({score1: --this.state.score1, netScore1: --this.state.netScore1})}>
               <Text style={styles.plusMinus}>-</Text>
             </TouchableHighlight>
             <Text style = {styles.label}>{this.state.score1}</Text>
             <TouchableHighlight
+              style  = {styles.touchablehighlight}
               onPress={()=>this.setState({score1: ++this.state.score1, netScore1: ++this.state.netScore1})}>
               <Text style={styles.plusMinus}>+</Text>
             </TouchableHighlight>
@@ -176,11 +178,13 @@ module.exports  = React.createClass({
         <View style = {styles.row}>
           <Text style = {styles.name}>{this.props.route.player2Name}</Text>
           <TouchableHighlight
+            style  = {styles.touchablehighlight}
             onPress={()=>this.setState({score2: --this.state.score2, netScore2: --this.state.netScore2})}>
             <Text style={styles.plusMinus}>-</Text>
           </TouchableHighlight>
           <Text style = {styles.label}>{this.state.score2}</Text>
           <TouchableHighlight
+            style  = {styles.touchablehighlight}
             onPress={()=>this.setState({score2: ++this.state.score2, netScore2: ++this.state.netScore2})}>
             <Text style={styles.plusMinus}>+</Text>
           </TouchableHighlight>
@@ -195,11 +199,13 @@ module.exports  = React.createClass({
         <View style = {styles.row}>
           <Text style = {styles.name}>{this.props.route.player3Name}</Text>
           <TouchableHighlight
+            style  = {styles.touchablehighlight}
             onPress={()=>this.setState({score3: --this.state.score3, netScore3: --this.state.netScore3})}>
             <Text style={styles.plusMinus}>-</Text>
           </TouchableHighlight>
           <Text style = {styles.label}>{this.state.score3}</Text>
           <TouchableHighlight
+            style  = {styles.touchablehighlight}
             onPress={()=>this.setState({score3: ++this.state.score3, netScore3: ++this.state.netScore3})}>
             <Text style={styles.plusMinus}>+</Text>
           </TouchableHighlight>
@@ -214,11 +220,13 @@ module.exports  = React.createClass({
         <View style = {styles.row}>
           <Text style = {styles.name}>{this.props.route.player4Name}</Text>
           <TouchableHighlight
+            style  = {styles.touchablehighlight}
             onPress={()=>this.setState({score4: --this.state.score4, netScore4: --this.state.netScore4})}>
             <Text style={styles.plusMinus}>-</Text>
           </TouchableHighlight>
           <Text style = {styles.label}>{this.state.score4}</Text>
           <TouchableHighlight
+            style  = {styles.touchablehighlight}
             onPress={()=>this.setState({score4: ++this.state.score4, netScore4: ++this.state.netScore4})}>
             <Text style={styles.plusMinus}>+</Text>
           </TouchableHighlight>
@@ -403,8 +411,9 @@ var styles = StyleSheet.create({
     fontSize: 22,
   },
   title1: {
-    color: 'white',
+    color: 'greenyellow',
     fontSize: 20,
+    fontWeight: "500"
   },
   title2: {
     color: 'white',
@@ -428,17 +437,20 @@ var styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
-  plusMinus: {
-    fontWeight: "800",
-    fontSize: 30,
-    color:'greenyellow',
+  touchablehighlight:{
     borderRadius: 20,
     backgroundColor: "darkolivegreen",
   	width: 40,
   	height: 40,
-    //alignSelf:'center',
+    justifyContent:'center',
+    alignItems: "center"
+  },
+  plusMinus: {
+    fontWeight: "800",
+    fontSize: 20,
+    color:'greenyellow',
     textAlign: 'center',
-    justifyContent:'center'
+    alignSelf: "center"
   },
   titlecontainer: {
     backgroundColor: "black",
