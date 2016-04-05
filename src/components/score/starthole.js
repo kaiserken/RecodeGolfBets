@@ -182,10 +182,6 @@ var React  = require('react-native');
         <View style = {{flex:1}} >
           {this.submitHoleNumeber()}
         </View>
-        <View style = {{flex:1}}/>
-
-
-
       </Image>
     );
   },

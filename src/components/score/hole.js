@@ -37,7 +37,9 @@ module.exports  = React.createClass({
         netScore3: null,
         netScore4: null,
         holeNumber: this.props.route.startHole,
-        startHole: this.props.route.startHole
+        startHole: this.props.route.startHole,
+        advance: ">",
+        back: "<"
       };
     }
     return {
@@ -60,6 +62,8 @@ module.exports  = React.createClass({
       netScore4: null,
       holeNumber: this.props.route.startHole,
       startHole: this.props.route.startHole,
+      advance: ">",
+      back: "<"
 
     };
   },
@@ -141,21 +145,22 @@ module.exports  = React.createClass({
               <TouchableHighlight
                 style  = {styles.touchablehighlight1}
                 onPress={()=>{this.setState({score2: --this.state.holeNumber});this.setHole();} }>
-                <Text style={styles.plusMinus}>-</Text>
+                <Text style={styles.plusMinus1}>{this.state.back}</Text>
               </TouchableHighlight>
-              <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
+              <View style = {{justifyContent: 'center', alignItems: 'center'}}>
+                <Text style = {styles.title1}>Hole {this.state.holeNumber}</Text>
+                <View style = {styles.rowheader}>
+                  <Text style = {styles.title2}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
+                  <Text style = {styles.title2}>Hdcp {this.props.route.course.coursehcp[this.state.holeNumber-1]}</Text>
+                </View>
+              </View>
               <TouchableHighlight
                 style  = {styles.touchablehighlight1}
                 onPress={()=>{this.setState({score2: ++this.state.holeNumber}); this.setHole();}}>
-                <Text style={styles.plusMinus}>+</Text>
+                <Text style={styles.plusMinus1}>{this.state.advance}</Text>
               </TouchableHighlight>
             </View>
 
-
-            <View style = {styles.rowheader}>
-              <Text style = {styles.title2}>Par {this.props.route.course.coursepar[this.state.holeNumber-1]}</Text>
-              <Text style = {styles.title2}>Hdcp {this.props.route.course.coursehcp[this.state.holeNumber-1]}</Text>
-            </View>
           </View>
         </View>
         <View style  = {{flex:.1}}></View>
@@ -522,7 +527,16 @@ var styles = StyleSheet.create({
   	width: 40,
   	height: 40,
     justifyContent:'center',
-    alignItems: "center"
+    alignItems: "center",
+  },
+  plusMinus1: {
+    fontWeight: "500",
+    fontSize: 20,
+    color:'greenyellow',
+    textAlign: 'center',
+    alignSelf: "center",
+    marginLeft: 10,
+    marginRight:10
   },
   plusMinus: {
     fontWeight: "900",
