@@ -38,7 +38,7 @@ var React  = require('react-native');
          ["player3NetScore",JSON.stringify([])],
          ["player4NetScore",JSON.stringify([])],
          ["holeNumber",JSON.stringify(15)],
-         ["name","hole"],
+         ["name","starthole"],
          ["data", JSON.stringify({
             "__v":0,
             "_id":"56c582a5b7dbd6361540ef73",

@@ -394,7 +394,7 @@ module.exports  = React.createClass({
       });
     }
     this.props.navigator.push({
-      name: "hole",
+      name: "starthole",
       data: this.props.route.data,
       course:this.props.route.course,
       playerCount: this.props.route.playerCount,

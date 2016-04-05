@@ -466,7 +466,7 @@ module.exports = React.createClass({
         </View>
         <View style  = {{flex:.2}}></View>
         <View style  = {styles.container2}>
-          <Text style = {styles.title1}>Results for {this.props.route.gameSelected} through Hole {this.props.route.holeNumber}</Text>
+          <Text style = {styles.title1}>Results for {this.props.route.gameSelected}</Text>
         </View>
         <View style  = {{flex:.2}}></View>
         <View style  = {{flex: (this.props.route.gameSelected === 'Nassau') ? 7 : 5}}>
@@ -547,6 +547,7 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: "500",
     opacity: 0.9,
+    padding: 2
   },
 
   title2: {

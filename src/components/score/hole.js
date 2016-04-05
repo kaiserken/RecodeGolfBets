@@ -65,6 +65,7 @@ module.exports  = React.createClass({
   },
 
   componentWillMount: function(){
+
     if (this.state.player1Score[this.state.holeNumber-1]=== undefined){
       this.setHole();
     }

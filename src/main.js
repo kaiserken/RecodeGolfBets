@@ -15,6 +15,7 @@ var AddFavorites  = require('./components/profile/addfavorite');
 var Profile  = require('./components/profile/profile');
 var Setup  = require('./components/setup/setup');
 var Games = require('./components/games/games');
+var StartHole = require('./components/score/starthole');
 var Hole  = require('./components/score/hole');
 var Setbets = require('./components/games/setbets');
 var Reload  = require('./components/reload/reload');
@@ -30,6 +31,7 @@ var ROUTES  = {
   profile: Profile,
   setup: Setup,
   games: Games,
+  starthole: StartHole,
   hole: Hole,
   setbets: Setbets,
   betresults:BetResults,
