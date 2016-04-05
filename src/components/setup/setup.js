@@ -25,16 +25,29 @@ module.exports  = React.createClass({
       player3Name: null,
       player4Name: null,
       groupSubmitted: false,
+      namesValid: true,
     };
   },
 
   onSubmitGroup: function(){
+    this.setState({namesValid: true});
+    for (var i = 2; i<= this.state.playerCount; i++){
+      if (this.state[`player${i}Name`]===null || this.state[`player${i}Name`]=== undefined ){
+        this.setState({namesValid:false})
+      }
+    }
+    if (this.state.namesValid === false){
+      Alert.alert('Player Names','Each player must have a name',
+      [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+      );
+      return;
+    }
     this.setState({groupSubmitted: true});
     this.props.navigator.push({name: 'games', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: this.state.player2Name, player3Name: this.state.player3Name, player4Name: this.state.player4Name});
   },
 
   onConfirmGroup: function(){
-    this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: "", player3Name: "", player4Name: "", gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    this.props.navigator.push({name: 'starthole', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: "", player3Name: "", player4Name: "", gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
   },
 
   onBackPlayerSetup: function(){

@@ -45,7 +45,8 @@ module.exports  = React.createClass({
       lowTotal: false,
       skinsCarry: false,
       teamMember: null,
-      teams:[]
+      teams:[],
+      hcpValid: true,
     };
   },
   renderIndexUsed: function(){
@@ -372,6 +373,64 @@ module.exports  = React.createClass({
 
   onSubmit: function(){
     var game = this.props.route.gameSelected;
+    //Validation checks
+    if (this.state.index === true){
+      this.setState({hcpValid: true});
+      for (var i = 1; i<= this.props.route.playerCount; i++){
+          if (isNaN(Math.round(parseFloat(this.state[`player${i}Hcp`])))){
+            this.setState({hcpValid:false});
+          }
+          if (Math.round(parseFloat(this.state[`player${i}Hcp`]))>36 || Math.round(parseFloat(this.state[`player${i}Hcp`]))<-12){
+            this.setState({hcpValid:false});
+          }
+          if (this.state.hcpValid === false) {
+            break;
+          }
+      }
+      if (this.state.hcpValid === false){
+        Alert.alert('Handicap Indexes','Each player must have a valid number as an index between -12 and 36',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+        );
+        return;
+      }
+    }
+
+    if (game === "Nassau"){
+      if (isNaN(parseInt(this.state.betFrontNassau)) || isNaN(parseInt(this.state.betTotalNassau)) ){
+        Alert.alert('Nassau Bets','All bets must have a points number - Enter 0 for no bet',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+        );
+        return;
+      }
+    }
+
+    if (game === "RoundRobin"){
+      if (this.state.lowScore ===true){
+        if (isNaN(parseInt(this.state.betLowScore))){
+          Alert.alert('Round Robin Bets','All bets must have a valid points number - Enter 0 for no bet',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+          return;
+        }
+      }
+      if (this.state.lowTotal ===true){
+        if (isNaN(parseInt(this.state.betLowTotal))){
+          Alert.alert('Round Robin Bets','All bets must have a valid points number - Enter 0 for no bet',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+          return;
+        }
+      }
+    }
+    if (game === "Skins"){
+      if (isNaN(parseInt(this.state.skinsBet))){
+        Alert.alert('Skins Bet','All bets must have a valid points number - Enter 0 for no bet',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+        );
+        return;
+      }
+    }
+
     var strokes;
     if ((this.state.indexUsed === true && this.props.route.playerCount === 2 && this.state.player1Hcp && this.state.player2Hcp)&& (game === "Nassau" || game === "MatchPlay")){
       strokes = Strokes(this.props.route.playerCount, Math.round(parseFloat(this.state.player1Hcp)), Math.round(parseFloat(this.state.player2Hcp)), Math.round(parseFloat(this.state.player3Hcp)), Math.round(parseFloat(this.state.player4Hcp)));
@@ -393,6 +452,20 @@ module.exports  = React.createClass({
         scoreAdj4: ScoreAdjust(Math.round(parseFloat(this.state.player4Hcp)), this.props.route.course.coursehcp),
       });
     }
+
+    if (game)
+
+    // betLowScore: null,
+    // betLowTotal: null,
+    // skinsBet: null,
+    // auto9: false,
+    // auto18: false,
+    // lowScore: false,
+    // lowTotal: false,
+    // skinsCarry: false,
+    // teamMember: null,
+
+
     this.props.navigator.push({
       name: "starthole",
       data: this.props.route.data,

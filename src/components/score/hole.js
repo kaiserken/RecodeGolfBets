@@ -128,6 +128,7 @@ module.exports  = React.createClass({
     if (this.state.holeNumber<1){this.setState({holeNumber: 1});}
     if (this.state.holeNumber>18){this.setState({holeNumber: 18});}
     this.setHole();
+    this.onScorecard();
   },
 
 
@@ -393,6 +394,7 @@ module.exports  = React.createClass({
       player3Score: this.state.player3Score,
       player4Score:this.state.player4Score,
       holeNumber: this.state.holeNumber-1,
+      onBetResults: this.props.onBetResults
     });
   },
 
@@ -484,7 +486,7 @@ var styles = StyleSheet.create({
     fontSize: 22,
   },
   title1: {
-    color: 'greenyellow',
+    color: 'white',
     fontSize: 20,
     fontWeight: "500",
     marginRight: 10,
@@ -536,7 +538,8 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     alignSelf: "center",
     marginLeft: 10,
-    marginRight:10
+    marginRight:10,
+    opacity: 0.8
   },
   plusMinus: {
     fontWeight: "900",

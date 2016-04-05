@@ -90,17 +90,12 @@ module.exports  = React.createClass({
   },
 
   scoreResults: function(resultsArray){
-    var playerResults = [
-      <Text key  = {1} style = {styles.title4}>{resultsArray[0]}</Text>,
-      <Text key  = {2} style = {styles.title4}>{resultsArray[1]}</Text>,
-      <Text key  = {3} style = {styles.title4}>{resultsArray[2]}</Text>,
-      <Text key  = {4} style = {styles.title4}>{resultsArray[3]}</Text>,
-      <Text key  = {5} style = {styles.title4}>{resultsArray[4]}</Text>,
-      <Text key  = {6} style = {styles.title4}>{resultsArray[5]}</Text>,
-      <Text key  = {7} style = {styles.title4}>{resultsArray[6]}</Text>,
-      <Text key  = {8} style = {styles.title4}>{resultsArray[7]}</Text>,
-      <Text key  = {9} style = {styles.title4}>{resultsArray[8]}</Text>
-    ];
+    var playerResults = [];
+
+    for (var i = 0; i<9; i++){
+    playerResults.push(<Text key  = {i} style = {styles.title4}>{resultsArray[i]}</Text>);
+    }
+
     return (playerResults);
   },
 
@@ -267,14 +262,14 @@ module.exports  = React.createClass({
           selected={this.state.selectedTab === 'scorecard'}
           onPress={() => {
             this.setState({
-              selectedTab: 'currenthole',
+              selectedTab: 'scorecard',
             });
           }}>
           {this.renderContent(user)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Current Hole"
-          selected={this.state.selectedTab === 'betresults'}
+          selected={this.state.selectedTab === 'currenthole'}
           onPress={() => {
             this.props.navigator.pop();
           }}>

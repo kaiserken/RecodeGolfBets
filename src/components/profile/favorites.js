@@ -94,7 +94,7 @@ module.exports  = React.createClass({
         <View style  = {{flex:.05}}/>
         <View style  = {styles.container}>
           <View style={styles.container1}>
-            <Text style={styles.label1}>Search for a course by city</Text>
+            <Text style={styles.label}>Search for a course by city</Text>
           </View>
 
           <TextInput

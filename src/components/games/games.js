@@ -83,9 +83,9 @@ module.exports  = React.createClass({
           [{text: 'OK', onPress: () => console.log('OK Pressed')}]
           );
       }
-    }  
+    }
 
-    if (this.state.keepScoreSwitch === true && count === 1) this.props.navigator.push({name: 'hole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player1Name: this.props.route.player1Name, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    if (this.state.keepScoreSwitch === true && count === 1) this.props.navigator.push({name: 'starthole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player1Name: this.props.route.player1Name, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
   },
 
   renderContent: function(){

@@ -22,7 +22,7 @@ var React  = require('react-native');
   submitHoleNumeber: function(){
     if (this.state.startHole){
       return (
-        <View>
+        <View style  = {{justifyContent:"center", alignItems:"center"}}>
           <View style = {{flex:2}}/>
           <Text style = {styles.title1}>You selected Hole {this.state.startHole}</Text>
           <View style = {{flex:1}}/>
@@ -179,7 +179,7 @@ var React  = require('react-native');
             <Text style={styles.plusMinus}>18</Text>
           </TouchableHighlight>
         </View>
-        <View style = {{flex:1}} >
+        <View style = {{flex:1, justifyContent: "center"}} >
           {this.submitHoleNumeber()}
         </View>
       </Image>

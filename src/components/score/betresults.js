@@ -68,6 +68,10 @@ module.exports = React.createClass({
     return (playerResults);
   },
 
+  renderJustKeepScore: function(){
+    return;
+  },
+
   renderNassau: function(){
     var results;
     var resultsFront;
