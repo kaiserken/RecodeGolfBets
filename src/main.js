@@ -41,7 +41,11 @@ var ROUTES  = {
 };
 
 module.exports = React.createClass({
-
+getInitialState: function(){
+  return {
+    currentGame: null
+  };
+},
 
 
 
@@ -64,7 +68,7 @@ async _loadInitialState() {
 
 getInitialState: function(){
   return {
-    currentGame: "",
+    currentGame: null,
   };
 },
 
@@ -76,7 +80,7 @@ renderScene: function(route, navigator){
 render: function(){
   console.log("state", this.state);
   // need to change back to false  - for testing only
-  if (this.state.currentGame === true){
+  if (this.state.currentGame === false){
     return (
       <Navigator
       style  = {styles.container}
@@ -85,7 +89,8 @@ render: function(){
       configureScene = {()=>{return Navigator.SceneConfigs.FloatFromRight;}}
       />
     );
-  } else if (this.state.currentGame === false){
+  }
+  if (this.state.currentGame === "true"){
     return (
       <Navigator
       style  = {styles.container}
@@ -94,12 +99,13 @@ render: function(){
       configureScene = {()=>{return Navigator.SceneConfigs.FloatFromRight;}}
       />
     );
-  } else {
+  }
+  if (this.state.currentGame === null){
     return (
       <View style  = {styles.container}>
         <Text>Loading!!!!</Text>
       </View>
-  );
+    );
   }
 },
 

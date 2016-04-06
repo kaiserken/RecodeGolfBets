@@ -2,6 +2,7 @@ var React  = require('react-native');
 
 var {
   Text,
+  AsyncStorage,
   StyleSheet,
   View,
   Platform,
@@ -36,7 +37,7 @@ module.exports  = React.createClass({
         netScore2: null,
         netScore3: null,
         netScore4: null,
-        holeNumber: this.props.route.startHole,
+        holeNumber: this.props.route.holeNumber,
         startHole: this.props.route.startHole,
         advance: ">",
         back: "<"
@@ -78,10 +79,10 @@ module.exports  = React.createClass({
     try {
       var value  = await AsyncStorage.multiSet([
         ["selectedTab", 'currenthole'],
-        ["player1Score", JSON.stringify([])],
-        ["player2Score", JSON.stringify([])],
-        ["player3Score", JSON.stringify([])],
-        ["player4Score", JSON.stringify([])],
+        ["player1Score", JSON.stringify(this.state.player1Score)],
+        ["player2Score", JSON.stringify(this.state.player2Score)],
+        ["player3Score", JSON.stringify(this.state.player3Score)],
+        ["player4Score", JSON.stringify(this.state.player4Score)],
         ["player1NetScore",JSON.stringify(this.state.player1NetScore)],
         ["player2NetScore",JSON.stringify(this.state.player2NetScore)],
         ["player3NetScore",JSON.stringify(this.state.player3NetScore)],
@@ -89,37 +90,33 @@ module.exports  = React.createClass({
         ["holeNumber",JSON.stringify(this.state.holeNumber)],
         ["name",this.props.route.name],
         ["data", JSON.stringify(this.props.route.data)],
-        ["course",JSON.stringify({
-          "coursename": "Arroyo Trabuco Golf Club",
-          "coursehcp": [13,1,9,3,5,15,17,11,7,18,12,2,6,14,10,16,4,8],
-          "coursepar": [4,4,5,3,4,4,5,3,4,4,3,4,3,5,4,4,4,5]
-        })
-        ],
-        ["playerCount",JSON.stringify(4)],
-        ["player1Name", "Ken"],
-        ["player2Name", "Tommy"],
-        ["player3Name", "Ed"],
-        ["player4Name", "Richard"],
-        ["gameSelected", "Nassau"],
-        ["indexUsed", JSON.stringify(true)],
-        ["scoreAdj1", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-        ["scoreAdj2", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-        ["scoreAdj3", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-        ["scoreAdj4", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-        ["betFrontNassau", JSON.stringify(null)],
-        ["betBackNassau", JSON.stringify(null)],
-        ["betTotalNassau", JSON.stringify(null)],
-        ["betLowScore", JSON.stringify(1)],
-        ["betLowTotal", JSON.stringify(1)],
-        ["skinsBet", JSON.stringify(null)],
-        ["auto9", JSON.stringify(true)],
-        ["auto18", JSON.stringify(true)],
-        ["lowScore", JSON.stringify(false)],
-        ["lowTotal", JSON.stringify(false)],
-        ["skinsCarry", JSON.stringify(false)],
-        ["teams", JSON.stringify([1,3,4,2,1,2,3,4,1,4,2,3])],
-        ["startHole", JSON.stringify(7)],
+        ["course",JSON.stringify(this.props.route.course)],
+        ["playerCount",JSON.stringify(this.props.route.playerCount)],
+        ["player1Name", this.props.route.player1Name],
+        ["player2Name", this.props.route.player2Name],
+        ["player3Name", this.props.route.player3Name],
+        ["player4Name", this.props.route.player4Name],
+        ["gameSelected", this.props.route.gameSelected],
+        ["indexUsed", JSON.stringify(this.props.route.indexUsed)],
+        ["scoreAdj1", JSON.stringify(this.props.route.scoreAdj1)],
+        ["scoreAdj2", JSON.stringify(this.props.route.scoreAdj2)],
+        ["scoreAdj3", JSON.stringify(this.props.route.scoreAdj3)],
+        ["scoreAdj4", JSON.stringify(this.props.route.scoreAdj4)],
+        ["betFrontNassau", JSON.stringify(this.props.route.betFrontNassau)],
+        ["betBackNassau", JSON.stringify(this.props.route.betBackNassau)],
+        ["betTotalNassau", JSON.stringify(this.props.route.betTotalNassau)],
+        ["betLowScore", JSON.stringify(this.props.route.betLowScore)],
+        ["betLowTotal", JSON.stringify(this.props.route.betLowTotal)],
+        ["skinsBet", JSON.stringify(this.props.route.skinsBet)],
+        ["auto9", JSON.stringify(this.props.route.auto9)],
+        ["auto18", JSON.stringify(this.props.route.auto18)],
+        ["lowScore", JSON.stringify(this.props.route.lowScore)],
+        ["lowTotal", JSON.stringify(this.props.route.lowTotal)],
+        ["skinsCarry", JSON.stringify(this.props.route.skinsCarry)],
+        ["teams", JSON.stringify(this.props.route.teams)],
+        ["startHole", JSON.stringify(this.props.route.startHole)],
         ["reload", JSON.stringify(true)],
+        ["currentGame", JSON.stringify(true)],
       ]);
     } catch (error) {
       console.log("AsyncStorage Error " + error);
@@ -129,7 +126,7 @@ module.exports  = React.createClass({
   setHole: function(){
     if (this.state.holeNumber<1){this.setState({holeNumber:18});}
     if (this.state.holeNumber>18){this.setState({holeNumber:1});}
-    if (this.state.player1Score[this.state.holeNumber-1]=== undefined){
+    if (this.state.player1Score[this.state.holeNumber-1]=== undefined || this.state.player1Score[this.state.holeNumber-1]=== null ){
       this.setState({
         score1: this.props.route.course.coursepar[this.state.holeNumber-1], netScore1:this.props.route.course.coursepar[this.state.holeNumber-1]-this.props.route.scoreAdj1[this.state.holeNumber-1], score2: this.props.route.course.coursepar[this.state.holeNumber-1], netScore2:this.props.route.course.coursepar[this.state.holeNumber-1]-this.props.route.scoreAdj2[this.state.holeNumber-1],
         score3: this.props.route.course.coursepar[this.state.holeNumber-1], netScore3:this.props.route.course.coursepar[this.state.holeNumber-1]-this.props.route.scoreAdj3[this.state.holeNumber-1],
@@ -352,7 +349,7 @@ module.exports  = React.createClass({
     var betNetScore4 = [];
 
     for (var i  = this.state.startHole; i <=19; i++){
-      if (this.state.player1NetScore[i-1] !== undefined){
+      if (this.state.player1NetScore[i-1] !== undefined && this.state.player1NetScore[i-1] !== null){
         betNetScore1.push(this.state.player1NetScore[i-1]);
         betNetScore2.push(this.state.player2NetScore[i-1]);
         betNetScore3.push(this.state.player3NetScore[i-1]);
@@ -361,7 +358,7 @@ module.exports  = React.createClass({
     }
     i = 1;
     while (i < this.state.startHole){
-      if (this.state.player1NetScore[i-1] !== undefined){
+      if (this.state.player1NetScore[i-1] !== undefined && this.state.player1NetScore[i-1] !== null){
         betNetScore1.push(this.state.player1NetScore[i-1]);
         betNetScore2.push(this.state.player2NetScore[i-1]);
         betNetScore3.push(this.state.player3NetScore[i-1]);
@@ -370,7 +367,7 @@ module.exports  = React.createClass({
       i++;
     }
     for (var i  = this.state.startHole; i <=19; i++){
-      if (this.state.player1NetScore[i-1] !== undefined){
+      if (this.state.player1Score[i-1] !== undefined && this.state.player1Score[i-1] !== null){
         betScore1.push(this.state.player1Score[i-1]);
         betScore2.push(this.state.player2Score[i-1]);
         betScore3.push(this.state.player3Score[i-1]);
@@ -379,7 +376,7 @@ module.exports  = React.createClass({
     }
     i = 1;
     while (i < this.state.startHole){
-      if (this.state.player1NetScore[i-1] !== undefined){
+      if (this.state.player1Score[i-1] !== undefined && this.state.player1Score[i-1] !== null){
         betScore1.push(this.state.player1Score[i-1]);
         betScore2.push(this.state.player2Score[i-1]);
         betScore3.push(this.state.player3Score[i-1]);
@@ -431,6 +428,7 @@ module.exports  = React.createClass({
     });
   },
   onScorecard: function(){
+    this._setdata();
     this.props.navigator.push({
       name: 'scorecard',
       data: this.props.route.data,
