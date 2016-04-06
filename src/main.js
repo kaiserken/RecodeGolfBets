@@ -21,6 +21,7 @@ var Setbets = require('./components/games/setbets');
 var Reload  = require('./components/reload/reload');
 var BetResults  = require('./components/score/betresults');
 var Scorecard = require('./components/score/scorecard');
+var EndRound = require('./components/end/endround');
 
 var ROUTES  = {
   signin: Signin,
@@ -35,7 +36,8 @@ var ROUTES  = {
   hole: Hole,
   setbets: Setbets,
   betresults:BetResults,
-  scorecard: Scorecard
+  scorecard: Scorecard,
+  endround: EndRound
 };
 
 module.exports = React.createClass({

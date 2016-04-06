@@ -144,7 +144,6 @@ var React  = require('react-native');
           <Text style = {styles.label}>You have a current Game </Text>
           <Text style  = {styles.label}>Would you like to continue it</Text>
           <Button text = {'Continue'} onPress={this.onPress}/>
-          <Button text = {"I need an account..."} onPress={this.onSignupPress}/>
         </View>
       </Image>
     );

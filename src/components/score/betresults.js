@@ -327,9 +327,9 @@ module.exports = React.createClass({
           <View style = {{flex:4}}/>
           <View style  = {{flex:3}}>
             <View style = {styles.row}>
-              <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bets'})}/>
-              <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bets'})}/>
-              <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bets'})}/>
+              <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bet and Presses'})}/>
+              <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bet and Presses'})}/>
+              <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bet and Presses'})}/>
             </View>
             <View style = {{flex:1}}/>
             <View style = {styles.container}>
@@ -513,14 +513,7 @@ module.exports = React.createClass({
         tintColor="black"
         barTintColor="white">
         <TabBarIOS.Item
-          title="Current Hole"
-          selected={this.state.selectedTab === 'currenthole'}
-          onPress={() => {
-            this.props.navigator.pop();
-          }}>
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          title="bets"
+          title="Match/Bets"
           selected={this.state.selectedTab === 'betresults'}
           onPress={() => {
             this.setState({
@@ -528,6 +521,13 @@ module.exports = React.createClass({
             });
           }}>
           {this.renderContent()}
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          title="Current Hole"
+          selected={this.state.selectedTab === 'currenthole'}
+          onPress={() => {
+            this.props.navigator.pop();
+          }}>
         </TabBarIOS.Item>
       </TabBarIOS>
     );

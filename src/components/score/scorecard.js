@@ -7,11 +7,8 @@ var {
   Platform,
   DrawerLayoutAndroid,
   TabBarIOS,
-  Switch,
   TouchableHighlight,
-  Alert,
   Image,
-  Dimensions,
 } = React;
 
 var Button = require('../common/button');
@@ -143,7 +140,7 @@ module.exports  = React.createClass({
         );
       });
       var totals = scoresTotal.map(function(element, index){
-        console.log("element", element)
+      
         return(
           <View key = {index} style = {styles.row}>
             <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
@@ -232,6 +229,10 @@ module.exports  = React.createClass({
         onPress = {()=>this.setState({selectedTab: 'scorecard'})}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Scorecard</Text>
       </TouchableHighlight>
+      <TouchableHighlight
+        onPress = {()=>this.props.navigator.push({name: 'endround', data: user, course: this.props.route.course})}>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>End Round</Text>
+      </TouchableHighlight>
     </View>
     );
 
@@ -250,6 +251,13 @@ module.exports  = React.createClass({
       <TabBarIOS
         tintColor="black"
         barTintColor="white">
+        <TabBarIOS.Item
+          title="End Round"
+          selected={this.state.selectedTab === 'endround'}
+          onPress={() => {
+            this.props.navigator.push({name: 'endround', data: user, course: this.props.route.course});
+          }}>
+        </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Profile"
           selected={this.state.selectedTab === 'profile'}

@@ -47,6 +47,7 @@ module.exports  = React.createClass({
       teamMember: null,
       teams:[],
       hcpValid: true,
+      hcpAlert: 1
     };
   },
   renderIndexUsed: function(){
@@ -64,6 +65,7 @@ module.exports  = React.createClass({
     }
   },
   renderPlayerIndex: function(){
+
     var players = [];
     for (var i = 1; i <= this.props.route.playerCount; i++){
       if (i===1){
@@ -79,12 +81,14 @@ module.exports  = React.createClass({
         players.push(<PlayerIndex key = {i} text = {this.props.route.player4Name} value = {this.state.player4Hcp} onChangeText = {(text)=> this.setState({player4Hcp: text})}/>);
       }
     }
+
     return (
       <View>
       {players}
       </View>
     );
   },
+
   renderBets: function(){
     var game = this.props.route.gameSelected;
     if (game === "Nassau"){
@@ -353,7 +357,15 @@ module.exports  = React.createClass({
           <Text style={styles.title}>{this.props.route.gameSelected}</Text>
         </View>
         <View style = {styles.row}>
+          <View>
           <Text style={{width: (this.state.indexUsed === true) ? 100 : 200, color: 'white'}}>Use Handicaps</Text>
+          <TouchableHighlight style={{width: (this.state.indexUsed === true) ? 100 :200}}
+            onPress={()=>Alert.alert('Handicaps','If you are a plus index - meaning that your index is below par - enter your index as negative number. A golfers Handicap Index allows the golfer to compete with other golfers on a level playing field, regardless of their playing ability. It is rare to have a plus index. Plus indexes are the realm of golf professionals and very skilled players. Most players will have an index between 0 and 36',
+              [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+              )}>
+              <Text style={styles.more}>more...</Text>
+          </TouchableHighlight>
+          </View>
           <Switch
           onValueChange={(value) => this.setState({indexUsed: value})}
           value={this.state.indexUsed} />
@@ -374,7 +386,7 @@ module.exports  = React.createClass({
   onSubmit: function(){
     var game = this.props.route.gameSelected;
     //Validation checks
-    if (this.state.index === true){
+    if (this.state.indexUsed === true){
       this.setState({hcpValid: true});
       for (var i = 1; i<= this.props.route.playerCount; i++){
           if (isNaN(Math.round(parseFloat(this.state[`player${i}Hcp`])))){
@@ -401,6 +413,25 @@ module.exports  = React.createClass({
         [{text: 'OK', onPress: () => console.log('OK Pressed')}]
         );
         return;
+      }
+      if (this.props.route.playerCount === 4){
+        if (this.state.teamMember === null){
+          Alert.alert('Nassau Teams','Select your Team Member',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+          return;
+        }
+      }
+    }
+
+    if (game === "MatchPlay"){
+      if (this.props.route.playerCount === 4){
+        if (this.state.teamMember === null){
+          Alert.alert('MatchPlay Teams','Select your Team Member',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+          );
+          return;
+        }
       }
     }
 
@@ -452,18 +483,6 @@ module.exports  = React.createClass({
         scoreAdj4: ScoreAdjust(Math.round(parseFloat(this.state.player4Hcp)), this.props.route.course.coursehcp),
       });
     }
-
-    if (game)
-
-    // betLowScore: null,
-    // betLowTotal: null,
-    // skinsBet: null,
-    // auto9: false,
-    // auto18: false,
-    // lowScore: false,
-    // lowTotal: false,
-    // skinsCarry: false,
-    // teamMember: null,
 
 
     this.props.navigator.push({
@@ -597,6 +616,10 @@ var styles = StyleSheet.create({
   name: {
     color: 'white',
     width: 75
+  },
+  more: {
+    color:'greenyellow',
+    fontSize: 12,
   },
   input: {
     padding: 2,
