@@ -327,9 +327,9 @@ module.exports = React.createClass({
           <View style = {{flex:4}}/>
           <View style  = {{flex:3}}>
             <View style = {styles.row}>
-              <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bet and Presses'})}/>
-              <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bet and Presses'})}/>
-              <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bet and Presses'})}/>
+              <Button text={'Front 9 Bets'} onPress={()=>this.setState({betView: 'Front 9 Bets'})}/>
+              <Button text={'18 hole Bets'} onPress={()=>this.setState({betView: '18 Hole Bets'})}/>
+              <Button text={'Back 9 Bets'} onPress={()=>this.setState({betView: 'Back 9 Bets'})}/>
             </View>
             <View style = {{flex:1}}/>
             <View style = {styles.container}>

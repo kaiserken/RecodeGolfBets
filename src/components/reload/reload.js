@@ -20,72 +20,9 @@ var React  = require('react-native');
    },
 
    componentDidMount: function(){
-    //  this._setdata().done();
      this._loadInitialState().done();
 
    },
-
-  //  async _setdata() {
-  //    try {
-  //      var value  = await AsyncStorage.multiSet([
-  //        ["selectedTab", 'currenthole'],
-  //        ["player1Score", JSON.stringify([])],
-  //        ["player2Score", JSON.stringify([])],
-  //        ["player3Score", JSON.stringify([])],
-  //        ["player4Score", JSON.stringify([])],
-  //        ["player1NetScore",JSON.stringify([])],
-  //        ["player2NetScore",JSON.stringify([])],
-  //        ["player3NetScore",JSON.stringify([])],
-  //        ["player4NetScore",JSON.stringify([])],
-  //        ["holeNumber",JSON.stringify(15)],
-  //        ["name","games"],
-  //        ["data", JSON.stringify({
-  //           "__v":0,
-  //           "_id":"56c582a5b7dbd6361540ef73",
-  //           "email":"kenkaiser@yahoo.com",
-  //           "favorites":["Arroyo Trabuco Golf Club", "Strawberry Farms Golf Club", "Oak Creek Golf Club"],
-  //           "name":"Ken",
-  //           "password":"$2a$10$ONpnNHmvxlDTB9Mebkfps.InLM5t1OFQRqLIioCuMU/sauyU1Y0F.",
-  //           "scores":[88,92,93],
-  //           "winnings":[0,12,-10],
-  //           })
-  //         ],
-  //        ["course",JSON.stringify({
-  //          "coursename": "Arroyo Trabuco Golf Club",
-  //          "coursehcp": [13,1,9,3,5,15,17,11,7,18,12,2,6,14,10,16,4,8],
-  //          "coursepar": [4,4,5,3,4,4,5,3,4,4,3,4,3,5,4,4,4,5]
-  //        })
-  //        ],
-  //        ["playerCount",JSON.stringify(4)],
-  //        ["player1Name", "Ken"],
-  //        ["player2Name", "Tommy"],
-  //        ["player3Name", "Ed"],
-  //        ["player4Name", "Richard"],
-  //        ["gameSelected", "Nassau"],
-  //        ["indexUsed", JSON.stringify(true)],
-  //        ["scoreAdj1", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-  //        ["scoreAdj2", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-  //        ["scoreAdj3", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-  //        ["scoreAdj4", JSON.stringify([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])],
-  //        ["betFrontNassau", JSON.stringify(null)],
-  //        ["betBackNassau", JSON.stringify(null)],
-  //        ["betTotalNassau", JSON.stringify(null)],
-  //        ["betLowScore", JSON.stringify(1)],
-  //        ["betLowTotal", JSON.stringify(1)],
-  //        ["skinsBet", JSON.stringify(null)],
-  //        ["auto9", JSON.stringify(true)],
-  //        ["auto18", JSON.stringify(true)],
-  //        ["lowScore", JSON.stringify(false)],
-  //        ["lowTotal", JSON.stringify(false)],
-  //        ["skinsCarry", JSON.stringify(false)],
-  //        ["teams", JSON.stringify([1,3,4,2,1,2,3,4,1,4,2,3])],
-  //        ["startHole", JSON.stringify(7)],
-  //        ["reload", JSON.stringify(true)],
-  //      ]);
-  //    } catch (error) {
-  //      console.log("AsyncStorage Error " + error);
-  //    }
-  //  },
 
    async _loadInitialState() {
      try {
