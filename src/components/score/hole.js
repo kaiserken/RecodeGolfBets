@@ -71,9 +71,9 @@ module.exports  = React.createClass({
 
   componentWillMount: function(){
 
-    if (this.state.player1Score[this.state.holeNumber-1]=== undefined){
+    //if (this.state.player1Score[this.state.holeNumber-1]=== undefined){
       this.setHole();
-    }
+    //}
   },
   async _setdata() {
     try {
@@ -135,10 +135,10 @@ module.exports  = React.createClass({
     }
     else {
       this.setState({
-        score1: this.state.player1Score[this.state.holeNumber-1], netScore1:this.state.player1NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj1[this.state.holeNumber-1],
-        score2: this.state.player2Score[this.state.holeNumber-1], netScore2:this.state.player2NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj2[this.state.holeNumber-1],
-        score3: this.state.player3Score[this.state.holeNumber-1], netScore3:this.state.player3NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj3[this.state.holeNumber-1],
-        score4: this.state.player4Score[this.state.holeNumber-1], netScore4:this.state.player4NetScore[this.state.holeNumber-1]-this.props.route.scoreAdj4[this.state.holeNumber-1],
+        score1: this.state.player1Score[this.state.holeNumber-1], netScore1:this.state.player1Score[this.state.holeNumber-1]-this.props.route.scoreAdj1[this.state.holeNumber-1],
+        score2: this.state.player2Score[this.state.holeNumber-1], netScore2:this.state.player2Score[this.state.holeNumber-1]-this.props.route.scoreAdj2[this.state.holeNumber-1],
+        score3: this.state.player3Score[this.state.holeNumber-1], netScore3:this.state.player3Score[this.state.holeNumber-1]-this.props.route.scoreAdj3[this.state.holeNumber-1],
+        score4: this.state.player4Score[this.state.holeNumber-1], netScore4:this.state.player4Score[this.state.holeNumber-1]-this.props.route.scoreAdj4[this.state.holeNumber-1],
       });
     }
   },
