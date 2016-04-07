@@ -1,6 +1,7 @@
 var React  = require('react-native');
 
 var {
+  AsyncStorage,
   Text,
   StyleSheet,
   View,
@@ -23,6 +24,53 @@ module.exports  = React.createClass({
     };
   },
 
+  async _Remove() {
+    try {
+      var value  = await AsyncStorage.multiRemove(
+       ["selectedTab",
+        "player1Score",
+        "player2Score",
+        "player3Score",
+        "player4Score",
+        "player1NetScore",
+        "player2NetScore",
+        "player3NetScore",
+        "player4NetScore",
+        "holeNumber",
+        "name",
+        "course",
+        "playerCount",
+        "player1Name",
+        "player2Name",
+        "player3Name",
+        "player4Name",
+        "gameSelected",
+        "indexUsed",
+        "scoreAdj1",
+        "scoreAdj2",
+        "scoreAdj3",
+        "scoreAdj4",
+        "betFrontNassau",
+        "betBackNassau",
+        "betTotalNassau",
+        "betLowScore",
+        "betLowTotal",
+        "skinsBet",
+        "auto9",
+        "auto18",
+        "lowScore",
+        "lowTotal",
+        "skinsCarry",
+        "teams",
+        'startHole',
+        'reload',
+        'currentGame'
+      ]
+      );
+    } catch (error) {
+      console.log("AsyncStorage Error " + error);
+    }
+  },
 
 
 
@@ -34,7 +82,7 @@ module.exports  = React.createClass({
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
         </View>
         <View style = {{flex: 6}}>
-
+        <Button text={'End Round & Do Not Save Results'} onPress={this._Remove}/>
         </View>
       </Image>
     );
