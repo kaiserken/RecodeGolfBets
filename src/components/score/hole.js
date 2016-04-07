@@ -92,7 +92,7 @@ module.exports  = React.createClass({
         ["data", JSON.stringify(this.props.route.data)],
         ["course",JSON.stringify(this.props.route.course)],
         ["playerCount",JSON.stringify(this.props.route.playerCount)],
-        ["player1Name", this.props.route.player1Name || ""],
+        ["player1Name", this.props.route.player1Name],
         ["player2Name", this.props.route.player2Name || ""],
         ["player3Name", this.props.route.player3Name || ""],
         ["player4Name", this.props.route.player4Name || ""],
