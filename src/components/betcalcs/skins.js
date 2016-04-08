@@ -18,13 +18,15 @@ module.exports  = function(arr, bet, carry) {
       }
       if (arr[0][i]<arr[1][i]){
         results1.push(bet+carrybets);
+
+        results2.push(-bet-carrybets);
         carrybets = 0;
-        results2.push(0);
       }
       if (arr[0][i] > arr[1][i]){
         results2.push(bet+carrybets);
+
+        results1.push(-bets-carrybets);
         carrybets = 0;
-        results1.push(0);
       }
     }
     return [results1, results2];
@@ -43,10 +45,11 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); continue;
           }
         }
-        results1.push(bet+carrybets);
+        results1.push(2*(bet+carrybets));
+
+        results2.push(-bets-carrybets);
+        results3.push(-bets-carrybets);
         carrybets = 0;
-        results2.push(0);
-        results3.push(0);
         continue;
       }
 
@@ -58,10 +61,11 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); continue;
           }
         }
-        results2.push(bet+carrybets);
+        results2.push(2*(bet+carrybets));
+
+        results1.push(-bet-carrybets);
+        results3.push(-bet-carrybets);
         carrybets = 0;
-        results1.push(0);
-        results3.push(0);
         continue;
       }
 
@@ -73,10 +77,11 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); continue;
           }
         }
-        results3.push(bet+carrybets);
+        results3.push(2*(bet+carrybets));
+
+        results1.push(-bet-carrybets);
+        results2.push(-bet-carrybets);
         carrybets = 0;
-        results1.push(0);
-        results2.push(0);
         continue;
       }
     }
@@ -96,11 +101,12 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); results4.push(0); continue;
           }
         }
-        results1.push(bet+carrybets);
+        results1.push(3*(bet+carrybets));
+
+        results2.push(-bet-carrybets);
+        results3.push(-bet-carrybets);
+        results4.push(-bet-carrybets);
         carrybets = 0;
-        results2.push(0);
-        results3.push(0);
-        results4.push(0);
         continue;
       }
 
@@ -112,11 +118,12 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); results4.push(0); continue;
           }
         }
-        results2.push(bet+carrybets);
+        results2.push(3*(bet+carrybets));
+
+        results1.push(-bet-carrybets);
+        results3.push(-bet-carrybets);
+        results4.push(-bet-carrybets);
         carrybets = 0;
-        results1.push(0);
-        results3.push(0);
-        results4.push(0);
         continue;
       }
 
@@ -128,11 +135,12 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); results4.push(0); continue;
           }
         }
-        results3.push(bet+carrybets);
+        results3.push(3*(bet+carrybets));
+
+        results1.push(-bet-carrybets);
+        results2.push(-bet-carrybets);
+        results4.push(-bet-carrybets);
         carrybets = 0;
-        results1.push(0);
-        results2.push(0);
-        results4.push(0);
         continue;
       }
 
@@ -144,11 +152,12 @@ module.exports  = function(arr, bet, carry) {
             results1.push(0); results2.push(0); results3.push(0); results4.push(0); continue;
           }
         }
-        results4.push(bet+carrybets);
+        results4.push(3*(bet+carrybets));
+
+        results1.push(-bet-carrybets);
+        results2.push(-bet-carrybets);
+        results3.push(-bet-carrybets);
         carrybets = 0;
-        results1.push(0);
-        results2.push(0);
-        results3.push(0);
         continue;
       }
     }

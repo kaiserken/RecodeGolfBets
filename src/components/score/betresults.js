@@ -488,11 +488,11 @@ module.exports = React.createClass({
     <View style={{flex: 1, backgroundColor: 'black'}}>
       <TouchableHighlight
         onPress = {()=>this.props.navigator.pop()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Current Hole</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Scorecard</Text>
       </TouchableHighlight>
       <TouchableHighlight
         onPress = {()=>this.setState({selectedTab: 'betresults'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Bets</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Match/Bets</Text>
       </TouchableHighlight>
     </View>
     );
@@ -523,8 +523,8 @@ module.exports = React.createClass({
           {this.renderContent()}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Current Hole"
-          selected={this.state.selectedTab === 'currenthole'}
+          title="Scorecard"
+          selected={this.state.selectedTab === 'scorecard'}
           onPress={() => {
             this.props.navigator.pop();
           }}>

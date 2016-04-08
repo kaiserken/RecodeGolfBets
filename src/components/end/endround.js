@@ -147,7 +147,7 @@ module.exports  = React.createClass({
       }
       var total  = results[0].reduce(function(sum, element){
         return sum + element;
-      }, 0)/this.props.route.skinsBet;
+      }, 0);
 
       this.setState({skinstotals: total});
     }

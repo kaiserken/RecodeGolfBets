@@ -153,7 +153,7 @@ module.exports  = React.createClass({
       return(
         <View>
           <View style = {styles.row}>
-            <Text style={styles.labelnassau}>Bet Per Skin (pts)</Text>
+            <Text style={styles.labelnassau}>Skin Bet per Player (pts)</Text>
             <TextInput
               style  = {styles.input}
               placeholder = "Pts"
@@ -183,7 +183,7 @@ module.exports  = React.createClass({
     if (this.state.lowScore === true){
       return (
         <View style = {styles.row}>
-          <Text style={styles.labelnassau}>Low Score Bet (pts)</Text>
+          <Text style={styles.labelnassau}>Low Score Bet per Player (pts)</Text>
           <TextInput
             style  = {styles.input}
             placeholder = "Pts"
@@ -199,7 +199,7 @@ module.exports  = React.createClass({
     if (this.state.lowTotal === true){
       return (
         <View style = {styles.row}>
-          <Text style={styles.labelnassau}>Low Total Bet (pts)</Text>
+          <Text style={styles.labelnassau}>Low Total Bet per Player (pts)</Text>
           <TextInput
             style  = {styles.input}
             placeholder = "Pts"

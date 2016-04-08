@@ -411,49 +411,7 @@ module.exports  = React.createClass({
     })
   },
 
-  onBetResults: function(){
-    this.betScore()
 
-    this.props.navigator.push({
-      name: 'betresults',
-      data: this.props.route.data,
-      course:this.props.route.course,
-      playerCount: this.props.route.playerCount,
-      player1Name: this.props.route.player1Name,
-      player2Name: this.props.route.player2Name,
-      player3Name: this.props.route.player3Name,
-      player4Name: this.props.route.player4Name,
-      gameSelected: this.props.route.gameSelected,
-      indexUsed: this.props.route.indexUsed,
-      scoreAdj1: this.props.route.scoreAdj1,
-      scoreAdj2: this.props.route.scoreAdj2,
-      scoreAdj3: this.props.route.scoreAdj3,
-      scoreAdj4: this.props.route.scoreAdj4,
-      betFrontNassau: this.props.route.betFrontNassau,
-      betBackNassau: this.props.route.betBackNassau,
-      betTotalNassau: this.props.route.betTotalNassau,
-      betLowScore: this.props.route.betLowScore,
-      betLowTotal: this.props.route.betLowTotal,
-      skinsBet: this.props.route.skinsBet,
-      auto9: this.props.route.auto9,
-      auto18: this.props.route.auto18,
-      lowScore: this.props.route.lowScore,
-      lowTotal: this.props.route.lowTotal,
-      skinsCarry: this.props.route.skinsCarry,
-      teamMember: this.props.route.teamMember,
-      teams:this.props.route.teams,
-      player1Score: this.state.betScoreP1,
-      player2Score: this.state.betScoreP2,
-      player3Score: this.state.betScoreP3,
-      player4Score: this.state.betScoreP4,
-      player1NetScore: this.state.betNetScoreP1,
-      player2NetScore: this.state.betNetScoreP2,
-      player3NetScore: this.state.betNetScoreP3,
-      player4NetScore: this.state.betNetScoreP4,
-      holeNumber: this.state.holeNumber-1,
-      startHole: this.props.route.startHole
-    });
-  },
   onScorecard: function(){
     this._setdata();
     this.betScore();
@@ -497,7 +455,8 @@ module.exports  = React.createClass({
       betNetScoreP1: this.state.betNetScoreP1,
       betNetScoreP2: this.state.betNetScoreP2,
       betNetScoreP3: this.state.betNetScoreP3,
-      betNetScoreP4: this.state.betNetScoreP4
+      betNetScoreP4: this.state.betNetScoreP4,
+      startHole: this.state.startHole
     });
   },
 
@@ -509,10 +468,6 @@ module.exports  = React.createClass({
     console.log('hole props', this.props);
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
-      <TouchableHighlight
-        onPress = {()=>this.onBetResults()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Match/Bets</Text>
-      </TouchableHighlight>
       <TouchableHighlight
         onPress = {()=>this.setState({selectedTab: 'currenthole'})}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Current Hole</Text>
@@ -539,13 +494,6 @@ module.exports  = React.createClass({
       <TabBarIOS
         tintColor="black"
         barTintColor="white">
-        <TabBarIOS.Item
-          title="Match/Bets"
-          selected={this.state.selectedTab === 'betresults'}
-          onPress={() => {
-            this.onBetResults();
-          }}>
-        </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Current Hole"
           selected={this.state.selectedTab === 'currenthole'}
