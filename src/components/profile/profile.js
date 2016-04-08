@@ -27,13 +27,7 @@ module.exports  = React.createClass({
     }
     var avgScore  = Math.round(scoreSum/user.scores.length);
 
-    var winningSum = null;
-    var highWinnings = null;
-    for (var x = 0; x<user.winnings.length; x++){
-      if (highWinnings === null || highWinnings < user.winnings[x]) highWinnings = user.winnings[x];
-      winningSum += user.winnings[x];
-    }
-    var avgWinnings  = Math.round(winningSum/user.winnings.length);
+
 
     return (
         <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
@@ -42,10 +36,6 @@ module.exports  = React.createClass({
             <Text style={styles.label}>Average Score: {avgScore}</Text>
             <Text style={styles.label}>Low Score: {lowScore}</Text>
             <Text style={styles.label}>Rounds Played: {user.scores.length}</Text>
-            <Text style={styles.label}>Total Points Won: {winningSum}</Text>
-            <Text style={styles.label}>Average Points Won per Round: {avgWinnings}</Text>
-            <Text style={styles.label}>Highest Points Won: {highWinnings}</Text>
-            <Text style={styles.label}>Betting Rounds Played: {user.winnings.length}</Text>
           </View>
         </Image>
     );

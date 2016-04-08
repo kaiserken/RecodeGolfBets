@@ -563,7 +563,7 @@ var styles = StyleSheet.create({
   title3: {
     color:'greenyellow',
     fontSize: 14,
-    width:20,
+    width:25,
     textAlign: 'center',
 
   },
@@ -571,7 +571,7 @@ var styles = StyleSheet.create({
     color:'white',
     fontWeight: "400",
     fontSize: 14,
-    width:20,
+    width:25,
     height:16,
     textAlign: 'center',
     alignSelf: 'center',

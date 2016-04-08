@@ -40,7 +40,15 @@ module.exports  = React.createClass({
         holeNumber: this.props.route.holeNumber,
         startHole: this.props.route.startHole,
         advance: ">",
-        back: "<"
+        back: "<",
+        betScoreP1: [],
+        betScoreP2: [],
+        betScoreP3: [],
+        betScoreP4: [],
+        betNetScoreP1: [],
+        betNetScoreP2: [],
+        betNetScoreP3: [],
+        betNetScoreP4: []
       };
     }
     return {
@@ -64,8 +72,15 @@ module.exports  = React.createClass({
       holeNumber: this.props.route.startHole,
       startHole: this.props.route.startHole,
       advance: ">",
-      back: "<"
-
+      back: "<",
+      betScoreP1: [],
+      betScoreP2: [],
+      betScoreP3: [],
+      betScoreP4: [],
+      betNetScoreP1: [],
+      betNetScoreP2: [],
+      betNetScoreP3: [],
+      betNetScoreP4: []
     };
   },
 
@@ -338,7 +353,7 @@ module.exports  = React.createClass({
     }
   },
 
-  onBetResults: function(){
+  betScore: function(){
     var betScore1 = [];
     var betScore2 = [];
     var betScore3 = [];
@@ -384,8 +399,20 @@ module.exports  = React.createClass({
       }
       i++;
     }
-    console.log("betScore1", betScore1);
+    this.setState({
+      betScoreP1: betScore1,
+      betScoreP2: betScore2,
+      betScoreP3: betScore3,
+      betScoreP4: betScore4,
+      betNetScoreP1: betNetScore1,
+      betNetScoreP2: betNetScore2,
+      betNetScoreP3: betNetScore3,
+      betNetScoreP4: betNetScore4
+    })
+  },
 
+  onBetResults: function(){
+    this.betScore()
 
     this.props.navigator.push({
       name: 'betresults',
@@ -415,20 +442,21 @@ module.exports  = React.createClass({
       skinsCarry: this.props.route.skinsCarry,
       teamMember: this.props.route.teamMember,
       teams:this.props.route.teams,
-      player1Score: betScore1,
-      player2Score: betScore2,
-      player3Score: betScore3,
-      player4Score: betScore4,
-      player1NetScore: betNetScore1,
-      player2NetScore: betNetScore2,
-      player3NetScore: betNetScore3,
-      player4NetScore: betNetScore4,
+      player1Score: this.state.betScoreP1,
+      player2Score: this.state.betScoreP2,
+      player3Score: this.state.betScoreP3,
+      player4Score: this.state.betScoreP4,
+      player1NetScore: this.state.betNetScoreP1,
+      player2NetScore: this.state.betNetScoreP2,
+      player3NetScore: this.state.betNetScoreP3,
+      player4NetScore: this.state.betNetScoreP4,
       holeNumber: this.state.holeNumber-1,
       startHole: this.props.route.startHole
     });
   },
   onScorecard: function(){
     this._setdata();
+    this.betScore();
     this.props.navigator.push({
       name: 'scorecard',
       data: this.props.route.data,
@@ -442,7 +470,34 @@ module.exports  = React.createClass({
       player2Score: this.state.player2Score,
       player3Score: this.state.player3Score,
       player4Score:this.state.player4Score,
+      player1NetScore: this.state.player1NetScore,
+      player2NetScore: this.state.player2NetScore,
+      player3NetScore: this.state.player3NetScore,
+      player4NetScore: this.state.player4NetScore,
+      gameSelected: this.props.route.gameSelected,
+      indexUsed: this.props.route.indexUsed,
+      betFrontNassau: this.props.route.betFrontNassau,
+      betBackNassau: this.props.route.betBackNassau,
+      betTotalNassau: this.props.route.betTotalNassau,
+      betLowScore: this.props.route.betLowScore,
+      betLowTotal: this.props.route.betLowTotal,
+      skinsBet: this.props.route.skinsBet,
+      auto9: this.props.route.auto9,
+      auto18: this.props.route.auto18,
+      lowScore: this.props.route.lowScore,
+      lowTotal: this.props.route.lowTotal,
+      skinsCarry: this.props.route.skinsCarry,
+      teamMember: this.props.route.teamMember,
+      teams:this.props.route.teams,
       holeNumber: this.state.holeNumber-1,
+      betScoreP1: this.state.betScoreP1,
+      betScoreP2: this.state.betScoreP2,
+      betScoreP3: this.state.betScoreP3,
+      betScoreP4: this.state.betScoreP4,
+      betNetScoreP1: this.state.betNetScoreP1,
+      betNetScoreP2: this.state.betNetScoreP2,
+      betNetScoreP3: this.state.betNetScoreP3,
+      betNetScoreP4: this.state.betNetScoreP4
     });
   },
 

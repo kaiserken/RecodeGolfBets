@@ -12,6 +12,13 @@ var {
   Image,
 } = React;
 
+var Nines  = require('../betcalcs/nines');
+var RoundRobin  = require('../betcalcs/roundrobin');
+var Skins  = require('../betcalcs/skins');
+var MatchPlay = require('../betcalcs/matchplay');
+var Nassau = require('../betcalcs/nassau');
+var NassauResults  = require('../betcalcs/nassauresults');
+var Post = require('../common/post');
 var Button = require('../common/button');
 
 module.exports  = React.createClass({
@@ -19,10 +26,153 @@ module.exports  = React.createClass({
 
     return {
       selectedTab: 'endround',
-
-
+      nassautotals: null,
+      ninestotals: null,
+      matchplaytotals: null,
+      roundrobintotals: null,
+      skinstotals: null,
+      resultsadded: null,
+      scoretotal:null
     };
   },
+
+  componentDidMount: function(){
+    var score = this.props.route.player1Score.reduce(function(sum, element){
+      return sum + element;
+    },0);
+    this.setState({scoretotal: score});
+
+    if (this.props.route.gameSelected === "Nassau"){
+      var results;
+      var resultsFront;
+      var resultsBack;
+      var arr = [];
+      var arrFront = [];
+      var arrBack = [];
+      var resultsTotal  = [];
+      if (this.props.route.indexUsed === true){
+        for (var i = 1; i<=this.props.route.playerCount; i++){
+          arr.push(this.props.route[`betNetScoreP${i}`]);
+          arrFront.push(this.props.route[`betNetScoreP${i}`].slice(0,9));
+          arrBack.push(this.props.route[`betNetScoreP${i}`].slice(9));
+        }
+        results  = Nassau(arr, this.props.route.teams, this.props.route.auto18);
+        resultsFront  = Nassau(arrFront, this.props.route.teams, this.props.route.auto9);
+        resultsBack  = Nassau(arrBack, this.props.route.teams, this.props.route.auto9);
+        resultsTotal.push(NassauResults(resultsFront, this.props.route.betFrontNassau), NassauResults(resultsBack, this.props.route.betBackNassau), NassauResults(results, this.props.route.betTotalNassau));
+      } else {
+        for (var i = 1; i<=this.props.route.playerCount; i++){
+          arr.push(this.props.route[`betScoreP${i}`]);
+          arrFront.push(this.props.route[`betScoreP${i}`].slice(0,9));
+          arrBack.push(this.props.route[`betScoreP${i}`].slice(9));
+        }
+        results  = Nassau(arr, this.props.route.teams, this.props.route.auto18);
+        resultsFront  = Nassau(arrFront, this.props.route.teams, this.props.route.auto9);
+        resultsBack  = Nassau(arrBack, this.props.route.teams, this.props.route.auto9);
+        resultsTotal.push(NassauResults(resultsFront, this.props.route.betFrontNassau), NassauResults(resultsBack, this.props.route.betBackNassau), NassauResults(results, this.props.route.betTotalNassau));
+      }
+
+      if (isNaN(resultsTotal[1])){resultsTotal[1]=0;}
+      console.log('nassau totals', resultsTotal);
+      var total  = resultsTotal[0]+resultsTotal[1]+resultsTotal[2];
+      this.setState({nassautotals: total});
+    }
+    if (this.props.route.gameSelected === "Nines"){
+      var results;
+      if (this.props.route.indexUsed === true){
+        results  = Nines(this.props.route.betNetScoreP1, this.props.route.betNetScoreP2, this.props.route.betNetScoreP3);
+      } else {
+        results  = Nines(this.props.route.betScoreP1, this.props.route.betScoreP2, this.props.route.betScoreP3);
+      }
+      var total  = results[0].reduce(function(sum, element){
+        return sum + element;
+      }, 0);
+      this.setState({ninestotals: total});
+    }
+
+    if (this.props.route.gameSelected === "RoundRobin"){
+      var lowS = this.props.route.betLowScore || 0;
+      var lowT = this.props.route.betLowTotal || 0;
+      var results;
+      if (this.props.route.indexUsed === true){
+        results  = RoundRobin([this.props.route.betNetScoreP1, this.props.route.betNetScoreP2, this.props.route.betNetScoreP3, this.props.route.betNetScoreP4], this.props.route.teams, lowS, lowT);
+      } else {
+        results  = RoundRobin([this.props.route.betScoreP1, this.props.route.betScoreP2, this.props.route.betScoreP3, this.props.route.betScoreP4,], this.props.route.teams, lowS, lowT);
+      }
+      var total  = results[0].reduce(function(sum, element){
+        return sum + element;
+      }, 0);
+      this.setState({roundrobintotals: total});
+    }
+
+    if (this.props.route.gameSelected === "MatchPlay"){
+      var results;
+      var arr = [];
+      if (this.props.route.indexUsed === true){
+        for (var i = 1; i<=this.props.route.playerCount; i++){
+          arr.push(this.props.route[`betNetScoreP${i}`]);
+        }
+        results  = MatchPlay(arr, this.props.route.teams);
+      } else {
+        for (var i = 1; i<=this.props.route.playerCount; i++){
+          arr.push(this.props.route[`betScoreP${i}`]);
+        }
+        results  = MatchPlay(arr, this.props.route.teams);
+      }
+      var totals;
+
+      if (parseInt(results[0][results[0].length-1]) > 0 ){
+        totals = 1;
+      } else if (parseInt(results[0][results[0].length-1]) < 0 ){
+        totals = -1;
+      } else {
+        totals  = 0;
+      }
+      this.setState({matchplaytotals: totals});
+    }
+
+    if (this.props.route.gameSelected === "Skins"){
+      var results;
+      var arr = [];
+      if (this.props.route.indexUsed === true){
+        for (var i = 1; i<=this.props.route.playerCount; i++){
+          arr.push(this.props.route[`betNetScoreP${i}`]);
+        }
+        results  = Skins(arr, this.props.route.skinsBet, this.props.route.skinsCarry);
+      } else {
+        for (var i = 1; i<=this.props.route.playerCount; i++){
+          arr.push(this.props.route[`betScoreP${i}`]);
+        }
+        results  = Skins(arr, this.props.route.skinsBet, this.props.route.skinsCarry);
+      }
+      var total  = results[0].reduce(function(sum, element){
+        return sum + element;
+      }, 0)/this.props.route.skinsBet;
+
+      this.setState({skinstotals: total});
+    }
+  },
+
+  saveResults: function(){
+
+    var game  = this.props.route.gameSelected.toLowerCase();
+    var dataObject = {};
+    dataObject[`${game}totals`] = this.state[`${game}totals`];
+    dataObject.email = this.props.route.data.email;
+    dataObject.score = this.state.scoretotal;
+
+
+    Post(game, dataObject).then((data)=>{
+      console.log('data', data);
+      if (data === undefined){
+        this.setState({resultsAdded: "Error - Not Added"});
+      } else {
+        // route to course favs page  - or profile page
+        this.setState({resultsAdded: "Successfully added to favorites!"});
+      }
+    }).done();
+  },
+
 
   async _Remove() {
     try {
@@ -83,6 +233,8 @@ module.exports  = React.createClass({
         </View>
         <View style = {{flex: 6}}>
         <Button text={'End Round & Do Not Save Results'} onPress={this._Remove}/>
+        <Button text={'Save results to database'} onPress={this.saveResults}/>
+        <Text style = {styles.title}>{this.state.resultsAdded}</Text>
         </View>
       </Image>
     );

@@ -140,7 +140,7 @@ module.exports  = React.createClass({
         );
       });
       var totals = scoresTotal.map(function(element, index){
-      
+
         return(
           <View key = {index} style = {styles.row}>
             <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
@@ -213,8 +213,8 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log('hole state', this.state);
-    console.log('hole props', this.props);
+    console.log('scorcard state', this.state);
+    console.log('scorecard props', this.props);
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black'}}>
       <TouchableHighlight
@@ -230,7 +230,7 @@ module.exports  = React.createClass({
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Scorecard</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress = {()=>this.props.navigator.push({name: 'endround', data: user, course: this.props.route.course})}>
+        onPress = {()=>this.onEndRound()}>
         <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>End Round</Text>
       </TouchableHighlight>
     </View>
@@ -255,7 +255,7 @@ module.exports  = React.createClass({
           title="End Round"
           selected={this.state.selectedTab === 'endround'}
           onPress={() => {
-            this.props.navigator.push({name: 'endround', data: user, course: this.props.route.course});
+            this.onEndRound();
           }}>
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -284,6 +284,51 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
       </TabBarIOS>
     );
+  },
+
+  onEndRound: function(){
+    this.props.navigator.push({
+      name: 'endround',
+      data: this.props.route.data,
+      course:this.props.route.course,
+      playerCount: this.props.route.playerCount,
+      player1Name: this.props.route.player1Name,
+      player2Name: this.props.route.player2Name,
+      player3Name: this.props.route.player3Name,
+      player4Name: this.props.route.player4Name,
+      player1Score: this.props.route.player1Score,
+      player2Score: this.props.route.player2Score,
+      player3Score: this.props.route.player3Score,
+      player4Score:this.props.route.player4Score,
+      player1NetScore: this.props.route.player1NetScore,
+      player2NetScore: this.props.route.player2NetScore,
+      player3NetScore: this.props.route.player3NetScore,
+      player4NetScore: this.props.route.player4NetScore,
+      gameSelected: this.props.route.gameSelected,
+      indexUsed: this.props.route.indexUsed,
+      betFrontNassau: this.props.route.betFrontNassau,
+      betBackNassau: this.props.route.betBackNassau,
+      betTotalNassau: this.props.route.betTotalNassau,
+      betLowScore: this.props.route.betLowScore,
+      betLowTotal: this.props.route.betLowTotal,
+      skinsBet: this.props.route.skinsBet,
+      auto9: this.props.route.auto9,
+      auto18: this.props.route.auto18,
+      lowScore: this.props.route.lowScore,
+      lowTotal: this.props.route.lowTotal,
+      skinsCarry: this.props.route.skinsCarry,
+      teamMember: this.props.route.teamMember,
+      teams:this.props.route.teams,
+      holeNumber: this.props.route.holeNumber-1,
+      betScoreP1: this.props.route.betScoreP1,
+      betScoreP2: this.props.route.betScoreP2,
+      betScoreP3: this.props.route.betScoreP3,
+      betScoreP4: this.props.route.betScoreP4,
+      betNetScoreP1: this.props.route.betNetScoreP1,
+      betNetScoreP2: this.props.route.betNetScoreP2,
+      betNetScoreP3: this.props.route.betNetScoreP3,
+      betNetScoreP4: this.props.route.betNetScoreP4
+    });
   },
 
 
