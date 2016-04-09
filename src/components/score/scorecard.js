@@ -427,7 +427,7 @@ var styles = StyleSheet.create({
   title4: {
     color:'white',
     fontWeight: "400",
-    fontSize: 14,
+    fontSize: 13,
     textAlign: 'center',
     alignSelf: 'center',
   },
