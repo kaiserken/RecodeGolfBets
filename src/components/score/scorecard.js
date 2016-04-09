@@ -90,7 +90,11 @@ module.exports  = React.createClass({
     var playerResults = [];
 
     for (var i = 0; i<9; i++){
-    playerResults.push(<Text key  = {i} style = {styles.title4}>{resultsArray[i]}</Text>);
+    playerResults.push(
+      <View key  = {i} style = {styles.andoidfix}>
+        <Text  style = {styles.title4}>{resultsArray[i]}</Text>
+      </View>
+    );
     }
 
     return (playerResults);
@@ -127,7 +131,9 @@ module.exports  = React.createClass({
         return(
           <View key = {index} style = {styles.row}>
             <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+
             {self.scoreResults(element)}
+
           </View>
         );
       });
@@ -144,9 +150,15 @@ module.exports  = React.createClass({
         return(
           <View key = {index} style = {styles.row}>
             <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
-            <Text style = {styles.title8}>{element[0]}</Text>
-            <Text style = {styles.title8}>{element[1]}</Text>
-            <Text style = {styles.title8}>{element[2]}</Text>
+            <View style = {styles.androidfix2}>
+              <Text style = {styles.title8}>{element[0]}</Text>
+            </View>
+            <View style = {styles.androidfix2}>
+              <Text style = {styles.title8}>{element[1]}</Text>
+            </View>
+            <View style = {styles.androidfix2}>
+              <Text style = {styles.title8}>{element[2]}</Text>
+            </View>
           </View>
         );
       });
@@ -216,22 +228,26 @@ module.exports  = React.createClass({
     console.log('scorcard state', this.state);
     console.log('scorecard props', this.props);
     var navigationView = (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
+    <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.props.navigator.pop()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>currenthole</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Current Hole</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.onBetResults()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Match/Bets</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Match/Bets</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.setState({selectedTab: 'scorecard'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Scorecard</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Scorecard</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.onEndRound()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>End Round</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>End Round</Text>
       </TouchableHighlight>
     </View>
     );
@@ -398,19 +414,22 @@ var styles = StyleSheet.create({
     width:20,
     textAlign: 'center',
   },
-
-  title4: {
-    color:'white',
-    fontWeight: "400",
-    fontSize: 14,
-    width:20,
-    height:16,
-    textAlign: 'center',
-    alignSelf: 'center',
+  andoidfix: {
     backgroundColor: "darkolivegreen",
     marginTop: 1,
     marginBottom: 1,
     borderRadius: 3,
+    width:20,
+    height:16,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  title4: {
+    color:'white',
+    fontWeight: "400",
+    fontSize: 14,
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   title5: {
     color:'white',
@@ -432,19 +451,23 @@ var styles = StyleSheet.create({
     width:50,
     textAlign: 'center',
   },
-
-  title8: {
-    color:'white',
-    fontWeight: "400",
-    fontSize: 14,
-    width:50,
-    height:16,
-    textAlign: 'center',
-    alignSelf: 'center',
+  androidfix2: {
     backgroundColor: "darkolivegreen",
     marginTop: 1,
     marginBottom: 1,
     borderRadius: 3,
+    width:50,
+    height:17,
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  title8: {
+    color:'white',
+    fontWeight: "400",
+    fontSize: 14,
+    textAlign: 'center',
+    alignSelf: 'center',
+
   },
 
   title9: {
@@ -520,5 +543,13 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
   },
+  android1: {
+    backgroundColor: "darkolivegreen",
+    borderTopWidth:10,
+    borderColor: "beige",
+    opacity: 0.8,
+    height: 60,
+    justifyContent: 'center'
+  }
 
 });

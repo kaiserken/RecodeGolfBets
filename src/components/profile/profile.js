@@ -46,13 +46,16 @@ module.exports  = React.createClass({
     var user  = this.props.route.data;
 
     var navigationView = (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
-      <TouchableHighlight>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
+    <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
+      <TouchableHighlight
+        style = {styles.android1}
+        onPress = {()=>this.setState({selectedTab: 'profile'})}>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.props.navigator.pop()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Back</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Back</Text>
       </TouchableHighlight>
     </View>
     );
@@ -114,6 +117,13 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
   },
-
+  android1: {
+    backgroundColor: "darkolivegreen",
+    borderTopWidth:10,
+    borderColor: "beige",
+    opacity: 0.8,
+    height: 60,
+    justifyContent: 'center'
+  }
 
 });

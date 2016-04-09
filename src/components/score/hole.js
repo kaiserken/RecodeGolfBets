@@ -467,14 +467,16 @@ module.exports  = React.createClass({
     console.log('hole state', this.state);
     console.log('hole props', this.props);
     var navigationView = (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
+    <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.setState({selectedTab: 'currenthole'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Current Hole</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Current Hole</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.onScorecard()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>ScoreCard</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>ScoreCard</Text>
       </TouchableHighlight>
     </View>
     );
@@ -632,5 +634,13 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
   },
+  android1: {
+    backgroundColor: "darkolivegreen",
+    borderTopWidth:10,
+    borderColor: "beige",
+    opacity: 0.8,
+    height: 60,
+    justifyContent: 'center'
+  }
 
 });

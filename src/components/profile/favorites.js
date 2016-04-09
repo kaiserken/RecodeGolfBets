@@ -103,10 +103,9 @@ module.exports  = React.createClass({
             placeholder = {'City Name'}
             onChangeText= {(text)=>this.setState({city : text})}
           />
-
-
           <Button text={'Search'} onPress={this.courseSearch}/>
         </View>
+        <View style  = {{flex:.05}}/>
         <ListView
           dataSource = {this.state.dataSource2}
           renderRow = {this.renderCourseSearch}
@@ -123,18 +122,21 @@ module.exports  = React.createClass({
     var user  = this.props.route.data;
     console.log(this.state);
     var navigationView = (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
-      <TouchableHighlight style = {{backgroundColor: 'green'}}
+    <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
+      <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Profile</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.setState({selectedTab: 'favorites'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Favorites</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Favorites</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.setState({selectedTab: 'search'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Course Search</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Course Search</Text>
       </TouchableHighlight>
     </View>
     );
@@ -305,5 +307,12 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
   },
-
+  android1: {
+    backgroundColor: "darkolivegreen",
+    borderTopWidth:10,
+    borderColor: "beige",
+    opacity: 0.8,
+    height: 60,
+    justifyContent: 'center'
+  }
 });

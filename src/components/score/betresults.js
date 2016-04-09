@@ -62,7 +62,9 @@ module.exports = React.createClass({
     }
     var playerResults = resultsArray.map(function(element, index){
       return (
-        <Text key = {index} style = {styles.title4}>{element}</Text>
+        <View key = {index} style = {styles.androidfix}>
+          <Text  style = {styles.title4}>{element}</Text>
+        </View>
       );
     });
     return (playerResults);
@@ -485,14 +487,16 @@ module.exports = React.createClass({
     console.log('hole state', this.state);
     console.log('hole props', this.props);
     var navigationView = (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
+    <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.props.navigator.pop()}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Scorecard</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Scorecard</Text>
       </TouchableHighlight>
       <TouchableHighlight
+        style = {styles.android1}
         onPress = {()=>this.setState({selectedTab: 'betresults'})}>
-        <Text style={{color: 'white', margin: 10, fontSize: 15, textAlign: 'left'}}>Match/Bets</Text>
+        <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Match/Bets</Text>
       </TouchableHighlight>
     </View>
     );
@@ -567,18 +571,23 @@ var styles = StyleSheet.create({
     textAlign: 'center',
 
   },
-  title4: {
-    color:'white',
-    fontWeight: "400",
-    fontSize: 14,
-    width:25,
-    height:16,
-    textAlign: 'center',
-    alignSelf: 'center',
+
+  androidfix: {
     backgroundColor: "darkolivegreen",
     marginTop: 1,
     marginBottom: 1,
     borderRadius: 3,
+    width:25,
+    height:16,
+    justifyContent: "center",
+    alignItems:"center"
+  },
+  title4: {
+    color:'white',
+    fontWeight: "400",
+    fontSize: 13,
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   title5: {
     color:'white',
@@ -716,5 +725,13 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
   },
+  android1: {
+    backgroundColor: "darkolivegreen",
+    borderTopWidth:10,
+    borderColor: "beige",
+    opacity: 0.8,
+    height: 60,
+    justifyContent: 'center'
+  }
 
 });
