@@ -165,12 +165,14 @@ module.exports  = React.createClass({
     Post(game, dataObject).then((data)=>{
       console.log('data', data);
       if (data === undefined){
-        this.setState({resultsAdded: "Error - Not Added"});
+        console.log("Error - Not Added");
       } else {
         // route to course favs page  - or profile page
-        this.setState({resultsAdded: "Successfully added to favorites!"});
+        console.log("Successfully added!");
       }
     }).done();
+    this._Remove();
+    this.props.navigator.immediatelyResetRouteStack([{name: "signin"}]);
   },
 
 
@@ -231,10 +233,24 @@ module.exports  = React.createClass({
         <View style = {styles.titlecontainer}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
         </View>
-        <View style = {{flex: 6}}>
-        <Button text={'End Round & Do Not Save Results'} onPress={this._Remove}/>
-        <Button text={'Save results to database'} onPress={this.saveResults}/>
-        <Text style = {styles.title}>{this.state.resultsAdded}</Text>
+        <View style = {{flex:1}}/>
+        <View>
+          <View style = {styles.titlecontainer2}>
+            <Text style = {styles.title}>End of Round</Text>
+            <Text style = {styles.title6}></Text>
+            <Text style = {styles.title6}>ARE YOU SURE?</Text>
+            <Text style = {styles.title6}></Text>
+            <Text style = {styles.title6}>Once you end the round you will </Text>
+            <Text style = {styles.title6}>not be able to view the results.</Text>
+            <Text style = {styles.title6}></Text>
+            <Text style = {styles.title6}>Go back to Scorecard if you need to </Text>
+            <Text style = {styles.title6}>view results</Text>
+            <Text style = {styles.title6}></Text>
+          </View>
+        </View>
+        <View style = {{flex:1}}/>
+        <View style = {{flex: 2, justifyContent: "center", alignItems: "center"}}>
+        <Button text={'End Round'} onPress={()=>this.saveResults()}/>
         </View>
       </Image>
     );
@@ -403,6 +419,17 @@ var styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  titlecontainer2: {
+    backgroundColor: "darkolivegreen",
+    opacity: 0.8,
+    flex: .3,
+    alignSelf:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    padding: 5,
+    width:300,
   },
 
   row:{
