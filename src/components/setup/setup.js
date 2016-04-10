@@ -47,7 +47,7 @@ module.exports  = React.createClass({
   },
 
   onConfirmGroup: function(){
-    this.props.navigator.push({name: 'starthole', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: "", player3Name: "", player4Name: "", gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]});
+    this.props.navigator.push({name: 'starthole', data: this.props.route.data, course:this.props.route.course, playerCount: this.state.playerCount, player1Name: this.props.route.data.name, player2Name: "", player3Name: "", player4Name: "", gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], betFrontNassau: null, betBackNassau: null, betTotalNassau: null, betLowScore: null, betLowTotal: null, skinsBet: null, auto9: false, auto18: false, lowScore: false,lowTotal: false, skinsCarry: false, teamMember: null,teams:[]});
   },
 
   onBackPlayerSetup: function(){
