@@ -11,32 +11,284 @@ var {
   Image
 } = React;
 
+var Button  = require('../common/button');
+
 module.exports  = React.createClass({
   getInitialState: function() {
     return {
       selectedTab: 'profile',
+      showSkins: false,
+      showNines: false,
+      showRound: false,
+      showNassau: false,
+      showMatch: false,
     };
   },
+  renderMatchPlayResults: function(user){
+    var matchesWon = null;
+    var matchesTied = null;
+    var matchesLost = null;
+    matchesWon = user.matchplaytotals.filter(function(element){
+      return element === 1;
+    }).length;
+    matchesLost = user.matchplaytotals.filter(function(element){
+      return element === -1;
+    }).length;
+    matchesTied = user.matchplaytotals.filter(function(element){
+      return element === 0;
+    }).length;
 
-  renderContent: function(user) {
+    if (!user.matchplaytotals.length){
+      matchesOne = "";
+      matchesTied = "";
+      matchesLost = "";
+    }
+    if (this.state.showMatch === true){
+      return (
+        <View style = {{flex:4}}>
+          <View style = {styles.row}>
+            <Text style = {styles.label}>MatchPlay</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Matches won</Text>
+            <Text style = {styles.title1}>{matchesWon}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Matches tied</Text>
+            <Text style = {styles.title1}>{matchesTied}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Matches lost</Text>
+            <Text style = {styles.title1}>{matchesLost}</Text>
+          </View>
+        </View>
+      );
+    }
+  },
+  renderSkinsScores: function(user){
+    var scoreSum = null;
+    var highScore = null;
+    for (var i = 0; i<user.skinstotals.length; i++){
+      if (highScore === null || highScore < user.skinstotals[i]) highScore = user.skinstotals[i];
+      scoreSum += user.skinstotals[i];
+    }
+    var rounds  = user.skinstotals.length;
+    var avgScore  = Math.round(scoreSum/user.skinstotals.length);
+    if (!user.skinstotals.length){
+      avgScore = '';
+      lowScore = '';
+      rounds = 'None Yet';
+      scoreSum="";
+    }
+
+    if (this.state.showSkins === true){
+      return (
+        <View style = {{flex:5}}>
+          <View style = {styles.row}>
+            <Text style = {styles.label}>Skins</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Rounds played</Text>
+            <Text style = {styles.title1}>{rounds}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Totalpoints won/lost</Text>
+            <Text style = {styles.title1}>{scoreSum}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Average points won/lost</Text>
+            <Text style = {styles.title1}>{avgScore}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Highest points won</Text>
+            <Text style = {styles.title1}>{highScore}</Text>
+          </View>
+        </View>
+      );
+    }
+  },
+
+  renderNinesScores: function(user){
+    var scoreSum = null;
+    var highScore = null;
+    for (var i = 0; i<user.ninestotals.length; i++){
+      if (highScore === null || highScore < user.ninestotals[i]) highScore = user.ninestotals[i];
+      scoreSum += user.ninestotals[i];
+    }
+    var rounds  = user.ninestotals.length;
+    var avgScore  = Math.round(scoreSum/user.ninestotals.length);
+    if (!user.ninestotals.length){
+      avgScore = '';
+      lowScore = '';
+      rounds = 'None Yet';
+      scoreSum="";
+    }
+    if (this.state.showNines === true){
+      return (
+        <View style = {{flex:5}}>
+          <View style = {styles.row}>
+            <Text style = {styles.label}>Nines</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Rounds played</Text>
+            <Text style = {styles.title1}>{rounds}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Totalpoints won/lost</Text>
+            <Text style = {styles.title1}>{scoreSum}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Average points won/lost</Text>
+            <Text style = {styles.title1}>{avgScore}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Highest points won</Text>
+            <Text style = {styles.title1}>{highScore}</Text>
+          </View>
+        </View>
+      );
+    }
+  },
+  renderRoundRobinScores: function(user){
+    var scoreSum = null;
+    var highScore = null;
+    for (var i = 0; i<user.roundrobintotals.length; i++){
+      if (highScore === null || highScore < user.roundrobintotals[i]) highScore = user.roundrobintotals[i];
+      scoreSum += user.roundrobintotals[i];
+    }
+    var rounds  = user.roundrobintotals.length;
+    var avgScore  = Math.round(scoreSum/user.roundrobintotals.length);
+    if (!user.roundrobintotals.length){
+      avgScore = '';
+      lowScore = '';
+      rounds = 'None Yet';
+      scoreSum = '';
+    }
+    if (this.state.showRound === true){
+      return (
+        <View style = {{flex:5}}>
+          <View style = {styles.row}>
+            <Text style = {styles.label}>Carts/RoundRobin</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Rounds played</Text>
+            <Text style = {styles.title1}>{rounds}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Total points won/lost</Text>
+            <Text style = {styles.title1}>{scoreSum}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Average points won/lost</Text>
+            <Text style = {styles.title1}>{avgScore}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Highest points won</Text>
+            <Text style = {styles.title1}>{highScore}</Text>
+          </View>
+        </View>
+      );
+    }
+  },
+  renderNassauScores: function(user){
+    var scoreSum = null;
+    var highScore = null;
+    for (var i = 0; i<user.nassautotals.length; i++){
+      if (highScore === null || highScore < user.nassautotals[i]) highScore = user.nassautotals[i];
+      scoreSum += user.nassautotals[i];
+    }
+    var rounds  = user.nassautotals.length;
+    var avgScore  = Math.round(scoreSum/user.nassautotals.length);
+    if (!user.nassautotals.length){
+      avgScore = '';
+      lowScore = '';
+      rounds = 'None Yet';
+      scoreSum= "";
+    }
+    if (this.state.showNassau === true){
+      return (
+        <View style = {{flex:5}}>
+          <View style = {styles.row}>
+            <Text style = {styles.label}>Nassau</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Rounds played</Text>
+            <Text style = {styles.title1}>{rounds}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Total points won/lost</Text>
+            <Text style = {styles.title1}>{scoreSum}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Average points won/lost</Text>
+            <Text style = {styles.title1}>{avgScore}</Text>
+          </View>
+          <View style = {styles.row}>
+            <Text style = {styles.title}>Highest points won</Text>
+            <Text style = {styles.title1}>{highScore}</Text>
+          </View>
+        </View>
+      );
+    }
+  },
+  renderScores: function(user){
     var scoreSum = null;
     var lowScore = null;
     for (var i = 0; i<user.scores.length; i++){
       if (lowScore === null || lowScore > user.scores[i]) lowScore = user.scores[i];
       scoreSum += user.scores[i];
     }
+    var rounds  = user.scores.length;
     var avgScore  = Math.round(scoreSum/user.scores.length);
+    if (!user.scores.length){
+      avgScore = '';
+      lowScore = '';
+      rounds = 'None Yet';
+    }
+    return (
+          <View style = {{flex:4}}>
+            <View style = {styles.row}>
+              <Text style = {styles.label}>Scoring</Text>
+            </View>
+            <View style = {styles.row}>
+              <Text style = {styles.title}>Number of rounds played</Text>
+              <Text style = {styles.title1}>{rounds}</Text>
+            </View>
+            <View style = {styles.row}>
+              <Text style = {styles.title}>Average score</Text>
+              <Text style = {styles.title1}>{avgScore}</Text>
+            </View>
+            <View style = {styles.row}>
+              <Text style = {styles.title}>Low Score</Text>
+              <Text style = {styles.title1}>{lowScore}</Text>
+            </View>
+          </View>
+    );
+  },
 
-
-
+  renderContent: function(user) {
     return (
         <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
-          <View style  = {styles.container}>
-            <Text style={styles.label}>Betting and Scoring Profile</Text>
-            <Text style={styles.label}>Average Score: {avgScore}</Text>
-            <Text style={styles.label}>Low Score: {lowScore}</Text>
-            <Text style={styles.label}>Rounds Played: {user.scores.length}</Text>
+          <View style = {styles.container}>
+            <Text style = {styles.label}>Scoring and Bet Results</Text>
           </View>
+          {this.renderScores(user)}
+          <View style = {{flex:1}}/>
+          {this.renderNassauScores(user)}
+          {this.renderRoundRobinScores(user)}
+          {this.renderSkinsScores(user)}
+          {this.renderNinesScores(user)}
+          {this.renderMatchPlayResults(user)}
+          <View style = {{flex:1}}/>
+
+          <Button text={'Nassau'} onPress={()=>this.setState({showNassau: true, showSkins: false, showNines: false, showMatch: false, showRound: false})}/>
+          <Button text={'Skins'} onPress={()=>this.setState({showNassau: false, showSkins: true, showNines: false, showMatch: false, showRound: false})}/>
+          <Button text={'Nines'} onPress={()=>this.setState({showNassau: false, showSkins: false, showNines: true, showMatch: false, showRound: false})}/>
+          <Button text={'MatchPlay'} onPress={()=>this.setState({showNassau: false, showSkins: false, showNines: false, showMatch: true, showRound: false})}/>
+          <Button text={'RoundRobin'} onPress={()=>this.setState({showNassau: false, showSkins: false, showNines: false, showMatch: false, showRound: true})}/>
+
+
+          <View style = {{flex:2}}/>
         </Image>
     );
   },
@@ -105,7 +357,47 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  titlecontainer: {
+    backgroundColor: "black",
+    opacity: 0.7,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  row: {
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: 'darkolivegreen',
+    borderTopWidth: 2,
+    borderBottomWidth:2,
+    borderColor: "black"
+  },
+  row2: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopWidth: 2,
+    borderBottomWidth:2,
+    borderColor: "black"
+  },
+  title: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: 250,
+  },
+  title1: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: 40,
+  },
   label: {
+    fontSize: 22,
     color: 'white',
     alignSelf: 'center',
     justifyContent: 'center'

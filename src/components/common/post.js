@@ -1,4 +1,4 @@
-var rootUrl = 'http://10.0.1.13:3000/';
+var rootUrl = 'https://aqueous-depths-34500.herokuapp.com/';
 
 
 module.exports = function(serverRoute, content){

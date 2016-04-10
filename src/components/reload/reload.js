@@ -77,10 +77,26 @@ var React  = require('react-native');
 
   render: function(){
     return (
-      <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-        <View style = {styles.container}>
-          <Text style = {styles.label}>You have a current Game </Text>
-          <Text style  = {styles.label}>Would you like to continue it</Text>
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+        <View style = {styles.titlecontainer}>
+          <Text style = {styles.title}>Current Game in Progress</Text>
+        </View>
+        <View style = {{flex:1}}/>
+        <View>
+          <View style = {styles.titlecontainer2}>
+            <Text style = {styles.title}>You have a current Game!</Text>
+            <Text style = {styles.title6}></Text>
+            <Text style = {styles.title6}>Press continue which will take </Text>
+            <Text style = {styles.title6}>you to your game.</Text>
+            <Text style = {styles.title6}></Text>
+            <Text style = {styles.title6}></Text>
+            <Text style = {styles.title6}>You can end your round</Text>
+            <Text style = {styles.title6}>from the scorecard</Text>
+            <Text style = {styles.title6}></Text>
+          </View>
+        </View>
+        <View style = {{flex:1}}/>
+        <View style = {{flex: 2, justifyContent: "center", alignItems: "center"}}>
           <Button text = {'Continue'} onPress={this.onPress}/>
         </View>
       </Image>
@@ -141,39 +157,46 @@ var React  = require('react-native');
  });
 
  var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  title: {
-    color: "white",
-    fontSize: 45,
-    alignItems: 'center',
-    alignSelf:'center',
-    marginTop: 40,
-    marginBottom:20
+   title: {
+     color: 'white',
+     fontSize: 22,
+     alignSelf: 'center'
+   },
 
-  },
-  label: {
-    color: 'white',
-  },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    margin: 5,
-    width: 200,
-    alignSelf: 'center'
-  },
-  backgroundImage: {
-    marginTop:(Platform.OS === 'ios') ? 20 : 0,
-    backgroundColor: 'transparent',
-    flex: 1,
-    alignSelf: 'stretch',
-    width: null,
-  },
+   title6: {
+     color: 'white',
+     fontSize: 14,
+     justifyContent: 'center',
+     alignSelf: 'center',
+   },
+
+   titlecontainer: {
+     backgroundColor: "black",
+     opacity: 0.7,
+     flex: 1,
+     alignItems: 'center',
+     justifyContent: 'space-around',
+   },
+   titlecontainer2: {
+     backgroundColor: "darkolivegreen",
+     opacity: 0.8,
+     flex: .3,
+     alignSelf:'center',
+     alignItems: 'center',
+     justifyContent: 'center',
+     borderRadius: 5,
+     padding: 5,
+     width:300,
+   },
+
+
+   backgroundImage: {
+     marginTop:(Platform.OS === 'ios') ? 20 : 0,
+     marginBottom:(Platform.OS === 'ios') ? 40 : 0,
+     backgroundColor: 'transparent',
+     flex: 1,
+     alignSelf: 'stretch',
+     width: null,
+   },
 
  });
