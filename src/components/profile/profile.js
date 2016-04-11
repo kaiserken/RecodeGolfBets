@@ -77,7 +77,7 @@ module.exports  = React.createClass({
     if (!user.skinstotals.length){
       avgScore = '';
       lowScore = '';
-      rounds = 'None Yet';
+      rounds = 'None';
       scoreSum="";
     }
 
@@ -120,7 +120,7 @@ module.exports  = React.createClass({
     if (!user.ninestotals.length){
       avgScore = '';
       lowScore = '';
-      rounds = 'None Yet';
+      rounds = 'None';
       scoreSum="";
     }
     if (this.state.showNines === true){
@@ -161,7 +161,7 @@ module.exports  = React.createClass({
     if (!user.roundrobintotals.length){
       avgScore = '';
       lowScore = '';
-      rounds = 'None Yet';
+      rounds = 'None';
       scoreSum = '';
     }
     if (this.state.showRound === true){
@@ -202,7 +202,7 @@ module.exports  = React.createClass({
     if (!user.nassautotals.length){
       avgScore = '';
       lowScore = '';
-      rounds = 'None Yet';
+      rounds = 'None';
       scoreSum= "";
     }
     if (this.state.showNassau === true){
@@ -234,16 +234,28 @@ module.exports  = React.createClass({
   renderScores: function(user){
     var scoreSum = null;
     var lowScore = null;
+    var score = [];
     for (var i = 0; i<user.scores.length; i++){
-      if (lowScore === null || lowScore > user.scores[i]) lowScore = user.scores[i];
-      scoreSum += user.scores[i];
+      if (user.scores[i].length===18){
+        score.push(user.scores[i].reduce(function(sum, element){
+          return sum + element;
+        },0));
+      }
+      console.log(user.scores[i]);
     }
-    var rounds  = user.scores.length;
-    var avgScore  = Math.round(scoreSum/user.scores.length);
-    if (!user.scores.length){
+
+    console.log(score);
+    for (i = 0; i<score.length; i++){
+      if (lowScore === null || lowScore > score[i]) {lowScore = score[i];}
+      scoreSum += score[i];
+    }
+
+    var rounds  = score.length;
+    var avgScore  = Math.round(scoreSum/score.length);
+    if (!score.length){
       avgScore = '';
       lowScore = '';
-      rounds = 'None Yet';
+      rounds = 'None';
     }
     return (
           <View style = {{flex:4}}>

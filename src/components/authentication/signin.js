@@ -30,6 +30,7 @@ var React  = require('react-native');
         </View>
         <View style = {styles.container}>
           <Text style = {styles.label}>Sign In</Text>
+          <Text style = {styles.label}></Text>
           <Text style  = {styles.label}>Email:</Text>
           <TextInput
             placeholder = {'Email'}
@@ -47,6 +48,8 @@ var React  = require('react-native');
             />
             <Text style = {styles.label}>{this.state.errorMessage}</Text>
             <Button text = {'Sign In'} onPress={this.onPress}/>
+            <Text style = {styles.label}></Text>
+            <Text style = {styles.label}></Text>
             <Button text = {"I need an account..."} onPress={this.onSignupPress}/>
         </View>
 

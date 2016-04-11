@@ -26,23 +26,30 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+      <Image source={require('../../assets/golf.jpeg')} style={styles.backgroundImage}>
+      <View>
+        <Text style = {styles.title}>Golf Bets</Text>
+      </View>
       <View style = {styles.container}>
         <Text style = {styles.label}>Sign Up</Text>
-        <Text style={styles.label}>Username:</Text>
+        <Text style = {styles.label}></Text>
+        <Text style={styles.label}>First Name:</Text>
         <TextInput
+          placeholder = {'First Name'}
           value={this.state.username}
           onChangeText={(text)=>this.setState({username: text})}
           style= {styles.input}
         />
         <Text style={styles.label}>Email:</Text>
         <TextInput
+          placeholder = {'Email'}
           value={this.state.email}
           onChangeText={(text)=>this.setState({email: text})}
           style= {styles.input}
         />
         <Text style={styles.label}>Password:</Text>
         <TextInput
+          placeholder = {'Password'}
           secureTextEntry={true}
           value={this.state.password}
           onChangeText={(text)=>this.setState({password: text})}
@@ -50,6 +57,7 @@ module.exports = React.createClass({
         />
         <Text style={styles.label}>Confirm Password:</Text>
         <TextInput
+          placeholder = {'Password'}
           secureTextEntry={true}
           value={this.state.passwordconfirmation}
           onChangeText={(text)=>this.setState({passwordconfirmation: text})}
@@ -57,8 +65,11 @@ module.exports = React.createClass({
         />
         <Text style={styles.label}>{this.state.errorMessage}</Text>
         <Button text={'Signup'} onPress={this.onSignupPress}/>
+        <Text style = {styles.label}></Text>
+        <Text style = {styles.label}></Text>
         <Button text={'I have an account'} onPress={this.onSigninPress}/>
       </View>
+      <View style={{flex:.25}} />
       </Image>
     );
   },
@@ -95,6 +106,14 @@ var styles = StyleSheet.create({
   },
   label:{
     color: 'white'
+  },
+  title: {
+    color: "white",
+    fontSize: 45,
+    alignItems: 'center',
+    alignSelf:'center',
+    marginTop: 40,
+    marginBottom:20
   },
   input: {
     padding: 4,

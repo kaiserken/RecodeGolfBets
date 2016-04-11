@@ -31,16 +31,12 @@ module.exports  = React.createClass({
       matchplaytotals: null,
       roundrobintotals: null,
       skinstotals: null,
-      resultsadded: null,
-      scoretotal:null
+      resultsadded: null
     };
   },
 
   componentDidMount: function(){
-    var score = this.props.route.player1Score.reduce(function(sum, element){
-      return sum + element;
-    },0);
-    this.setState({scoretotal: score});
+
 
     if (this.props.route.gameSelected === "Nassau"){
       var results;
@@ -159,7 +155,7 @@ module.exports  = React.createClass({
     var dataObject = {};
     dataObject[`${game}totals`] = this.state[`${game}totals`];
     dataObject.email = this.props.route.data.email;
-    dataObject.score = this.state.scoretotal;
+    dataObject.score = this.props.route.player1Score;
 
 
     Post(game, dataObject).then((data)=>{
