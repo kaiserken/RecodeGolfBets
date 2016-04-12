@@ -46,7 +46,7 @@ module.exports  = React.createClass({
     if (this.state.showMatch === true){
       return (
         <View style = {{flex:4}}>
-          <View style = {styles.row}>
+          <View style = {styles.row1}>
             <Text style = {styles.label}>MatchPlay</Text>
           </View>
           <View style = {styles.row}>
@@ -84,7 +84,7 @@ module.exports  = React.createClass({
     if (this.state.showSkins === true){
       return (
         <View style = {{flex:5}}>
-          <View style = {styles.row}>
+          <View style = {styles.row1}>
             <Text style = {styles.label}>Skins</Text>
           </View>
           <View style = {styles.row}>
@@ -126,7 +126,7 @@ module.exports  = React.createClass({
     if (this.state.showNines === true){
       return (
         <View style = {{flex:5}}>
-          <View style = {styles.row}>
+          <View style = {styles.row1}>
             <Text style = {styles.label}>Nines</Text>
           </View>
           <View style = {styles.row}>
@@ -167,7 +167,7 @@ module.exports  = React.createClass({
     if (this.state.showRound === true){
       return (
         <View style = {{flex:5}}>
-          <View style = {styles.row}>
+          <View style = {styles.row1}>
             <Text style = {styles.label}>Carts/RoundRobin</Text>
           </View>
           <View style = {styles.row}>
@@ -208,7 +208,7 @@ module.exports  = React.createClass({
     if (this.state.showNassau === true){
       return (
         <View style = {{flex:5}}>
-          <View style = {styles.row}>
+          <View style = {styles.row1}>
             <Text style = {styles.label}>Nassau</Text>
           </View>
           <View style = {styles.row}>
@@ -259,7 +259,7 @@ module.exports  = React.createClass({
     }
     return (
           <View style = {{flex:4}}>
-            <View style = {styles.row}>
+            <View style = {styles.row1}>
               <Text style = {styles.label}>Scoring</Text>
             </View>
             <View style = {styles.row}>
@@ -282,7 +282,7 @@ module.exports  = React.createClass({
     return (
         <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
           <View style = {styles.container}>
-            <Text style = {styles.label}>Scoring and Bet Results</Text>
+            <Text style = {styles.label}>Profile for {this.props.route.data.name}</Text>
           </View>
           {this.renderScores(user)}
           <View style = {{flex:1}}/>
@@ -292,15 +292,49 @@ module.exports  = React.createClass({
           {this.renderNinesScores(user)}
           {this.renderMatchPlayResults(user)}
           <View style = {{flex:1}}/>
+          <View style = {styles.row2}>
+            <TouchableHighlight
+              style  = {styles.button}
+              underlayColor = {'darkolivegreen'}
+              onPress = {()=>this.setState({showNassau: true, showSkins: false, showNines: false, showMatch: false, showRound: false})}
+            >
+              <Text style  = {styles.buttonText}>{'Nassau'}</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style  = {styles.button}
+              underlayColor = {'darkolivegreen'}
+              onPress = {()=>this.setState({showNassau: false, showSkins: true, showNines: false, showMatch: false, showRound: false})}
+            >
+              <Text style  = {styles.buttonText}>{'Skins'}</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style  = {styles.button}
+              underlayColor = {'darkolivegreen'}
+              onPress = {()=>this.setState({showNassau: false, showSkins: false, showNines: true, showMatch: false, showRound: false})}
+            >
+              <Text style  = {styles.buttonText}>{'Nines'}</Text>
+            </TouchableHighlight>
+          </View>
+          <View style = {styles.row2}>
+            <TouchableHighlight
+              style  = {styles.button}
+              underlayColor = {'darkolivegreen'}
+              onPress = {()=>this.setState({showNassau: false, showSkins: false, showNines: false, showMatch: true, showRound: false})}
+            >
+              <Text style  = {styles.buttonText}>{'MatchPlay'}</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style  = {styles.button}
+              underlayColor = {'darkolivegreen'}
+              onPress = {()=>this.setState({showNassau: false, showSkins: false, showNines: false, showMatch: false, showRound: true})}
+            >
+              <Text style  = {styles.buttonText}>{'RoundRobin'}</Text>
+            </TouchableHighlight>
+          </View>
 
-          <Button text={'Nassau'} onPress={()=>this.setState({showNassau: true, showSkins: false, showNines: false, showMatch: false, showRound: false})}/>
-          <Button text={'Skins'} onPress={()=>this.setState({showNassau: false, showSkins: true, showNines: false, showMatch: false, showRound: false})}/>
-          <Button text={'Nines'} onPress={()=>this.setState({showNassau: false, showSkins: false, showNines: true, showMatch: false, showRound: false})}/>
-          <Button text={'MatchPlay'} onPress={()=>this.setState({showNassau: false, showSkins: false, showNines: false, showMatch: true, showRound: false})}/>
-          <Button text={'RoundRobin'} onPress={()=>this.setState({showNassau: false, showSkins: false, showNines: false, showMatch: false, showRound: true})}/>
 
 
-          <View style = {{flex:2}}/>
+          <View style = {{flex:1.5}}/>
         </Image>
     );
   },
@@ -386,13 +420,39 @@ var styles = StyleSheet.create({
     borderBottomWidth:2,
     borderColor: "black"
   },
-  row2: {
+  row1: {
+    flexDirection: "row",
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: 'black',
     borderTopWidth: 2,
     borderBottomWidth:2,
-    borderColor: "black"
+    borderColor: "black",
+    opacity: 0.7,
+  },
+  row2: {
+    flex: 1,
+    flexDirection:'row',
+    justifyContent: "space-around",
+    alignItems: 'center'
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "darkolivegreen",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 2,
+    borderColor: 'white',
+    marginTop: 5,
+    width: 90,
+  },
+  buttonText: {
+    color:'white',
+    flex: 1,
+    alignSelf: 'center',
+    fontSize: 13
   },
   title: {
     fontSize: 14,

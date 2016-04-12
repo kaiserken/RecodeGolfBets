@@ -78,7 +78,13 @@ module.exports  = React.createClass({
   },
 
   holesTotal: function(){
-    var holesback = ['Front', 'Back', 'Total'].map(function(element, index){
+    var titles = [];
+    if (this.props.route.indexUsed === true){
+      titles = ['Hdcp', 'Front', 'Back', 'Total'];
+    } else {
+      titles = ['Front', 'Back', 'Total'];
+    }
+    var holesback = titles.map(function(element, index){
       return (
         <Text key = {index} style = {styles.title7}>{element}</Text>
       );
@@ -108,6 +114,10 @@ module.exports  = React.createClass({
     for (var i = 1; i<=this.props.route.playerCount; i++){
       scoresFront.push(this.props.route[`player${i}Score`].slice(0,9));
       scoresTotal.push([]);
+      var hcp = this.props.route[`scoreAdj${i}`].reduce(function(sum, element){
+        return sum + element;
+      }, 0);
+      if (this.props.route.indexUsed === true){scoresTotal[i-1].push(hcp);}
       scoresTotal[i-1].push(this.props.route[`player${i}Score`].slice(0,9).reduce(function(sum, score){
         return sum + score;
       }, 0));
@@ -146,21 +156,40 @@ module.exports  = React.createClass({
         );
       });
       var totals = scoresTotal.map(function(element, index){
-
-        return(
-          <View key = {index} style = {styles.row}>
-            <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
-            <View style = {styles.androidfix2}>
-              <Text style = {styles.title8}>{element[0]}</Text>
+        if (self.props.route.indexUsed === false){
+          return(
+            <View key = {index} style = {styles.row}>
+              <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[0]}</Text>
+              </View>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[1]}</Text>
+              </View>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[2]}</Text>
+              </View>
             </View>
-            <View style = {styles.androidfix2}>
-              <Text style = {styles.title8}>{element[1]}</Text>
+          );
+        } else {
+          return(
+            <View key = {index} style = {styles.row}>
+              <Text style = {styles.title5}>{self.props.route[`player${index+1}Name`]}</Text>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[0]}</Text>
+              </View>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[1]}</Text>
+              </View>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[2]}</Text>
+              </View>
+              <View style = {styles.androidfix2}>
+                <Text style = {styles.title8}>{element[3]}</Text>
+              </View>
             </View>
-            <View style = {styles.androidfix2}>
-              <Text style = {styles.title8}>{element[2]}</Text>
-            </View>
-          </View>
-        );
+          );
+        }
       });
 
       return (

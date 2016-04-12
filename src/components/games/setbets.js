@@ -257,15 +257,15 @@ module.exports  = React.createClass({
         </View>
         <View style = {styles.row}>
           <TouchableHighlight
-            onPress={()=>this.setState({teamMember: 2, teams:[1,2,3,4]})}>
+            onPress={()=>this.setState({teamMember: 2, teams:[1,2,3,4,1,2,3,4,1,2,3,4]})}>
             <Text style={styles.labelchange}>{this.props.route.player2Name}</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={()=>this.setState({teamMember: 3, teams:[1,3,2,4]})}>
+            onPress={()=>this.setState({teamMember: 3, teams:[1,3,2,4,1,3,2,4,1,3,2,4]})}>
             <Text style={styles.labelchange}>{this.props.route.player3Name}</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={()=>this.setState({teamMember: 4, teams:[1,4,2,3]})}>
+            onPress={()=>this.setState({teamMember: 4, teams:[1,4,2,3,1,4,2,3,1,4,2,3]})}>
             <Text style={styles.labelchange}>{this.props.route.player4Name}</Text>
           </TouchableHighlight>
         </View>

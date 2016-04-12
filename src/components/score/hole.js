@@ -230,6 +230,8 @@ module.exports  = React.createClass({
         <View style  = {{flex:.1}}></View>
         <View>
           <Text style = {styles.title3}>Adjust Gross Score with + & - Net Score will update</Text>
+          <Text style = {styles.title3}></Text>
+          {this.renderTeams()}
         </View>
         <View style  = {{flex:.1}}></View>
         <View style  = {{flex:1}}>
@@ -352,6 +354,26 @@ module.exports  = React.createClass({
       );
     }
   },
+  renderTeams: function(){
+    if ((this.props.route.playerCount === 4) && (this.props.route.gameSelected === "Nassau" || this.props.route.gameSelected === "RoundRobin" || this.props.route.gameSelected === "MatchPlay")){
+      var holesArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+      if (this.state.holeNumber >= holesArray[this.state.startHole] && this.state.holeNumber <= holesArray[this.state.startHole+5]){
+        return (
+          <Text style = {styles.title3}>{this.props.route[`player${this.props.route.teams[0]}Name`]} & {this.props.route[`player${this.props.route.teams[1]}Name`]}   vs.   {this.props.route[`player${this.props.route.teams[2]}Name`]} & {this.props.route[`player${this.props.route.teams[3]}Name`]}</Text>
+        );
+      }
+      if (this.state.holeNumber >= holesArray[this.state.startHole+6] && this.state.holeNumber <= holesArray[this.state.startHole+11]){
+        return (
+          <Text style = {styles.title3}>{this.props.route[`player${this.props.route.teams[4]}Name`]} & {this.props.route[`player${this.props.route.teams[5]}Name`]}   vs.   {this.props.route[`player${this.props.route.teams[6]}Name`]} & {this.props.route[`player${this.props.route.teams[7]}Name`]}</Text>
+        );
+      }
+      if (this.state.holeNumber >= holesArray[this.state.startHole+12] && this.state.holeNumber <= holesArray[this.state.startHole+17]){
+        return (
+          <Text style = {styles.title3}>{this.props.route[`player${this.props.route.teams[8]}Name`]} & {this.props.route[`player${this.props.route.teams[9]}Name`]}   vs.   {this.props.route[`player${this.props.route.teams[10]}Name`]} & {this.props.route[`player${this.props.route.teams[11]}Name`]}</Text>
+        );
+      }
+    }
+  },
 
   betScore: function(){
     var betScore1 = [];
@@ -432,6 +454,10 @@ module.exports  = React.createClass({
       player2NetScore: this.state.player2NetScore,
       player3NetScore: this.state.player3NetScore,
       player4NetScore: this.state.player4NetScore,
+      scoreAdj1: this.props.route.scoreAdj1,
+      scoreAdj2: this.props.route.scoreAdj2,
+      scoreAdj3: this.props.route.scoreAdj3,
+      scoreAdj4: this.props.route.scoreAdj4,
       gameSelected: this.props.route.gameSelected,
       indexUsed: this.props.route.indexUsed,
       betFrontNassau: this.props.route.betFrontNassau,

@@ -66,7 +66,7 @@ module.exports  = React.createClass({
         </View>
         <View style  = {{flex:.05}}/>
         <View style  = {styles.container}>
-          <Text style={styles.label1}>Welcome Back {user.name}!</Text>
+          <Text style={styles.label1}>Welcome {user.name}!</Text>
           <Text style={styles.label1}></Text>
           <View style={styles.container1}>
             <Text style={styles.label}>Select from your favorites</Text>
