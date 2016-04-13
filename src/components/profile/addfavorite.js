@@ -43,7 +43,7 @@ module.exports  = React.createClass({
   addButton: function(){
     if (!this.state.coursefav){
       return (
-        <Button text = {'Add Course to Favorites'} onPress={()=>{this.addFavorite()}}/>
+        <Button text = {'Add this Course to My Favorites'} onPress={()=>{this.addFavorite()}}/>
       );
     }
   },
@@ -82,7 +82,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-  
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
