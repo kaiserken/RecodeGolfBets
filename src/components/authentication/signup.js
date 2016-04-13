@@ -2,6 +2,7 @@ var React = require('react-native');
 
 var {
   Text,
+  AsyncStorage,
   StyleSheet,
   View,
   TextInput,
@@ -85,6 +86,7 @@ module.exports = React.createClass({
     if (data === undefined){
       this.setState({errorMessage: "Account with that email already exists"});
     } else {
+      AsyncStorage.setItem("data", JSON.stringify(data));
       this.props.navigator.immediatelyResetRouteStack([{name: 'favorites', data: data}]);
     }
     }).done();
