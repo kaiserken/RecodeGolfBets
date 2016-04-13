@@ -35,8 +35,7 @@ module.exports  = React.createClass({
       if (data === undefined){
         this.setState({coursefav: "Error - Not Added"});
       } else {
-        // route to course favs page  - or profile page
-        this.setState({coursefav: "Successfully added to favorites!"});
+        this.props.navigator.immediatelyResetRouteStack([{name: 'loggedin'}]);
       }
     }).done();
   },

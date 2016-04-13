@@ -168,7 +168,7 @@ module.exports  = React.createClass({
       }
     }).done();
     this._Remove();
-    this.props.navigator.immediatelyResetRouteStack([{name: "signin"}]);
+    this.props.navigator.immediatelyResetRouteStack([{name: "loggedin"}]);
   },
 
 
