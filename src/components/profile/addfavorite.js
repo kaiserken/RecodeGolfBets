@@ -121,6 +121,7 @@ module.exports  = React.createClass({
         barTintColor="white">
         <TabBarIOS.Item
           title="Profile"
+          icon = {require('../../assets/results.png')}
           selected={this.state.selectedTab === 'profile'}
           onPress={() => {
             this.props.navigator.push({name: 'profile', data: user});
@@ -128,6 +129,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Add Favorites"
+          icon = {require('../../assets/favorites.png')}
           selected={this.state.selectedTab === 'addfavorites'}
           onPress={() => {
             this.setState({
@@ -138,6 +140,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Course Search"
+          icon = {require('../../assets/search.png')}
           selected={this.state.selectedTab === 'search'}
           onPress={() => {
             this.props.navigator.pop()

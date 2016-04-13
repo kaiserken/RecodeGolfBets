@@ -288,6 +288,7 @@ module.exports  = React.createClass({
         barTintColor="white">
         <TabBarIOS.Item
           title="Scorecard"
+          icon = {require('../../assets/Pencil.png')}
           selected={this.state.selectedTab === 'scorecard'}
           onPress={() => {
             this.props.navigator.pop();
@@ -295,6 +296,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="End Round"
+          icon = {require('../../assets/quit.png')}
           selected={this.state.selectedTab === 'endround'}
           onPress={() => {
             this.setState({

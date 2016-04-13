@@ -298,6 +298,7 @@ module.exports  = React.createClass({
         barTintColor="white">
         <TabBarIOS.Item
           title="End Round"
+          icon = {require('../../assets/quit.png')}
           selected={this.state.selectedTab === 'endround'}
           onPress={() => {
             this.onEndRound();
@@ -305,6 +306,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Match/Bets"
+          icon = {require('../../assets/bets.png')}
           selected={this.state.selectedTab === 'betresults'}
           onPress={() => {
             this.onBetResults();
@@ -312,6 +314,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Scorecard"
+          icon = {require('../../assets/Pencil.png')}
           selected={this.state.selectedTab === 'scorecard'}
           onPress={() => {
             this.setState({
@@ -322,6 +325,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Current Hole"
+          icon = {require('../../assets/golf.png')}
           selected={this.state.selectedTab === 'currenthole'}
           onPress={() => {
             this.props.navigator.pop();

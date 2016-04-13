@@ -10,6 +10,7 @@ var {
 
 var Signin = require('./components/authentication/signin');
 var Signup = require('./components/authentication/signup');
+var LoggedIn = require('./components/authentication/loggedin');
 var Favorites  = require('./components/profile/favorites');
 var AddFavorites  = require('./components/profile/addfavorite');
 var Profile  = require('./components/profile/profile');
@@ -26,6 +27,7 @@ var EndRound = require('./components/end/endround');
 var ROUTES  = {
   signin: Signin,
   signup: Signup,
+  loggedin: LoggedIn,
   reload: Reload,
   favorites: Favorites,
   addfavorites: AddFavorites,
@@ -57,7 +59,7 @@ async _loadInitialState() {
   try {
     var value  = await AsyncStorage.getItem("currentGame");
     if (value !== null){
-      this.setState({currentGame: value});
+      this.setState({currentGame: JSON.parse(value)});
     } else {
       this.setState({currentGame: false});
     }
@@ -84,13 +86,13 @@ render: function(){
     return (
       <Navigator
       style  = {styles.container}
-      initialRoute = {{ name: 'signin' }}
+      initialRoute = {{ name: 'loggedin' }}
       renderScene = {this.renderScene}
       configureScene = {()=>{return Navigator.SceneConfigs.FloatFromRight;}}
       />
     );
   }
-  if (this.state.currentGame === "true"){
+  if (this.state.currentGame === true){
     return (
       <Navigator
       style  = {styles.container}

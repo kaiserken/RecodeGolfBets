@@ -524,6 +524,7 @@ module.exports  = React.createClass({
         barTintColor="white">
         <TabBarIOS.Item
           title="Current Hole"
+          icon = {require('../../assets/golf.png')}
           selected={this.state.selectedTab === 'currenthole'}
           onPress={() => {
             this.setState({
@@ -534,6 +535,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Scorecard"
+          icon = {require('../../assets/Pencil.png')}
           selected={this.state.selectedTab === 'scorecard'}
           onPress={() => {
             this.onScorecard();

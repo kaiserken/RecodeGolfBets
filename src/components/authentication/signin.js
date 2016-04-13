@@ -1,6 +1,7 @@
 var React  = require('react-native');
 
  var {
+   AsyncStorage,
    View,
    Text,
    StyleSheet,
@@ -21,6 +22,30 @@ var React  = require('react-native');
       errorMessage: "",
     };
   },
+  componentDidMount: function(){
+    this._loadInitialState().done();
+  },
+
+  async _loadInitialState() {
+    try {
+      var value  = await AsyncStorage.getItem("data");
+      var user = JSON.parse(value);
+      if (value){
+        Post('loggedin', {email: user.email}).then((data)=>{
+          console.log('data',data);
+          if (data === undefined){
+            this.setState({errorMessage: "Invalid Login Parameters"});
+          } else {
+            // route to course favs page  - or profile page
+            this.props.navigator.immediatelyResetRouteStack([{name: 'favorites', data: data}]);
+          }
+        }).done();
+      }
+    } catch (error) {
+      console.log("AsyncStorage Error " + error);
+    }
+  },
+
 
   render: function(){
     return (

@@ -459,7 +459,7 @@ module.exports = React.createClass({
           <View style = {styles.container}>
             <Button text={'Results by Hole'} onPress={()=>this.setState({viewTotals: false})}/>
           </View>
-          <View style = {{flex:1}}/>
+          <View style = {{flex:1.5}}/>
         </View>
       );
   },
@@ -518,6 +518,7 @@ module.exports = React.createClass({
         barTintColor="white">
         <TabBarIOS.Item
           title="Match/Bets"
+          icon = {require('../../assets/bets.png')}
           selected={this.state.selectedTab === 'betresults'}
           onPress={() => {
             this.setState({
@@ -528,6 +529,7 @@ module.exports = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Scorecard"
+          icon = {require('../../assets/Pencil.png')}
           selected={this.state.selectedTab === 'scorecard'}
           onPress={() => {
             this.props.navigator.pop();
