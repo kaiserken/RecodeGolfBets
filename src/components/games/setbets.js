@@ -348,8 +348,7 @@ module.exports  = React.createClass({
 
 
   renderContent: function(){
-    console.log(this.props);
-    console.log(this.state);
+
 
     return (
       <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
@@ -518,7 +517,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log(this.state);
+    
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

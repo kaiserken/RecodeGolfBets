@@ -14,6 +14,6 @@ module.exports = function(results, bet){
   var total  = bets.reduce(function(sum, bet){
     return sum + bet;
   }, 0);
-  console.log("nassau calc", total)
+
   return total;
 };

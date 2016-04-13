@@ -69,7 +69,7 @@ module.exports  = React.createClass({
       }
 
       if (isNaN(resultsTotal[1])){resultsTotal[1]=0;}
-      console.log('nassau totals', resultsTotal);
+
       var total  = resultsTotal[0]+resultsTotal[1]+resultsTotal[2];
       this.setState({nassautotals: total});
     }
@@ -159,7 +159,7 @@ module.exports  = React.createClass({
 
 
     Post(game, dataObject).then((data)=>{
-      console.log('data', data);
+
       if (data === undefined){
         console.log("Error - Not Added");
       } else {
@@ -254,8 +254,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log('hole state', this.state);
-    console.log('hole props', this.props);
+  
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

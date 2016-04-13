@@ -31,7 +31,7 @@ module.exports  = React.createClass({
 
   addFavorite(){
     Post('addfavorite', {email: this.props.route.data.email, coursename: this.props.route.course.coursename}).then((data)=>{
-      console.log('data',data);
+
       if (data === undefined){
         this.setState({coursefav: "Error - Not Added"});
       } else {
@@ -49,7 +49,7 @@ module.exports  = React.createClass({
   },
 
   renderContent: function(user) {
-    console.log('props', this.props)
+
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
         <View style={styles.titlecontainer}>
@@ -82,7 +82,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log(this.state);
+  
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

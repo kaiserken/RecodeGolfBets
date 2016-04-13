@@ -84,7 +84,7 @@ module.exports = React.createClass({
     var resultsTotal  = [];
     if (this.props.route.indexUsed === true){
       for (var i = 1; i<=this.props.route.playerCount; i++){
-        console.log('playernetscore from bets', this.props.route[`player${i}NetScore`]);
+
         arr.push(this.props.route[`player${i}NetScore`]);
         arrFront.push(this.props.route[`player${i}NetScore`].slice(0,9));
         arrBack.push(this.props.route[`player${i}NetScore`].slice(9));
@@ -93,7 +93,7 @@ module.exports = React.createClass({
       resultsFront  = Nassau(arrFront, this.props.route.teams, this.props.route.auto9);
       resultsBack  = Nassau(arrBack, this.props.route.teams, this.props.route.auto9);
       resultsTotal.push(NassauResults(resultsFront, this.props.route.betFrontNassau), NassauResults(resultsBack, this.props.route.betBackNassau), NassauResults(results, this.props.route.betTotalNassau));
-        console.log('results front', resultsFront);
+
     } else {
       for (var i = 1; i<=this.props.route.playerCount; i++){
         arr.push(this.props.route[`player${i}Score`]);
@@ -216,7 +216,7 @@ module.exports = React.createClass({
     if (this.state.betView=== "Front 9 Bets"){results = resultsFront;}
 
     if (this.state.betView=== "Back 9 Bets"){results = resultsBack;}
-    console.log('Nassau', resultsTotal)
+
     if (this.props.route.playerCount===2){
       name1 = this.props.route.player1Name;
       name2 = this.props.route.player2Name;
@@ -442,7 +442,7 @@ module.exports = React.createClass({
           },0)
         );
       });
-      console.log('totals', totals);
+
       var results = totals.map(function(element, index){
         return(
           <View key = {index} style = {styles.row2}>
@@ -451,7 +451,7 @@ module.exports = React.createClass({
           </View>
         );
       });
-      console.log('results',results);
+
       return (
         <View style = {{flex:1}}>
           {results}
@@ -484,8 +484,7 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    console.log('hole state', this.state);
-    console.log('hole props', this.props);
+  
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

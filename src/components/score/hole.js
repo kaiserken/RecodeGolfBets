@@ -490,8 +490,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log('hole state', this.state);
-    console.log('hole props', this.props);
+    
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

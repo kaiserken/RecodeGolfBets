@@ -17,7 +17,7 @@ module.exports = function(scores, team, auto) {
       element.unshift('-');
     }
   });
-  console.log('totalbets', totalbets);
+  
   return totalbets;
 };
 

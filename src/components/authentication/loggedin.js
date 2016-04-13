@@ -32,7 +32,6 @@ var React  = require('react-native');
       var user = JSON.parse(value);
       if (value){
         Post('loggedin', {email: user.email}).then((data)=>{
-          console.log('data',data);
           if (data === undefined){
             this.props.navigator.immediatelyResetRouteStack([{name: 'signin'}]);
           } else {

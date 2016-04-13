@@ -254,8 +254,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log('scorcard state', this.state);
-    console.log('scorecard props', this.props);
+  
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

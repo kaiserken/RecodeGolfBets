@@ -32,9 +32,9 @@ var React  = require('react-native');
       var user = JSON.parse(value);
       if (value){
         Post('loggedin', {email: user.email}).then((data)=>{
-          console.log('data',data);
+
           if (data === undefined){
-            this.setState({errorMessage: "Invalid Login Parameters"});
+            return;
           } else {
             // route to course favs page  - or profile page
             this.props.navigator.immediatelyResetRouteStack([{name: 'favorites', data: data}]);
@@ -88,7 +88,7 @@ var React  = require('react-native');
 
   onPress: function(){
       Post('signin', {email: this.state.email, password: this.state.password}).then((data)=>{
-        console.log('data',data);
+
         if (data === undefined){
           this.setState({errorMessage: "Invalid Login Parameters"});
         } else {

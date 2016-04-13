@@ -89,8 +89,7 @@ module.exports  = React.createClass({
   },
 
   renderContent: function(){
-    console.log(this.props);
-    console.log(this.state);
+  
 
     return (
       <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>

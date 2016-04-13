@@ -67,7 +67,7 @@ var React  = require('react-native');
          'reload'
        ]
        );if (value !== null){
-         console.log("value from reload", value);
+
          this.setState({x: value});
       }
      } catch (error) {
@@ -106,11 +106,9 @@ var React  = require('react-native');
   onSignupPress: function(){
     this.props.navigator.push({name:'signup'}); // pass additional props here
   },
-  onRouteChange: function(){
-    console.log("value in press", this.state.x);
-  },
+  
   onPress: function(){
-  console.log("value in press", this.state.x);
+
   var value  = this.state.x;
     this.props.navigator.push({name:'hole',
     "selectedTab": value[0][1],

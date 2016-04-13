@@ -241,10 +241,10 @@ module.exports  = React.createClass({
           return sum + element;
         },0));
       }
-      console.log(user.scores[i]);
+
     }
 
-    console.log(score);
+
     for (i = 0; i<score.length; i++){
       if (lowScore === null || lowScore > score[i]) {lowScore = score[i];}
       scoreSum += score[i];
@@ -340,7 +340,7 @@ module.exports  = React.createClass({
   },
 
   render: function(){
-    console.log(this.props);
+    
     var user  = this.props.route.data;
 
     var navigationView = (

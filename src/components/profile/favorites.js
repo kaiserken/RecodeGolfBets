@@ -120,7 +120,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    console.log(this.state);
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
@@ -202,7 +202,7 @@ module.exports  = React.createClass({
     );
   },
   renderCourse: function(rowData){
-    console.log('rowdata', rowData);
+
       return (
       <TouchableOpacity onPress = {()=>this.onPressCourseRow(rowData)}>
         <View style  = {styles.row}>
@@ -212,7 +212,7 @@ module.exports  = React.createClass({
       );
   },
   renderCourseSearch: function(rowData){
-    console.log('rowdata', rowData);
+
       return (
       <TouchableOpacity onPress = {()=>this.onPressCourseSearchRow(rowData)}>
         <View style  = {styles.row}>
@@ -235,7 +235,7 @@ module.exports  = React.createClass({
   },
 
   onPressCourseSearchRow: function(rowData){
-    console.log('rowData', rowData);
+    
     if (rowData.coursename  === "No Courses Found" || rowData.coursename === "Check the city spelling"){return}
     this.setState({course: rowData});
     this.props.navigator.push({name: 'addfavorites', data: this.props.route.data, course: this.state.course});
