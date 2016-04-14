@@ -1,6 +1,7 @@
 
 // takes an array arr of player score arrays between 2-4 returns an array of arrays
 module.exports  = function(arr, bet, carry) {
+  
   var carrybets = 0,
     results1 = [],
     results2 = [],
@@ -25,7 +26,7 @@ module.exports  = function(arr, bet, carry) {
       if (arr[0][i] > arr[1][i]){
         results2.push(bet+carrybets);
 
-        results1.push(-bets-carrybets);
+        results1.push(-bet-carrybets);
         carrybets = 0;
       }
     }
@@ -47,8 +48,8 @@ module.exports  = function(arr, bet, carry) {
         }
         results1.push(2*(bet+carrybets));
 
-        results2.push(-bets-carrybets);
-        results3.push(-bets-carrybets);
+        results2.push(-bet-carrybets);
+        results3.push(-bet-carrybets);
         carrybets = 0;
         continue;
       }

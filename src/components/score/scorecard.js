@@ -254,7 +254,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-  
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight

@@ -126,6 +126,7 @@ module.exports = React.createClass({
   },
 
   renderSkins: function(){
+    
     var results;
     var arr = [];
     if (this.props.route.indexUsed === true){
@@ -484,7 +485,7 @@ module.exports = React.createClass({
   },
 
   render: function(){
-  
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
