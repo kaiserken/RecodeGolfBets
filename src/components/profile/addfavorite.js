@@ -38,12 +38,13 @@ module.exports  = React.createClass({
         this.props.navigator.immediatelyResetRouteStack([{name: 'loggedin'}]);
       }
     }).done();
+    this.setState({coursefav: "remove button"});
   },
 
   addButton: function(){
     if (!this.state.coursefav){
       return (
-        <Button text = {'Add this Course to My Favorites'} onPress={()=>{this.addFavorite()}}/>
+        <Button text = {'Add this Course to my Favorites'} onPress={()=>{this.addFavorite()}}/>
       );
     }
   },
@@ -60,13 +61,19 @@ module.exports  = React.createClass({
           <Text style={styles.label1}>You selected</Text>
           <Text style={styles.label1}></Text>
           <View style={styles.container1}>
+            <Text style={styles.label}></Text>
             <Text style={styles.label}>{this.props.route.course.coursename}</Text>
+            <Text style={styles.label}></Text>
+            <Text style={styles.label}>If you would like to add this course to your</Text>
+            <Text style={styles.label}>favorites. Click on the button below.</Text>
+            <Text style={styles.label}></Text>
           </View>
           <View style  = {{flex:.2}}/>
-          <Button text = {"Continue to Player Setup"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
-          <View style  = {{flex:.2}}/>
           {this.addButton()}
-
+          <View style  = {{flex:.2}}/>
+          <Text style={styles.label1}>Otherwise</Text>
+          <Text style={styles.label1}></Text>
+          <Button text = {"Continue to Player Setup"} onPress={()=>{this.props.navigator.push({name: 'setup', data: this.props.route.data, course: this.props.route.course})}}/>
           <View style  = {{flex:.2}}/>
           <Text style={styles.label1}>{this.state.coursefav}</Text>
         </View>
@@ -166,7 +173,7 @@ var styles = StyleSheet.create({
     flex: .85
   },
   container1: {
-    flex: .2,
+    flex: .3,
     justifyContent: 'center',
     alignItems: 'center',
     padding:10,

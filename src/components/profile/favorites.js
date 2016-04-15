@@ -36,7 +36,7 @@ module.exports  = React.createClass({
   componentDidMount: function(){
     var courses = this.props.route.data.favorites;
     if (courses.length ===0){
-      courses = [];
+      courses = ["You don't have any favorites yet", "They will show up here after being added"];
     }
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(courses)
@@ -69,10 +69,9 @@ module.exports  = React.createClass({
           <Text style={styles.label1}>Welcome {user.name}!</Text>
           <Text style={styles.label1}></Text>
           <View style={styles.container1}>
-            <Text style={styles.label}>Select from your favorites</Text>
+            <Text style={styles.label}>Select from your Favorites</Text>
             <Text style={styles.label}>or</Text>
-            <Text style={styles.label}>Search for a course</Text>
-              <Text style={styles.label}>Use course search below</Text>
+            <Text style={styles.label}>Use Course Search</Text>
           </View>
         </View>
         <View style  = {{flex:.05}}/>
@@ -224,7 +223,7 @@ module.exports  = React.createClass({
   },
 
   async onPressCourseRow(rowData){
-
+    if (rowData === "You don't have any favorites yet" || rowData === "They will show up here after being added"){return}
     try {
       await Post('courseinfo', {coursename: rowData}).then((data)=>{
       this.props.navigator.push({name: 'setup', data: this.props.route.data, course:data[0]});

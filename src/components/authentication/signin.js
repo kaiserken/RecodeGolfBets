@@ -92,7 +92,7 @@ var React  = require('react-native');
         if (data === undefined){
           this.setState({errorMessage: "Invalid Login Parameters"});
         } else {
-          // route to course favs page  - or profile page
+          AsyncStorage.setItem("data", JSON.stringify(data));
           this.props.navigator.immediatelyResetRouteStack([{name: 'favorites', data: data}]);
         }
       }).done();
