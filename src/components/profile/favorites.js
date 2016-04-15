@@ -36,7 +36,7 @@ module.exports  = React.createClass({
   componentDidMount: function(){
     var courses = this.props.route.data.favorites;
     if (courses.length ===0){
-      courses = ["You Don't Have Any Favorites Yet", "Use Course Search to Find Course"];
+      courses = [];
     }
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(courses)
@@ -72,6 +72,7 @@ module.exports  = React.createClass({
             <Text style={styles.label}>Select from your favorites</Text>
             <Text style={styles.label}>or</Text>
             <Text style={styles.label}>Search for a course</Text>
+              <Text style={styles.label}>Use course search below</Text>
           </View>
         </View>
         <View style  = {{flex:.05}}/>
@@ -235,7 +236,7 @@ module.exports  = React.createClass({
   },
 
   onPressCourseSearchRow: function(rowData){
-    
+
     if (rowData.coursename  === "No Courses Found" || rowData.coursename === "Check the city spelling"){return}
     this.setState({course: rowData});
     this.props.navigator.push({name: 'addfavorites', data: this.props.route.data, course: this.state.course});
