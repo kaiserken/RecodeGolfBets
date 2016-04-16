@@ -159,6 +159,31 @@ module.exports  = React.createClass({
   },
 
   onSubmitScores: function(){
+    var holesArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+    if (this.state.startHole !== this.state.holeNumber){
+      console.log(this.state.player1Score[9]);
+      console.log(this.state.holeNumber-1);
+      console.log(holesArray[9])
+      console.log(holesArray[this.state.holeNumber-2])
+      console.log(this.state.player1Score[holesArray[this.state.holeNumber-1]])
+      if(this.state.holeNumber === 1){
+        if (this.state.player1Score[17]=== undefined || this.state.player1Score[17]=== null ){
+          Alert.alert('Score Entry','It appears you are submitting a score out of order - Make sure you are on the right hole - You can use the arrows at the top to navigate to the correct hole - if you are unsure as to why this popped up - check the scorecard to make sure you submitted the last hole',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+            );
+            return;
+        }
+      }else{
+        if (this.state.player1Score[holesArray[this.state.holeNumber-2]]=== undefined || this.state.player1Score[holesArray[this.state.holeNumber-2]]=== null ){
+          Alert.alert('Score Entry','It appears you are submitting a score out of order - Make sure you are on the right hole - You can use the arrows at the top to navigate to the correct hole - if you are unsure as to why this popped up - check the scorecard to make sure you submitted the last hole',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}]
+            );
+            return;
+        }
+      }
+    }
+
+
     var updatedScore1 = this.state.player1Score;
     updatedScore1[this.state.holeNumber-1]= this.state.score1;
     var updatedNetScore1 = this.state.player1NetScore;
@@ -357,17 +382,18 @@ module.exports  = React.createClass({
   renderTeams: function(){
     if ((this.props.route.playerCount === 4) && (this.props.route.gameSelected === "Nassau" || this.props.route.gameSelected === "RoundRobin" || this.props.route.gameSelected === "MatchPlay")){
       var holesArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
-      if (this.state.holeNumber >= holesArray[this.state.startHole] && this.state.holeNumber <= holesArray[this.state.startHole+5]){
+
+      if (this.state.holeNumber === holesArray[this.state.startHole] || this.state.holeNumber === holesArray[this.state.startHole+1] || this.state.holeNumber === holesArray[this.state.startHole+2] || this.state.holeNumber === holesArray[this.state.startHole+3]|| this.state.holeNumber === holesArray[this.state.startHole+4] || this.state.holeNumber === holesArray[this.state.startHole+5]){
         return (
           <Text style = {styles.title3}>{this.props.route[`player${this.props.route.teams[0]}Name`]} & {this.props.route[`player${this.props.route.teams[1]}Name`]}   vs.   {this.props.route[`player${this.props.route.teams[2]}Name`]} & {this.props.route[`player${this.props.route.teams[3]}Name`]}</Text>
         );
       }
-      if (this.state.holeNumber >= holesArray[this.state.startHole+6] && this.state.holeNumber <= holesArray[this.state.startHole+11]){
+      if (this.state.holeNumber === holesArray[this.state.startHole+6] || this.state.holeNumber === holesArray[this.state.startHole+7] || this.state.holeNumber === holesArray[this.state.startHole+8] || this.state.holeNumber === holesArray[this.state.startHole+9]|| this.state.holeNumber === holesArray[this.state.startHole+10] || this.state.holeNumber === holesArray[this.state.startHole+11]){
         return (
           <Text style = {styles.title3}>{this.props.route[`player${this.props.route.teams[4]}Name`]} & {this.props.route[`player${this.props.route.teams[5]}Name`]}   vs.   {this.props.route[`player${this.props.route.teams[6]}Name`]} & {this.props.route[`player${this.props.route.teams[7]}Name`]}</Text>
         );
       }
-      if (this.state.holeNumber >= holesArray[this.state.startHole+12] && this.state.holeNumber <= holesArray[this.state.startHole+17]){
+      if (this.state.holeNumber === holesArray[this.state.startHole+12] || this.state.holeNumber === holesArray[this.state.startHole+13] || this.state.holeNumber === holesArray[this.state.startHole+14] || this.state.holeNumber === holesArray[this.state.startHole+15]|| this.state.holeNumber === holesArray[this.state.startHole+16] || this.state.holeNumber === holesArray[this.state.startHole+17]){
         return (
           <Text style = {styles.title3}>{this.props.route[`player${this.props.route.teams[8]}Name`]} & {this.props.route[`player${this.props.route.teams[9]}Name`]}   vs.   {this.props.route[`player${this.props.route.teams[10]}Name`]} & {this.props.route[`player${this.props.route.teams[11]}Name`]}</Text>
         );
@@ -490,7 +516,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
