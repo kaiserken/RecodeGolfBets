@@ -161,21 +161,17 @@ module.exports  = React.createClass({
   onSubmitScores: function(){
     var holesArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
     if (this.state.startHole !== this.state.holeNumber){
-      console.log(this.state.player1Score[9]);
-      console.log(this.state.holeNumber-1);
-      console.log(holesArray[9])
-      console.log(holesArray[this.state.holeNumber-2])
-      console.log(this.state.player1Score[holesArray[this.state.holeNumber-1]])
+
       if(this.state.holeNumber === 1){
         if (this.state.player1Score[17]=== undefined || this.state.player1Score[17]=== null ){
-          Alert.alert('Score Entry','It appears you are submitting a score out of order - Make sure you are on the right hole - You can use the arrows at the top to navigate to the correct hole - if you are unsure as to why this popped up - check the scorecard to make sure you submitted the last hole',
+          Alert.alert('Score Entry','It appears you are submitting a score out of order - Make sure you are on the right hole - You can use the arrows at the top to navigate to the correct hole - if you are unsure as to why this popped up - check the scorecard to make sure you submitted the last hole - you can also use the arrows to edit and resubmit any previous holes if there was scoring error',
             [{text: 'OK', onPress: () => console.log('OK Pressed')}]
             );
             return;
         }
       }else{
         if (this.state.player1Score[holesArray[this.state.holeNumber-2]]=== undefined || this.state.player1Score[holesArray[this.state.holeNumber-2]]=== null ){
-          Alert.alert('Score Entry','It appears you are submitting a score out of order - Make sure you are on the right hole - You can use the arrows at the top to navigate to the correct hole - if you are unsure as to why this popped up - check the scorecard to make sure you submitted the last hole',
+          Alert.alert('Score Entry','It appears you are submitting a score out of order - Make sure you are on the right hole - You can use the arrows at the top to navigate to the correct hole - if you are unsure as to why this popped up - check the scorecard to make sure you submitted the last hole - you can also use the arrows to edit and resubmit any previous holes if there was scoring error',
             [{text: 'OK', onPress: () => console.log('OK Pressed')}]
             );
             return;
