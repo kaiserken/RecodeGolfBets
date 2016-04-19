@@ -271,15 +271,18 @@ module.exports  = React.createClass({
             </TouchableHighlight>
             {this.renderNet1()}
           </View>
+          <View style  = {{flex:.2}}></View>
           {this.renderPlayer2()}
+          <View style  = {{flex:.2}}></View>
           {this.renderPlayer3()}
+          <View style  = {{flex:.2}}></View>
           {this.renderPlayer4()}
         </View>
-
+        <View style  = {{flex:.4}}></View>
         <View style = {styles.container}>
           <Button text={'Submit Scores'} onPress={this.onSubmitScores}/>
         </View>
-        <View style  = {{flex:.75}}></View>
+        <View style  = {{flex:.2}}></View>
       </Image>
     );
   },

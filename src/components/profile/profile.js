@@ -340,7 +340,7 @@ module.exports  = React.createClass({
   },
 
   render: function(){
-    
+
     var user  = this.props.route.data;
 
     var navigationView = (

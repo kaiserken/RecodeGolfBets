@@ -170,7 +170,7 @@ var styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: .85
+    flex: 1.2
   },
   container1: {
     flex: .3,
