@@ -166,7 +166,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
@@ -226,7 +226,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Back"
-          icon = {require('../../assets/back.png')}
+          icon = {require('../../assets/return.png')}
           selected={this.state.selectedTab === 'back'}
           onPress={() => {
             this.props.navigator.pop();

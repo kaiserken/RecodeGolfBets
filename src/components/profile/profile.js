@@ -375,7 +375,7 @@ module.exports  = React.createClass({
         barTintColor="white">
         <TabBarIOS.Item
           title="Back"
-          icon = {require('../../assets/back.png')}
+          icon = {require('../../assets/return.png')}
           selected={this.state.selectedTab === 'back'}
           onPress={() => {
             this.props.navigator.pop();

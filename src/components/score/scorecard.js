@@ -324,7 +324,7 @@ module.exports  = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Current Hole"
-          icon = {require('../../assets/golf.png')}
+          icon = {require('../../assets/golfs.png')}
           selected={this.state.selectedTab === 'currenthole'}
           onPress={() => {
             this.props.navigator.pop();
