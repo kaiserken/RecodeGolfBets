@@ -49,13 +49,33 @@ module.exports  = React.createClass({
     }
   },
 
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: .15, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style={styles.titlelabel}>Golf Bets</Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.titlecontainer}>
+          <Text style={styles.titlelabel}>Golf Bets</Text>
+        </View>
+      );
+    }
+  },
+
   renderContent: function(user) {
 
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-        <View style={styles.titlecontainer}>
-          <Text style={styles.titlelabel}>Golf Bets</Text>
-        </View>
+        {this.renderDrawer()}
         <View style  = {{flex:.05}}/>
         <View style  = {styles.container}>
           <Text style={styles.label1}>You selected</Text>
@@ -113,6 +133,7 @@ module.exports  = React.createClass({
     if (Platform.OS === "android"){
         return (
           <DrawerLayoutAndroid
+            ref = {'DRAWER_REF'}
             drawerWidth={200}
             drawerPosition={DrawerLayoutAndroid.positions.Left}
             renderNavigationView={() => navigationView}>

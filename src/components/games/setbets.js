@@ -11,7 +11,8 @@ var {
   TouchableHighlight,
   Alert,
   Image,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } = React;
 
 var Button = require('../common/button');
@@ -345,16 +346,32 @@ module.exports  = React.createClass({
     }
   },
 
-
-
-  renderContent: function(){
-
-
-    return (
-      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: .5, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style={styles.title}>{this.props.route.gameSelected}</Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
         <View style = {styles.container}>
           <Text style={styles.title}>{this.props.route.gameSelected}</Text>
         </View>
+      );
+    }
+  },
+
+  renderContent: function(){
+    return (
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+        {this.renderDrawer()}
         <View style = {styles.row}>
           <View>
           <Text style={{width: (this.state.indexUsed === true) ? 100 : 200, color: 'white'}}>Use Handicaps</Text>
@@ -517,7 +534,7 @@ module.exports  = React.createClass({
 
   render: function(){
     var user  = this.props.route.data;
-    
+
     var navigationView = (
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
@@ -541,6 +558,7 @@ module.exports  = React.createClass({
     if (Platform.OS === "android"){
       return (
         <DrawerLayoutAndroid
+          ref = {'DRAWER_REF'}
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>

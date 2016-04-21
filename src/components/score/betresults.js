@@ -10,7 +10,8 @@ var {
   Switch,
   TouchableHighlight,
   Alert,
-  Image
+  Image,
+  TouchableOpacity
 } = React;
 
 var Nines  = require('../betcalcs/nines');
@@ -126,7 +127,7 @@ module.exports = React.createClass({
   },
 
   renderSkins: function(){
-    
+
     var results;
     var arr = [];
     if (this.props.route.indexUsed === true){
@@ -464,13 +465,31 @@ module.exports = React.createClass({
         </View>
       );
   },
-
-  renderContent: function(){
-    return (
-      <Image source={this.state.image} style={styles.backgroundImage}>
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: .6, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
         <View style = {styles.titlecontainer}>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
         </View>
+      );
+    }
+  },
+  renderContent: function(){
+    return (
+      <Image source={this.state.image} style={styles.backgroundImage}>
+        {this.renderDrawer()}
         <View style  = {{flex:.2}}></View>
         <View style  = {styles.container2}>
           <Text style = {styles.title1}>Results for {this.props.route.gameSelected}</Text>
@@ -504,6 +523,7 @@ module.exports = React.createClass({
     if (Platform.OS === "android"){
       return (
         <DrawerLayoutAndroid
+          ref = {'DRAWER_REF'}
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>
@@ -547,7 +567,7 @@ var styles = StyleSheet.create({
 
   title: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 16,
     alignSelf: 'center'
   },
   title1: {

@@ -10,7 +10,8 @@ var {
   TouchableHighlight,
   TextInput,
   Image,
-  Alert
+  Alert,
+  TouchableOpacity
 } = React;
 
 var Button = require('../common/button');
@@ -53,6 +54,29 @@ module.exports  = React.createClass({
   onBackPlayerSetup: function(){
     this.setState({playerCount: null, player2Name: null, player3Name: null, player4Name: null,});
   },
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: .15, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style={{color:"white", fontSize:16}}>
+            {this.props.route.course.coursename}
+          </Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style = {styles.titlecontainer}>
+          <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
+        </View>
+      );
+    }
+  },
 
   renderPlayerSetup: function(){
     var players = [];
@@ -69,9 +93,7 @@ module.exports  = React.createClass({
     }
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-        <View style = {styles.titlecontainer}>
-          <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
-        </View>
+        {this.renderDrawer()}
         <View style  =  {styles.container}>
           <View style  = {{flex:.1}}/>
           <View style  = {styles.container1}>
@@ -94,9 +116,7 @@ module.exports  = React.createClass({
     if (this.state.playerCount === null){
       return (
         <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-          <View style = {styles.titlecontainer}>
-            <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
-          </View>
+          {this.renderDrawer()}
           <View style = {{flex:.1}}/>
           <View style  = {styles.container}>
             <View style  = {styles.container1}>
@@ -136,9 +156,7 @@ module.exports  = React.createClass({
     if (this.state.playerCount === 1){
       return(
         <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-          <View style = {styles.titlecontainer}>
-            <Text style={styles.titlelabel}>{this.props.route.course.coursename}</Text>
-          </View>
+          {this.renderDrawer()}
           <View style  = {styles.container}>
             <View style = {{flex:.1}}/>
             <View style  = {styles.container1}>
@@ -192,6 +210,7 @@ module.exports  = React.createClass({
       if (this.state.selectedTab === "players"){
         return (
           <DrawerLayoutAndroid
+            ref = {'DRAWER_REF'}
             drawerWidth={200}
             drawerPosition={DrawerLayoutAndroid.positions.Left}
             renderNavigationView={() => navigationView}>
@@ -255,7 +274,7 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   container1: {
-    flex: .6,
+    flex: .7,
     justifyContent: 'center',
     alignItems: 'center',
     padding:10,
@@ -274,7 +293,7 @@ var styles = StyleSheet.create({
   },
   titlelabel: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 16,
   },
   touchableHighlight: {
     borderRadius: 25,

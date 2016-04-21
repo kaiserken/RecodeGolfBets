@@ -10,7 +10,8 @@ var {
   Switch,
   TouchableHighlight,
   Alert,
-  Image
+  Image,
+  TouchableOpacity
 } = React;
 var Button = require('../common/button');
 
@@ -87,15 +88,32 @@ module.exports  = React.createClass({
 
     if (this.state.keepScoreSwitch === true && count === 1) this.props.navigator.push({name: 'starthole', data: this.props.route.data, course:this.props.route.course, playerCount: this.props.route.playerCount, player1Name: this.props.route.player1Name, player2Name: this.props.route.player2Name, player3Name: this.props.route.player3Name, player4Name: this.props.route.player4Name, gameSelected: "JustKeepScore", indexUsed: false, scoreAdj1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], scoreAdj4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],betFrontNassau: null, betBackNassau: null, betTotalNassau: null, betLowScore: null, betLowTotal: null, skinsBet: null, auto9: false, auto18: false, lowScore: false,lowTotal: false, skinsCarry: false, teamMember: null,teams:[]});
   },
-
-  renderContent: function(){
-  
-
-    return (
-      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: 1, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style={styles.label}>Select Your Game</Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
         <View style = {styles.row}>
           <Text style={styles.label}>Select Your Game</Text>
         </View>
+      );
+    }
+  },
+
+  renderContent: function(){
+    return (
+      <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
+        {this.renderDrawer()}
         <View style = {styles.row}>
           <Text style={styles.label}>Score </Text>
           <View style={styles.descriptionWidth}>
@@ -215,6 +233,7 @@ module.exports  = React.createClass({
     if (Platform.OS === "android"){
       return (
         <DrawerLayoutAndroid
+          ref = {'DRAWER_REF'}
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>

@@ -192,7 +192,7 @@ var React  = require('react-native');
  var styles = StyleSheet.create({
   title: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 16,
   },
   title1: {
     color: 'white',

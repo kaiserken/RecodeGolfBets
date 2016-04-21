@@ -8,6 +8,7 @@ var {
   DrawerLayoutAndroid,
   TabBarIOS,
   TouchableHighlight,
+  TouchableOpacity,
   Image
 } = React;
 
@@ -277,13 +278,32 @@ module.exports  = React.createClass({
           </View>
     );
   },
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: 1, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style = {styles.label}>Profile for {this.props.route.data.name}</Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style = {styles.container}>
+          <Text style = {styles.label}>Profile for {this.props.route.data.name}</Text>
+        </View>
+      );
+    }
+  },
 
   renderContent: function(user) {
     return (
         <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
-          <View style = {styles.container}>
-            <Text style = {styles.label}>Profile for {this.props.route.data.name}</Text>
-          </View>
+          {this.renderDrawer()}
           {this.renderScores(user)}
           <View style = {{flex:1}}/>
           {this.renderNassauScores(user)}
@@ -361,6 +381,7 @@ module.exports  = React.createClass({
     if (Platform.OS === "android"){
       return (
         <DrawerLayoutAndroid
+          ref = {'DRAWER_REF'}
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>
@@ -471,7 +492,7 @@ var styles = StyleSheet.create({
     width: 40,
   },
   label: {
-    fontSize: 22,
+    fontSize: 18,
     color: 'white',
     alignSelf: 'center',
     justifyContent: 'center'

@@ -11,7 +11,8 @@ var {
   Switch,
   TouchableHighlight,
   Alert,
-  Image
+  Image,
+  TouchableOpacity
 } = React;
 
 var Button = require('../common/button');
@@ -215,14 +216,33 @@ module.exports  = React.createClass({
     this.onScorecard();
   },
 
+  renderDrawer: function(){
+    if (Platform.OS === "android"){
+      return (
+        <View style={{ justifyContent:'space-around', alignItems: 'center', flex: .3, flexDirection:'row', backgroundColor:"black"}}>
+          <TouchableOpacity
+            style={{width : 30}}
+            onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
+            <Image source ={require('../../assets/dlist.png')}></Image>
+          </TouchableOpacity>
+          <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
+          <Text style={{width:30}}></Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style = {styles.titlecontainer}>
+          <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
+        </View>
+      );
+    }
+  },
 
 
   renderContent: function(){
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
-        <View style = {styles.titlecontainer}>
-          <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
-        </View>
+        {this.renderDrawer()}
         <View style  = {{flex:.1}}></View>
         <View>
           <View style = {styles.titlecontainer2}>
@@ -534,6 +554,7 @@ module.exports  = React.createClass({
     if (Platform.OS === "android"){
       return (
         <DrawerLayoutAndroid
+          ref = {'DRAWER_REF'}
           drawerWidth={200}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => navigationView}>
@@ -577,7 +598,7 @@ var styles = StyleSheet.create({
 
   title: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 16,
   },
   title1: {
     color: 'white',
