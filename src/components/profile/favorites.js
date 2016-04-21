@@ -107,6 +107,7 @@ module.exports  = React.createClass({
   },
 
   renderSearch: function(){
+
     return (
       <Image source={require('../../assets/golfball.jpeg')} style={styles.backgroundImage}>
         {this.renderDrawer()}
@@ -180,6 +181,7 @@ module.exports  = React.createClass({
             drawerPosition={DrawerLayoutAndroid.positions.Left}
             renderNavigationView={() => navigationView}>
             {this.renderSearch()}
+
           </DrawerLayoutAndroid>
         );
       }
