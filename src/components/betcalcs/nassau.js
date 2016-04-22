@@ -17,7 +17,7 @@ module.exports = function(scores, team, auto) {
       element.unshift('-');
     }
   });
-  
+
   return totalbets;
 };
 
@@ -32,10 +32,10 @@ function Bets(scores, total, team, totalbets){
       }
       totalbets.push(total[0]);
       if (scores.length ===4){
-      scores = [scores[0].slice(i+1), scores[1].slice(i+1),scores[2].slice(i+1), scores[3].slice(i+1)];
-    } else{
-      scores = [scores[0].slice(i+1), scores[1].slice(i+1)];
-    }
+        scores = [scores[0].slice(i+1), scores[1].slice(i+1),scores[2].slice(i+1), scores[3].slice(i+1)];
+      } else{
+        scores = [scores[0].slice(i+1), scores[1].slice(i+1)];
+      }
       return Bets(scores, total, team, totalbets);
     }
   }
