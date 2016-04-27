@@ -472,7 +472,10 @@ module.exports = React.createClass({
           <TouchableOpacity
             style={{width : 30}}
             onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
-            <Image source ={require('../../assets/dlist.png')}></Image>
+            <View>
+              <Text style  = {{fontSize:10, textAlign: "center", color: 'greenyellow'}}>Menu</Text>
+              <Image source ={require('../../assets/dlist.png')}></Image>
+            </View>
           </TouchableOpacity>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
           <Text style={{width:30}}></Text>
@@ -514,7 +517,7 @@ module.exports = React.createClass({
       </TouchableHighlight>
       <TouchableHighlight
         style = {styles.android1}
-        onPress = {()=>this.setState({selectedTab: 'betresults'})}>
+        onPress = {()=>{this.setState({selectedTab: 'betresults'}),this.refs['DRAWER_REF'].closeDrawer()}}>
         <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Match/Bets</Text>
       </TouchableHighlight>
     </View>

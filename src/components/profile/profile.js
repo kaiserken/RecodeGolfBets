@@ -285,7 +285,10 @@ module.exports  = React.createClass({
           <TouchableOpacity
             style={{width : 30}}
             onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
-            <Image source ={require('../../assets/dlist.png')}></Image>
+            <View>
+              <Text style  = {{fontSize:10, textAlign: "center", color: 'greenyellow'}}>Menu</Text>
+              <Image source ={require('../../assets/dlist.png')}></Image>
+            </View>
           </TouchableOpacity>
           <Text style = {styles.label}>Profile for {this.props.route.data.name}</Text>
           <Text style={{width:30}}></Text>

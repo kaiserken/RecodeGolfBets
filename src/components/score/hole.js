@@ -223,7 +223,10 @@ module.exports  = React.createClass({
           <TouchableOpacity
             style={{width : 30}}
             onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
-            <Image source ={require('../../assets/dlist.png')}></Image>
+            <View>
+              <Text style  = {{fontSize:10, textAlign: "center", color: 'greenyellow'}}>Menu</Text>
+              <Image source ={require('../../assets/dlist.png')}></Image>
+            </View>
           </TouchableOpacity>
           <Text style = {styles.title}>{this.props.route.course.coursename}</Text>
           <Text style={{width:30}}></Text>
@@ -540,12 +543,12 @@ module.exports  = React.createClass({
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
         style = {styles.android1}
-        onPress = {()=>this.setState({selectedTab: 'currenthole'})}>
+        onPress = {()=>{this.setState({selectedTab: 'currenthole'}),this.refs['DRAWER_REF'].closeDrawer()}}>
         <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Current Hole</Text>
       </TouchableHighlight>
       <TouchableHighlight
         style = {styles.android1}
-        onPress = {()=>this.onScorecard()}>
+        onPress = {()=>{this.onScorecard(),this.refs['DRAWER_REF'].closeDrawer()}}>
         <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>ScoreCard</Text>
       </TouchableHighlight>
     </View>

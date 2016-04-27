@@ -56,7 +56,10 @@ module.exports  = React.createClass({
           <TouchableOpacity
             style={{width : 30}}
             onPress = {()=> this.refs['DRAWER_REF'].openDrawer()}>
-            <Image source ={require('../../assets/dlist.png')}></Image>
+            <View>
+              <Text style  = {{fontSize:10, textAlign: "center", color: 'greenyellow'}}>Menu</Text>
+              <Image source ={require('../../assets/dlist.png')}></Image>
+            </View>
           </TouchableOpacity>
           <Text style={styles.titlelabel}>Golf Bets</Text>
           <Text style={{width:30}}></Text>
@@ -114,12 +117,12 @@ module.exports  = React.createClass({
     <View style={{flex: 1, backgroundColor: 'black', opacity:0.8}}>
       <TouchableHighlight
         style = {styles.android1}
-        onPress = {()=>this.props.navigator.push({name: 'profile', data: user})}>
+        onPress = {()=>{this.props.navigator.push({name: 'profile', data:user}), this.refs['DRAWER_REF'].closeDrawer()}}>
         <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Profile</Text>
       </TouchableHighlight>
       <TouchableHighlight
         style = {styles.android1}
-        onPress = {()=>this.setState({selectedTab: 'addfavorites'})}>
+        onPress = {()=>{this.setState({selectedTab: 'addfavorites'}), this.refs['DRAWER_REF'].closeDrawer()}}>
         <Text style={{color: 'white', margin: 10, fontSize: 17, textAlign: 'left'}}>Add Favorites</Text>
       </TouchableHighlight>
       <TouchableHighlight
