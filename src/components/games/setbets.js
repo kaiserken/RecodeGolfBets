@@ -12,7 +12,7 @@ var {
   Alert,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } = React;
 
 var Button = require('../common/button');
@@ -127,7 +127,7 @@ module.exports  = React.createClass({
             onValueChange={(value) => this.setState({auto18: value})}
             value={this.state.auto18} />
           </View>
-        </View>
+        </View>  
       );
     }
     if (game === "RoundRobin"){
@@ -373,8 +373,10 @@ module.exports  = React.createClass({
 
   renderContent: function(){
     return (
+
       <Image source={require('../../assets/dark.jpeg')} style={styles.backgroundImage}>
         {this.renderDrawer()}
+
         <View style = {styles.row}>
           <View>
           <Text style={{width: (this.state.indexUsed === true) ? 100 : 200, color: 'white'}}>Use Handicaps</Text>
@@ -392,13 +394,16 @@ module.exports  = React.createClass({
         </View>
         {this.renderStrokes()}
         {this.renderBets()}
+        <View style = {{flex:0.55}}></View>
         <View style = {{flex:1}}>
           {this.renderTeams()}
         </View>
         <View style = {styles.container}>
         <Button text={"Submit"} onPress={this.onSubmit}/>
         </View>
+
     </Image>
+
     );
   },
 
